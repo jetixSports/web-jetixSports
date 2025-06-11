@@ -1,6 +1,6 @@
 # Base image
 FROM node:20 AS base
-ENV DIR /web-jetix-sports
+ENV DIR /web-jetixSports
 WORKDIR $DIR
 ENV USER=node
 ############################## DEV ##################################
