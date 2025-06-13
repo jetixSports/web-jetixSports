@@ -11,7 +11,7 @@ RUN \
     else echo "Warning: Lockfile not found. It is recommended to commit lockfiles to version control." && yarn install; \
     fi
 
-COPY app ./app
+COPY src ./src
 COPY public ./public
 COPY next.config.mjs .
 COPY tsconfig.json .
@@ -22,7 +22,7 @@ CMD ["npm", "run", "dev"]
 FROM base AS build
 
 COPY package*.json .
-COPY app ./app
+COPY src ./src
 COPY public ./public
 COPY next.config.mjs .
 COPY tailwind.config.ts .
