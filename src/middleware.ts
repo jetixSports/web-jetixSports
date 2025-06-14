@@ -2,7 +2,7 @@ import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
 const publicRoutes = ["/login"];
-const privateRoutes = ["/"];
+const privateRoutes = [''];
 
 export const config = {
   matcher: [...publicRoutes, ...privateRoutes],
