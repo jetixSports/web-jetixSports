@@ -1,30 +1,46 @@
 "use client";
 import React from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Form from "../../components/UX/Form/Form";
 import Inputs from "../../components/UX/Inputs/Inputs";
 import Buttons from "../../components/UX/Buttons/Buttons";
+import Background from "../../components/UX/Background/Background";
+import useLogin from "./useLogin";
+import { useSession } from "next-auth/react";
+
 
 export default function App() {
+   const { data: session } = useSession();
+  const user = session?.user;
+  console.log(user);
+  
+  const { handleSubmit, fields, errors,status } = useLogin()
   return (
-    <Box>
-      <Form styles={{form:{width:'100%'}}}>
-        <Typography sx={{marginY:1,fontWeight:'bold', color: "white", textAlign: "center", fontSize: 24 }}>
+    <Box sx={{ width: '100%' }}>
+      <Background src="./backgrounds/login.svg"></Background>
+      <Form styles={{ Box: { marginX: 'auto', marginY: 10 }, form: { width: '100%' } }} handleSubmit={handleSubmit}>
+        <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", textAlign: "center", fontSize: 24 }}>
           Inicio de Sesion
         </Typography>
-        <Box sx={{ width: "100%", gap: 2,display:'flex',flexDirection:"column"}}>
+        <Box sx={{ width: "100%", gap: 2, display: 'flex', flexDirection: "column" }}>
           <Inputs
-            sx={{ width: "100%",height:36 }}
+            type="email"
+            sx={{ width: "100%", height: 36 }}
             placeholder="   Correo Electronico"
+            {...fields.email}
+            error={!!errors?.email}
+            helperText={errors?.email?.message+""}
           ></Inputs>
-          <Inputs sx={{ width: "100%",}} placeholder="   Constraseña"></Inputs>
-          <Buttons sx={{marginTop: "5px"}} variant="contained" LinkComponent={"a"} href="/">Iniciar Sesion</Buttons>
+          <Inputs type="password" sx={{ width: "100%", }} placeholder="   Constraseña" {...fields.password}
+           error={!!errors?.password}
+            helperText={errors?.password?.message+""}></Inputs>
+          <Buttons disabled={!status} type="submit" sx={{ marginTop: "5px" }} variant="contained">Iniciar Sesion</Buttons>
         </Box>
-        <Box sx={{ width: "100%",display:'flex', justifyContent:'center', gap:2, marginY:1}}>
-          <Typography sx={{marginY:'5px', color: "white", textAlign: "center", fontSize: 16 }}>
-          ¿No tienes cuenta?
-        </Typography>
-         <Buttons sx={{backgroundColor:'transparent'}} LinkComponent={"a"} href="/signIn">Registrate</Buttons>
+        <Box sx={{ width: "100%", display: 'flex', justifyContent: 'center', gap: 2, marginY: 1 }}>
+          <Typography sx={{ marginY: '5px', color: "white", textAlign: "center", fontSize: 16 }}>
+            ¿No tienes cuenta?
+          </Typography>
+          <Buttons sx={{ backgroundColor: 'transparent' }} LinkComponent={"a"} href="/signUp">Registrate</Buttons>
         </Box>
       </Form>
     </Box>

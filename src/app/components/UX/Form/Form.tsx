@@ -2,16 +2,17 @@ import { Box, FormControl, SxProps } from "@mui/material";
 import React from "react";
 import { FormParams } from "./Form.types";
 
-function Form({ styles, children }: FormParams) {
+function Form({ styles, children,handleSubmit }: FormParams) {
   const FormStyles: {Box:SxProps,form:SxProps} = {
     Box: {
       maxWidth: "380px",
       minWidth: "210px",
-      margin: { xs: 1, sm: 2 },
+      marginX: { xs: 1, sm: 2 },
+      marginY: { xs: 1, sm: 2 },
       paddingX: { xs: 4, sm: 5},
       paddingY: { xs: 2, sm: 3},
       backgroundColor: "#00003D",
-      border: "solid white 2px",
+      border: "solid white 1px",
       borderRadius: "14px",
       ...styles?.Box,
     },
@@ -21,7 +22,7 @@ function Form({ styles, children }: FormParams) {
   };
   return (
     <Box sx={FormStyles.Box}>
-      <FormControl sx={FormStyles.form}>{children}</FormControl>
+      <form onSubmit={handleSubmit}>{children}</form>
     </Box>
   );
 }

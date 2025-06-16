@@ -22,7 +22,11 @@ const handler = NextAuth({
       async authorize(
         credentials: Record<"email" | "password", string> | undefined
       ): Promise<User | null> {
+        let errorMessage = ''
         try {
+          if (!credentials) return null
+          const { email, password } = credentials
+          const userCredential = { email, password }
           const schemaEvaluation = Joi.object({
             email: Joi.string()
               .email()
@@ -34,17 +38,26 @@ const handler = NextAuth({
           }).messages({
             "object.unknown": "Se ha enviado una propiedad no definida",
           });
-          const { error } = schemaEvaluation.validate(credentials);
-          if (error) return null;
-          const Fetch = useFetch();
-          const loginState = await Fetch.post(
-            process.env.HOST_SERVICE,
-            credentials
-          );
-          if (loginState.statusCode != 200) return null;
-          return loginState?.data;
+          const { error } = schemaEvaluation.validate(userCredential);
+          if (error) {
+            errorMessage = error.message
+            throw new Error(error.message)
+          };
+          const req = await fetch(process.env.HOST_SERVICE + '/auth/login', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json", },
+            body: JSON.stringify(userCredential)
+          })
+          const loginState = await req.json()
+          if (loginState.statusCode != 200) {
+            errorMessage = loginState.message
+            throw new Error(loginState.message)
+          };
+          return loginState?.data as User;
         } catch (error) {
-          return null;
+          console.log(error);
+          let newError = error as { messages: string }
+          throw new Error(errorMessage)
         }
       },
     }),
@@ -57,6 +70,9 @@ const handler = NextAuth({
     strategy: "jwt",
   },
   callbacks: {
+    async signIn() {
+      return true;
+    },
     async jwt({ token, user, trigger, session }) {
       if (user) {
         token.user = user;
@@ -74,8 +90,6 @@ const handler = NextAuth({
         const expiresLocal = new Date(
           expiresUTC.getTime() - expiresUTC.getTimezoneOffset() * 60000
         );
-        console.log(expiresLocal);
-
         session.expires = expiresLocal.toISOString();
       }
       return session;

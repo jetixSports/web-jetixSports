@@ -21,6 +21,7 @@ export default withAuth(
     callbacks: {
       authorized: ({ token, req }) => {
         const { pathname } = req.nextUrl;
+        
         if (publicRoutes.includes(pathname)) {
           return true;
         }
@@ -31,7 +32,6 @@ export default withAuth(
       },
     },
     pages: {
-      signIn: "/login",
     },
   }
 );
