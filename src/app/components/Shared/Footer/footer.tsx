@@ -1,0 +1,48 @@
+import * as React from 'react';
+import { Box, Container, Typography, IconButton } from '@mui/material';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import InstagramIcon from '@mui/icons-material/Instagram';
+
+export default function Footer() {
+  return (
+    <Box component="footer" sx={{backgroundColor: '#060620', color: 'White', py: 6, marginTop:"100px",}}>
+      <Container maxWidth="lg">
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 3,}}>
+          {/* Logo*/}
+          <Typography variant="h6" fontWeight="bold">
+            JETIX SPORT
+          </Typography>
+
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <IconButton  aria-label="Facebook" sx={{ color: 'white',
+                '&:hover': { color: '#1877F2', backgroundColor: 'rgba(24, 119, 242, 0.1)' }}}>
+              <FacebookIcon fontSize="medium" />
+            </IconButton>
+            
+            <IconButton aria-label="Twitter" sx={{ color: 'white',
+                '&:hover': { color: '#1DA1F2', backgroundColor: 'rgba(29, 161, 242, 0.1)' }}}>
+              <TwitterIcon fontSize="medium" />
+            </IconButton>
+            
+            <IconButton aria-label="WhatsApp" sx={{ color: 'white',
+                '&:hover': { color: '#25D366', backgroundColor: 'rgba(37, 211, 102, 0.1)' } }}>
+              <WhatsAppIcon fontSize="medium" />
+            </IconButton>
+            
+            <IconButton aria-label="Instagram" sx={{ color: 'white',
+                '&:hover': { 
+                  background: 'radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)',
+                  color: 'white' }}}>
+              <InstagramIcon fontSize="medium" />
+            </IconButton>
+          </Box>
+        </Box>
+        <Typography variant="body2" sx={{  mt: 4, textAlign: 'center', color: 'white'}}>
+          © {new Date().getFullYear()} JETIX SPORT. Todos los derechos reservados.
+        </Typography>
+      </Container>
+    </Box>
+  );
+}

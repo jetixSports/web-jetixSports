@@ -1,9 +1,10 @@
-
-
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Providers from "./Providers";
+import Narvar from "./components/Shared/Navbar/narvar";
+import Footer from "./components/Shared/Footer/footer";
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -31,7 +32,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
+          <Narvar/>
           {children}
+          <Footer/>
         </Providers>
       </body>
     </html>
