@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { InputAdornment, IconButton, Input } from '@mui/material';
+import { InputAdornment, IconButton, InputProps, } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import Inputs from './Inputs';
+import { CustomInputProps } from '@/src/app/types/inputs';
 
-export default function PasswordInputs() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  return (
-    <>
-      <Input
+const PasswordInputs = React.forwardRef<HTMLInputElement, CustomInputProps>(
+  (allProps, ref) => {
+    const [showPassword, setShowPassword] = useState(false);
+    return (
+      <Inputs
+        {...allProps}
+        ref={ref}
         sx={{ width: "100%", mb: 2 }}
         type={showPassword ? "text" : "password"}
         endAdornment={
@@ -19,7 +21,8 @@ export default function PasswordInputs() {
           </InputAdornment>
         }
       />
-      
-    </>
-  );
-}
+
+    );
+  }
+);
+export default PasswordInputs;

@@ -1,3 +1,4 @@
+import { CustomInputProps } from "@/src/app/types/inputs";
 import {
   FormControl,
   FormHelperText,
@@ -7,9 +8,7 @@ import {
   Theme,
 } from "@mui/material";
 import React from "react";
-interface CustomInputProps extends InputBaseProps {
-  helperText?: string;
-}
+
 const Inputs = React.forwardRef<HTMLInputElement, CustomInputProps>(
   ({ sx, error, helperText, ...allProps }, ref) => {
     const styles: SxProps<Theme> = {

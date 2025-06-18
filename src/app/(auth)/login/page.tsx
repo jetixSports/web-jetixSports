@@ -7,6 +7,7 @@ import Buttons from "../../components/UX/Buttons/Buttons";
 import Background from "../../components/UX/Background/Background";
 import useLogin from "./useLogin";
 import { useSession } from "next-auth/react";
+import PasswordInputs from "../../components/UX/Inputs/InputsPassword";
 
 
 export default function App() {
@@ -31,9 +32,9 @@ export default function App() {
             error={!!errors?.email}
             helperText={errors?.email?.message+""}
           ></Inputs>
-          <Inputs type="password" sx={{ width: "100%", }} placeholder="   Constraseña" {...fields.password}
+          <PasswordInputs type="password" sx={{ width: "100%", }} placeholder="   Constraseña" {...fields.password}
            error={!!errors?.password}
-            helperText={errors?.password?.message+""}></Inputs>
+            helperText={errors?.password?.message+""}></PasswordInputs>
           <Buttons disabled={!status} type="submit" sx={{ marginTop: "5px" }} variant="contained">Iniciar Sesion</Buttons>
         </Box>
         <Box sx={{ width: "100%", display: 'flex', justifyContent: 'center', gap: 2, marginY: 1 }}>

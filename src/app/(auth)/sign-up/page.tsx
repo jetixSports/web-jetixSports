@@ -6,6 +6,7 @@ import Inputs from "../../components/UX/Inputs/Inputs";
 import Checkboxes from "../../components/UX/Inputs/Checkbox";
 import Buttons from "../../components/UX/Buttons/Buttons";
 import Background from "../../components/UX/Background/Background";
+import PasswordInputs from "../../components/UX/Inputs/InputsPassword";
 
 
 export default function App() {
@@ -24,8 +25,8 @@ export default function App() {
             <Inputs sx={{ width: "100%",height:36 }} placeholder="   Apellido"/>
             <Inputs sx={{ width: "100%",height:36 }} placeholder="   Nombre de usuario"/>
             <Inputs sx={{ width: "100%",height:36 }} placeholder="   Correo Electronico"/>
-            <Inputs type="password" sx={{ width: "100%" }} placeholder="   Constraseña"></Inputs>
-            <Inputs type="password" sx={{ width: "100%" }} placeholder="   Confirmar Constraseña"></Inputs>
+            <PasswordInputs type="password" sx={{ width: "100%" }} placeholder="   Contraseña" />
+            <PasswordInputs type="password" sx={{ width: "100%" }} placeholder="   Confirmar Contraseña"/>
             <Box sx={{ width: "100%",display:'flex',flexDirection:"row", alignItems:"center"}}>
               <Checkboxes/> 
               <Typography sx={{display:"flex", fontSize:"15px", marginBottom:"0", marginRight:"5px", color:"white"}} variant="body2" gutterBottom> Aceptas los</Typography>
