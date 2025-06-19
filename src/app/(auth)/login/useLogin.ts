@@ -12,9 +12,7 @@ export default function useLogin() {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm({
-  });
-
+  } = useForm();
   const onSubmit = async ({ email, password }: { email: string, password: string }) => {
     if (!status) return
     setStatus(false)
@@ -26,22 +24,24 @@ export default function useLogin() {
     });
     toast.dismiss(loadingToast);
     setStatus(true)
-    if (res?.error) {
-      toast.error(res.error, {
+    if (res?.status!=200) {
+      toast.error(!res?.error || res?.error==''?"Ha ocurrido un error.":res?.error, {
         duration: 4000,
         position: 'top-center',
       });
       return;
     }
     toast.success('¡Se ha iniciado sesion con exito!');
-    toast.loading('Redireccionando...');
-    setTimeout(()=>router.push('/'),500)
-    
+    const redirectToast=toast.loading('Redireccionando...');
+    setTimeout(()=>{
+      router.push('/');
+      toast.dismiss(redirectToast);
+    },500)
   }
   return {
     handleSubmit: handleSubmit(onSubmit as any),
     fields: {
-      email: register('email', { required: 'El correo es obligatorio' }),
+      email: register('email', { required: 'El correo es obligatorio',}),
       password: register('password', { required: 'La contraseña es obligatoria' })
     },
     errors,
