@@ -7,15 +7,22 @@ import Checkboxes from "../../components/UX/Inputs/Checkbox";
 import Buttons from "../../components/UX/Buttons/Buttons";
 import Background from "../../components/UX/Background/Background";
 import PasswordInputs from "../../components/UX/Inputs/InputsPassword";
-
+import useSignUp from "../sign-up/useSignUp";
 
 export default function App() {
+
+    //const { data: session } = useSession();
+    //const user = session?.user;
+    //console.log(user);
+    
+    const { handleSubmit, fields, errors,status } = useSignUp()
+
   return (
     <Box sx={{ width: '100%', display:"flex", justifyContent: "center", marginTop:"160px"}}>
       <Background src="./backgrounds/login.svg"/>
 
       <Box>
-        <Form styles={{form:{width:'100%'}}}>
+        <Form styles={{form:{width:'100%'}}} handleSubmit={handleSubmit}>
           <Typography sx={{marginY:1,fontWeight:'bold', color: "white", textAlign: "center", fontSize: 24 }}>
             Registro
           </Typography>

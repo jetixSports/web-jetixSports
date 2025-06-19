@@ -4,18 +4,28 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import Background from "../../UX/Background/Background";
 
 export default function Footer() {
   return (
-    <Box component="footer" sx={{backgroundColor: '#060620', color: 'White', py: 6, marginTop:"100px",}}>
+    <Box component="footer" sx={{backgroundColor: '#060620', color: 'White', py: 3, marginTop:"100px"}}>
       <Container maxWidth="lg">
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 3,}}>
-          {/* Logo*/}
-          <Typography variant="h6" fontWeight="bold">
-            JETIX SPORT
-          </Typography>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 3, height:"70px" }}>
+          
+            <Box sx={{width:"150px",height:"70px",alignContent:"center", justifyContent:"Center"}}>
+              <Background 
+                src=""
+                alt="logo" 
+                sx={{width:"50px",height:"40px", position: "abs"}}
+              />
+            
+              <Typography variant="h6" fontWeight="bold">
+                JETIX SPORT
+              </Typography>
+            </Box >
+         
 
-          <Box sx={{ display: 'flex', gap: 2 }}>
+          <Box sx={{ display: 'flex', gap: 2}}>
             <IconButton  aria-label="Facebook" sx={{ color: 'white',
                 '&:hover': { color: '#1877F2', backgroundColor: 'rgba(24, 119, 242, 0.1)' }}}>
               <FacebookIcon fontSize="medium" />
@@ -39,7 +49,7 @@ export default function Footer() {
             </IconButton>
           </Box>
         </Box>
-        <Typography variant="body2" sx={{  mt: 4, textAlign: 'center', color: 'white'}}>
+        <Typography variant="body2" sx={{  mt: 1, textAlign: 'center', color: 'white'}}>
           © {new Date().getFullYear()} JETIX SPORT. Todos los derechos reservados.
         </Typography>
       </Container>
