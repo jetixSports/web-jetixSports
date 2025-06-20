@@ -11,7 +11,7 @@ import { useTheme } from '@mui/material/styles';
 export default function NavBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const theme = useTheme();
-  const isSmall = useMediaQuery('(max-width:1030px)'); 
+  const isSmall = useMediaQuery('(max-width:1060px)'); 
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);

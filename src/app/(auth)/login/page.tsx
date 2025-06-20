@@ -13,9 +13,11 @@ import PasswordInputs from "../../components/UX/Inputs/InputsPassword";
 export default function App() {
   
   const { handleSubmit, fields, errors,status } = useLogin()
+  
   return (
     <Box sx={{ width: '100%', marginTop:"190px" }}>
       <Background src="./backgrounds/login.svg"></Background>
+      
       <Form styles={{ Box: { marginX: 'auto', marginY: 10 }, form: { width: '100%' } }} 
       handleSubmit={handleSubmit}>
         <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", textAlign: "center", fontSize: 24 }}>

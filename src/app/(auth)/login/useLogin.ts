@@ -13,15 +13,19 @@ export default function useLogin() {
     register,
     formState: { errors },
   } = useForm();
+
+  
   const onSubmit = async ({ email, password }: { email: string, password: string }) => {
     if (!status) return
     setStatus(false)
     const loadingToast = toast.loading('Iniciando sesion...');
+
     const res = await signIn('credentials', {
       email: email,
       password: password,
       redirect: false,
     });
+
     toast.dismiss(loadingToast);
     setStatus(true)
     if (res?.status!=200) {
@@ -38,6 +42,7 @@ export default function useLogin() {
       toast.dismiss(redirectToast);
     },500)
   }
+  
   return {
     handleSubmit: handleSubmit(onSubmit as any),
     fields: {
