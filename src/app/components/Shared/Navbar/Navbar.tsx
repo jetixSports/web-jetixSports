@@ -7,6 +7,7 @@ import CallIcon from '@mui/icons-material/Call';
 import Background from "../../UX/Background/Background";
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from '@mui/material/styles';
+import Image from 'next/image';
 
 export default function NavBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -29,7 +30,7 @@ export default function NavBar() {
         width:"90%",
         backgroundColor: '#440079',
         margin:"0 5%",
-        padding:"3px 10px 3px 10px",
+        padding:"0px",
         height:"65px",
         borderRadius:"50px",
         display:"flex",
@@ -41,11 +42,12 @@ export default function NavBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{transition: 'all 0.3s ease'}}>
           <Box sx={{display:"flex",flexDirection:"row", alignContent:"center"}}>
-            <Box sx={{width:"50px",height:"50px"}}>
-              <Background 
-                src="/public/backgrounds/photo_2025-06-17_14-16-31trans.png"
+            <Box sx={{width:"50px",height:"100%", }}>
+              <Image 
+                src="/assets/logos/backWhite.jpg"
                 alt="logo" 
-                sx={{width:"50px",height:"40px", top: "30px", backgroundSize:"Cover"}}
+                height={64}
+                width={64}
               />
             </Box>
             <Box sx={{marginLeft:"10px", alignContent:"center"}}>
