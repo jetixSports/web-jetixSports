@@ -11,11 +11,6 @@ import useSignUp from "../sign-up/useSignUp";
 import { useSession } from "next-auth/react";
 
 export default function App() {
-
-    const { data: session } = useSession();
-    const user = session?.user;
-    console.log(user);
-    
   const { handleSubmit, fields, errors,status } = useSignUp()
 
   return (

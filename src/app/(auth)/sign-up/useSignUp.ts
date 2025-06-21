@@ -26,7 +26,7 @@ export default function useSignUp() {
     const res = await post(process.env.NEXT_PUBLIC_HOST_SERVICE + '/auth/signUp',{
       name:name,
       lastname:lastname,
-      nameUser:nameUser,
+      username:nameUser,
       email:email,
       password:password
     });
@@ -43,7 +43,7 @@ export default function useSignUp() {
     }
     toast.success('¡Se ha registrado con exito!');
     toast.loading('Redireccionando...');
-    setTimeout(()=>router.push('/'),500)
+    setTimeout(()=>router.push('/login'),500)
     
   }
 
