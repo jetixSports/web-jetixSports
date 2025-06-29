@@ -4,12 +4,11 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import Background from "../../UX/Background/Background";
 import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <Box component="footer" sx={{ backgroundColor: '#060620', color: 'White', py: 3, marginTop: "100px" }}>
+    <Box component="footer" sx={{ backgroundColor: '#060620', color: 'White', py: 3 }}>
       <Container maxWidth="lg">
         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 3, height: "70px" }}>
 

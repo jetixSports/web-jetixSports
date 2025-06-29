@@ -1,101 +1,115 @@
-import Image from "next/image";
+'use client';
+import React from "react";
+import { Box, Card, Typography, Button} from "@mui/material";
+import CardMedia from '@mui/material/CardMedia';
+
+import CardTorneosDestacados from "./components/UX/Card/CardTorneosDestacados";
+import BoxHeader from "./components/UX/Box/Box";
+import GameCarusel from "./components/UX/Box/Carusel";
+import Background from "./components/UX/Background/Background";
+import Buttons from "./components/UX/Buttons/Buttons";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  return (
+    <Box>
+
+      <BoxHeader>
+        <Background src="./backgrounds/login.svg"></Background>
+        <Box sx={{color:'white', margin:'220px 0  0 100px'}}>
+
+          <Typography variant="h4" sx={{fontWeight: 'bold',marginBottom:'10px'}}>
+            Disfruta de tus Torneos Favoritos</Typography>
+          <Typography>Diseñada para los verdaderos competidores y fans. </Typography>
+          <Typography>Disfruta streaming en vivo de torneos de eSports y deportes físicos,</Typography>
+          <Typography> y descubre eventos exclusivos, todo en un solo lugar. </Typography>
+          
+          <Box sx={{marginTop:'20px'}}>
+            <Buttons sx={{color:'#00003d',backgroundColor:'white', p:'20px'}} href="/sign-up">Registrate</Buttons>
+          </Box>
+        </Box>
+        <Box>
+          <Typography variant="h4" sx={{fontWeight: 'bold',color: 'white', marginTop:'100px',marginLeft:'100px'}}>
+            JUEGOS
+          </Typography>
+        </Box>
+        <Box>
+          <GameCarusel></GameCarusel>
+        </Box>
+      </BoxHeader>
+
+
+
+      <Box sx={{height:'600px',backgroundColor:'#00003d', padding:'20px',alignContent:'center'}}>
+        <Box sx={{p:'30px', display:'flex',height:'50px'}}>
+          <Typography variant="h4" sx={{fontWeight: 'bold',color: 'white',marginLeft:'100px'}}>
+            Descubre Nuestros Servicios
+          </Typography>
+        </Box>        
+        <Box  sx={{height:'400px', backgroundColor:'#00003d', display:'flex', flexDirection:'colunm', justifyContent:'center'}}>
+
+          <Box sx={{width:'600px', alignContent:'center'}}>
+            <Typography variant="h6" sx={{color: 'white',marginLeft:'100px'}}>
+              Acceso a Streaming en Vivo
+            </Typography>
+            <Typography variant="body2" sx={{color: 'white',marginLeft:'100px',marginBottom:'10px'}}>
+              Disfruta de la transmisión en directo de torneos en sus plataformas oficiales. 
+              Encuentra el enlace para seguir el torneo en la descripción del evento.
+            </Typography>
+            <Typography variant="h6" sx={{color: 'white',marginLeft:'100px'}}>
+              Participa en Torneos
+            </Typography>
+            <Typography variant="body2" sx={{color: 'white',marginLeft:'100px',marginBottom:'10px'}}>
+             Demuestra tus habilidades y compite contra los mejores jugadores en emocionantes torneos.
+            </Typography>
+            <Typography variant="h6" sx={{color: 'white',marginLeft:'100px'}}>
+              Organiza Torneos
+            </Typography>
+            <Typography variant="body2" sx={{color: 'white',marginLeft:'100px'}}>
+              ¿Quieres crear tu propio Torneos?Únete a nuestra plataforma con una cuenta de Organizador y forma parte de la revolución del gaming y del deporte competitivo.
+            </Typography>
+          </Box>
+
+          <Box sx={{width:'600px', marginLeft:'40px', alignContent:'center'}}>
+            <Card sx={{ maxWidth: 500,height: 340 }}>
+              <CardMedia
+                sx={{ height: 340}}
+                image='./assets/img/valorant.png'/>
+            </Card>
+          </Box>
+
+        </Box>
+      </Box>
+
+
+
+      <Box sx={{height:'auto',  marginTop:'100px'}}>
+        <Box sx={{p:'30px', display:'flex'}}>
+          <Typography variant="h4" sx={{fontWeight: 'bold',color: 'white',marginLeft:'100px'}}>
+            Torneos Destacados
+          </Typography>
+        </Box>
+
+        <Box sx={{width:'100%',display:"flex",flexDirection:'row',justifyContent:"center"}}>
+          <CardTorneosDestacados></CardTorneosDestacados>
+        </Box>
+        <Box sx={{width:'100%',display:"flex",flexDirection:'row',justifyContent:"center", margin:'20px 0 40px 0'}}>
+          <Buttons href='/Torneos' sx={{backgroundColor:'#20105b',color:'#fff', padding:' 25px 40px'}}>Ver mas</Buttons>
+        </Box>
+      </Box>
+
+      <Box sx={{height:'300px',width:'100%', backgroundColor:'#00003d', padding:'20px 60px',display:'flex',justifyContent:'center', flexDirection:'column', textAlign:'center'}}>
+        <Typography variant="h4" sx={{fontWeight: 'bold',color: 'white'}}>
+            Quieres Organizar un Torneo?
+        </Typography>
+        <Typography variant="body2" sx={{color: 'white', marginTop:'15px'}}>
+          Contacta con nuestro equipo para obtener un cuenta de Organizador
+          </Typography>
+        <Box sx={{display:'flex', justifyContent:'center', marginTop:'15px'}}>
+          <Buttons href='/Contactos' sx={{backgroundColor:'#ffffff',color:'#00003d', padding:'20px'}}>Haz click aqui</Buttons>
+        </Box>  
+      </Box>
+
+    </Box>
   );
 }

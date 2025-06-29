@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { Box, Typography, Link } from "@mui/material";
+
 import Form from "../../components/UX/Form/Form";
 import Inputs from "../../components/UX/Inputs/Inputs";
 import Checkboxes from "../../components/UX/Inputs/Checkbox";
@@ -14,7 +15,7 @@ export default function App() {
   const { handleSubmit, fields, errors,status } = useSignUp()
 
   return (
-    <Box sx={{ width: '100%', display:"flex", justifyContent: "center", marginTop:"160px"}}>
+    <Box sx={{ width: '100%', display:"flex", justifyContent: "center", marginTop:"160px", marginBottom:'80px'}}>
       <Background src="./backgrounds/login.svg"/>
 
       <Box>

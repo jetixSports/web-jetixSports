@@ -7,6 +7,10 @@ export default function Buttons({ sx, ...allProps }: ButtonProps) {
     borderRadius: "10px",
     height: 36,
     fontSize:'16px',
+    transition: 'transform 0.3s, box-shadow 0.3s',
+    '&:hover': {
+      backgroundColor: "#6A00FF",
+      color:'white'},
     ...sx,
   };
   return <Button {...allProps} sx={styles} style={{ textTransform: 'none' }} />;

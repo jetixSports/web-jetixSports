@@ -4,7 +4,6 @@ import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, useMediaQuery,
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import CallIcon from '@mui/icons-material/Call';
-import Background from "../../UX/Background/Background";
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from '@mui/material/styles';
 import Image from 'next/image';
@@ -34,7 +33,7 @@ export default function NavBar() {
         height:"65px",
         borderRadius:"50px",
         display:"flex",
-        boxShadow: '0px 10px 30px rgb(105, 69, 150)',
+        boxShadow: '0px 10px 30px rgb(117, 0, 163)',
         top: "15px",
         zIndex: "100",
       }}
@@ -114,15 +113,15 @@ export default function NavBar() {
                   open={Boolean(anchorEl)}
                   onClose={handleMenuClose}
                 >
-                  <MenuItem onClick={handleMenuClose}>
+                  <MenuItem onClick={handleMenuClose}  href='/Torneos'>
                     <SportsEsportsIcon sx={{ mr: 1 }} />
                     Torneos
                   </MenuItem>
-                  <MenuItem onClick={handleMenuClose}>
+                  <MenuItem onClick={handleMenuClose}  href='/Stream'>
                     <LiveTvIcon sx={{ mr: 1 }} />
                     Stream Activos
                   </MenuItem>
-                  <MenuItem onClick={handleMenuClose}>
+                  <MenuItem onClick={handleMenuClose}  href='/Contactos'>
                     <CallIcon sx={{ mr: 1 }} />
                     Contactos
                   </MenuItem>
@@ -137,7 +136,7 @@ export default function NavBar() {
                   color="inherit" 
                   startIcon={<SportsEsportsIcon />} 
                   sx={{ textTransform: 'none' }}
-                  href=''
+                  href='/Torneos'
                 >
                   Torneos
                 </Button>
@@ -146,7 +145,7 @@ export default function NavBar() {
                   color="inherit" 
                   startIcon={<LiveTvIcon />} 
                   sx={{ textTransform: 'none' }}
-                  href=''
+                  href='/Stream'
                 >
                   Stream Activos
                 </Button>
@@ -155,7 +154,7 @@ export default function NavBar() {
                   color="inherit" 
                   startIcon={<CallIcon />} 
                   sx={{ textTransform: 'none' }}
-                  href=''
+                  href='/Contactos'
                 >
                   Contactos
                 </Button>
