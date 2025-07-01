@@ -1,6 +1,6 @@
 'use client'
 import * as React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, useMediaQuery, Box, Button, Container, Divider } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, useMediaQuery, Box, Button, Container, Divider, ListItemIcon } from '@mui/material';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import CallIcon from '@mui/icons-material/Call';
@@ -14,7 +14,7 @@ import { Logout, Person } from '@mui/icons-material';
 import useFetch from '@/src/app/hooks/useFetch';
 
 export default function NavBar() {
-  const {get}=useFetch()
+  const { get } = useFetch()
   const router = useRouter()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { data: session, } = useSession();
@@ -216,7 +216,7 @@ export default function NavBar() {
                   <UserIcon sx={{ height: '32px', width: '32px', m: 1 }}></UserIcon>
                 </Box>
                 <Menu
-                sx={{ display: { xs: "flex", md: "none" }}}
+                  sx={{ display: { xs: "flex", md: "none" } }}
                   id="mobile-menu"
                   anchorEl={anchorEl}
                   keepMounted
@@ -243,11 +243,14 @@ export default function NavBar() {
                     <CallIcon sx={{ mr: 1 }} />
                     Contactos
                   </MenuItem>
-                  <MenuItem onClick={async()=>{
-                    const data=await get(process.env.NEXT_PUBLIC_HOST_SERVICE+'/auth/logout')
+                  {user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/admin/usersList'>
+                    Lista de Usuarios
+                  </MenuItem>}
+                  <MenuItem onClick={async () => {
+                    const data = await get(process.env.NEXT_PUBLIC_HOST_SERVICE + '/auth/logout')
                     await signOut()
                     window.location.href = '/'
-                    }} >
+                  }} >
                     <Logout sx={{ mr: 1 }} />
                     Cerrar sesion
                   </MenuItem>
@@ -284,35 +287,38 @@ export default function NavBar() {
                 Contactos
               </Button>
               <Box
-                  onClick={handleMenuOpen}
-                  sx={{ display: 'flex', cursor: 'pointer' }}
-                >
-                  <Typography sx={{ marginY: 'auto', display: { xs: 'none', sm: 'block' } }}>
-                    {user.firstName} {user.lastName}
-                  </Typography>
-                  <UserIcon sx={{ height: '32px', width: '32px', m: 1 }}></UserIcon>
-                </Box>
-                <Menu
-                sx={{ display: { md: "flex", xs: "none" }}}
-                  id="mobile-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleMenuClose}
-                >
-                  <MenuItem onClick={handleMenuClose} href='/Profile'>
-                    <Person sx={{ mr: 1 }} />
-                    Tu perfil
-                  </MenuItem>
-                  <MenuItem onClick={async()=>{
-                    const data=await get(process.env.NEXT_PUBLIC_HOST_SERVICE+'/auth/logout')
-                    await signOut()
-                    window.location.href = '/'
-                    }} >
-                    <Logout sx={{ mr: 1 }} />
-                    Cerrar sesion
-                  </MenuItem>
-                </Menu>
+                onClick={handleMenuOpen}
+                sx={{ display: 'flex', cursor: 'pointer' }}
+              >
+                <Typography sx={{ marginY: 'auto', display: { xs: 'none', sm: 'block' } }}>
+                  {user.firstName} {user.lastName}
+                </Typography>
+                <UserIcon sx={{ height: '32px', width: '32px', m: 1 }}></UserIcon>
+              </Box>
+              <Menu
+                sx={{ display: { md: "flex", xs: "none" } }}
+                id="mobile-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+              >
+                <MenuItem onClick={handleMenuClose} href='/Profile'>
+                  <Person sx={{ mr: 1 }} />
+                  Tu perfil
+                </MenuItem>
+                {user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/admin/usersList'>
+                  Lista de Usuarios
+                </MenuItem>}
+                <MenuItem onClick={async () => {
+                  const data = await get(process.env.NEXT_PUBLIC_HOST_SERVICE + '/auth/logout')
+                  await signOut()
+                  window.location.href = '/'
+                }} >
+                  <Logout sx={{ mr: 1 }} />
+                  Cerrar sesion
+                </MenuItem>
+              </Menu>
             </Box>
           </>}
         </Toolbar>

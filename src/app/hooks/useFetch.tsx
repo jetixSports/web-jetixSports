@@ -4,12 +4,12 @@ export default function useFetch() {
     const { data: session } = useSession();
     const user = session?.user;
     const utilFetch = (method: string) => {
-        const headers = new Headers({ "token-session": user?.tokenSession ?? "","Content-Type": "application/json", })
+        const headers = new Headers({ "token-session": user?.tokenSession ?? "", "Content-Type": "application/json", })
         return async (url?: string, body?: any) => {
             const req = await fetch(url ?? "", {
                 method,
                 headers,
-                body: JSON.stringify(body)
+                ...(body ? { body: JSON.stringify(body) } : {})
             })
             return await req.json()
         }

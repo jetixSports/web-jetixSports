@@ -8,12 +8,12 @@ import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <Box component="footer" sx={{ backgroundColor: '#060620', color: 'White', py: 3 }}>
+    <Box component="footer" sx={{ backgroundColor: '#060620', color: 'White', py: 3, }}>
       <Container maxWidth="lg">
         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 3, height: "70px" }}>
 
           <Box sx={{ width: "fitContent", height: "70px", display: 'flex', alignContent: "center", justifyContent: "Center" }}>
-            <Box sx={{height:'64px', width:'64px'}}>
+            <Box sx={{ height: '64px', width: '64px' }}>
               <Image
                 height={64}
                 width={64}
@@ -23,7 +23,7 @@ export default function Footer() {
               />
             </Box>
 
-            <Typography variant="h6" fontWeight="bold" sx={{ textWrap: 'nowrap', marginY:'auto'}}>
+            <Typography variant="h6" fontWeight="bold" sx={{ textWrap: 'nowrap', marginY: 'auto' }}>
               JETIX SPORT
             </Typography>
           </Box >
