@@ -1,62 +1,71 @@
 'use client'
 import * as React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, useMediaQuery, Box, Button, Container } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, useMediaQuery, Box, Button, Container, Divider } from '@mui/material';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import CallIcon from '@mui/icons-material/Call';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from '@mui/material/styles';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { signOut, useSession } from 'next-auth/react';
+import UserIcon from '../../UX/UserIcon/UserIcon';
+import { Logout, Person } from '@mui/icons-material';
+import useFetch from '@/src/app/hooks/useFetch';
 
 export default function NavBar() {
+  const {get}=useFetch()
+  const router = useRouter()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { data: session, } = useSession();
+  const user = session?.user;
   const theme = useTheme();
-  const isSmall = useMediaQuery('(max-width:1060px)'); 
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuClose = () => {
+  const handleMenuClose = (e: any) => {
+    const href = e.target.getAttribute('href')
+    if (href)
+      router.push(href)
     setAnchorEl(null);
   };
 
   return (
-    <AppBar 
+    <AppBar
       position="fixed"
-      sx={{ 
-        alignContent:"center",
-        width:"90%",
+      sx={{
+        alignContent: "center",
+        width: "90%",
         backgroundColor: '#440079',
-        margin:"0 5%",
-        padding:"0px",
-        height:"65px",
-        borderRadius:"50px",
-        display:"flex",
+        margin: "0 5%",
+        padding: "0px",
+        height: "65px",
+        borderRadius: "50px",
+        display: "flex",
         boxShadow: '0px 10px 30px rgb(117, 0, 163)',
         top: "15px",
         zIndex: "100",
       }}
     >
       <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{transition: 'all 0.3s ease'}}>
-          <Box sx={{display:"flex",flexDirection:"row", alignContent:"center"}}>
-            <Box sx={{width:"50px",height:"100%", }}>
-              <Image 
+        <Toolbar disableGutters sx={{ transition: 'all 0.3s ease' }}>
+          <Box sx={{ display: "flex", flexDirection: "row", alignContent: "center" }}>
+            <Box sx={{ width: "50px", height: "100%", }}>
+              <Image
                 src="/assets/logos/backWhite.jpg"
-                alt="logo" 
+                alt="logo"
                 height={64}
                 width={64}
               />
             </Box>
-            <Box sx={{marginLeft:"10px", alignContent:"center"}}>
-              <Typography variant="h6" noWrap component="a" href="/" 
+            <Box sx={{ alignContent: "center" }}>
+              <Typography variant="h6" noWrap component="a" href="/"
                 sx={{
-                  mr: 2,
                   display: 'flex',
                   fontFamily: 'monospace',
-                  fontSize:"16px",
-                  letterSpacing: '.3rem',
+                  fontSize: "16px",
                   color: 'inherit',
                   textDecoration: 'none',
                 }}>
@@ -65,47 +74,47 @@ export default function NavBar() {
             </Box>
           </Box>
 
-          {isSmall ? (
-            
-            <Box sx={{justifyContent:"Right", display:"flex",  width:"650px"}}>
-              
-              <Box sx={{ flexGrow: 0, alignContent:"center"}}>
+          {!user && <>
+            {/* Opciones pantalla pequena */}
+            < Box sx={{ justifyContent: "Right", display: { xs: "flex", md: "none" }, width: "650px" }}>
 
-                <Button 
-                  color="inherit" 
+              <Box sx={{ display: { xs: 'none', sm: 'block' }, flexGrow: 0, alignContent: "center" }}>
+
+                <Button
+                  color="inherit"
                   sx={{ textTransform: 'none' }}
                   href='/sign-up'>
                   Registrarme
                 </Button>
 
-                <Button 
-                  variant="contained" 
-                  sx={{  
+                <Button
+                  variant="contained"
+                  sx={{
                     backgroundColor: 'white',
-                    marginRight:"10px",
-                    color:"#00003D", 
-                    textTransform: 'none', 
+                    marginRight: "10px",
+                    color: "#00003D",
+                    textTransform: 'none',
                     borderColor: 'white',
                     '&:hover': {
-                      backgroundColor: '#6A00FF', 
-                      color:"white"
+                      backgroundColor: '#6A00FF',
+                      color: "white"
                     }
-                  }} 
+                  }}
                   href='/login'
                 >
                   Iniciar sesión
                 </Button>
               </Box>
-              <Box sx={{ alignContent:"center"}}>
+              <Box sx={{ alignContent: "center" }}>
                 <IconButton
                   edge="start"
                   color="inherit"
                   aria-label="menu"
                   onClick={handleMenuOpen}
-                  sx={{left: theme.spacing(2)}}>
-                  <MenuIcon fontSize="large"/>
+                  sx={{ left: theme.spacing(2), marginRight: 2 }}>
+                  <MenuIcon fontSize="large" />
                 </IconButton>
-              
+
                 <Menu
                   id="mobile-menu"
                   anchorEl={anchorEl}
@@ -113,84 +122,201 @@ export default function NavBar() {
                   open={Boolean(anchorEl)}
                   onClose={handleMenuClose}
                 >
-                  <MenuItem onClick={handleMenuClose}  href='/Torneos'>
+                  <MenuItem onClick={handleMenuClose} href='/Torneos'>
                     <SportsEsportsIcon sx={{ mr: 1 }} />
                     Torneos
                   </MenuItem>
-                  <MenuItem onClick={handleMenuClose}  href='/Stream'>
+                  <MenuItem onClick={handleMenuClose} href='/Stream'>
                     <LiveTvIcon sx={{ mr: 1 }} />
                     Stream Activos
                   </MenuItem>
-                  <MenuItem onClick={handleMenuClose}  href='/Contactos'>
+                  <MenuItem onClick={handleMenuClose} href='/Contactos'>
                     <CallIcon sx={{ mr: 1 }} />
                     Contactos
                   </MenuItem>
+                  <MenuItem onClick={handleMenuClose} href='/login'>
+                    Iniciar sesión
+                  </MenuItem>
+                  <MenuItem onClick={handleMenuClose} href='/sing-up'>
+                    Registrarme
+                  </MenuItem>
                 </Menu>
               </Box>
-            </Box> 
-            
-          ) : (
-            <>
-              <Box sx={{flexGrow: 1, display: 'flex', justifyContent: 'center', gap: 4, alignContent:"center" }}>
-                <Button 
-                  color="inherit" 
-                  startIcon={<SportsEsportsIcon />} 
-                  sx={{ textTransform: 'none' }}
-                  href='/Torneos'
+            </Box>
+            {/* Opciones pantalla grande */}
+
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignContent: "center" }}>
+              <Button
+                color="inherit"
+                startIcon={<SportsEsportsIcon />}
+                sx={{ textTransform: 'none', marginLeft: "auto" }}
+                href='/Torneos'
+              >
+                Torneos
+              </Button>
+
+              <Button
+                color="inherit"
+                startIcon={<LiveTvIcon />}
+                sx={{ textTransform: 'none', textWrap: 'nowrap', marginLeft: { lg: 4 } }}
+                href='/Stream'
+              >
+                Streams
+              </Button>
+
+              <Button
+                color="inherit"
+                startIcon={<CallIcon />}
+                sx={{ textTransform: 'none', marginRight: "auto", marginLeft: { lg: 4 } }}
+                href='/Contactos'
+              >
+                Contactos
+              </Button>
+              <Button
+                color="inherit"
+                sx={{ textTransform: 'none' }}
+                href='/sign-up'>
+                Registrarme
+              </Button>
+
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: 'white',
+                  marginRight: "10px",
+                  marginY: 'auto',
+                  color: "#00003D",
+                  textTransform: 'none',
+                  borderColor: 'white',
+                  textWrap: 'nowrap',
+                  height: 'fit-content',
+                  '&:hover': {
+                    backgroundColor: '#6A00FF',
+                    color: "white"
+                  }
+                }}
+                href='/login'
+              >
+                Iniciar sesión
+              </Button>
+            </Box>
+          </>}
+          {user && <>
+            {/* Opciones pantalla pequena */}
+            < Box sx={{ justifyContent: "Right", display: { xs: "flex", md: "none" }, width: "650px" }}>
+
+              <Box sx={{ alignContent: "center" }}>
+                <Box
+                  onClick={handleMenuOpen}
+                  sx={{ display: 'flex', cursor: 'pointer' }}
                 >
-                  Torneos
-                </Button>
-                
-                <Button 
-                  color="inherit" 
-                  startIcon={<LiveTvIcon />} 
-                  sx={{ textTransform: 'none' }}
-                  href='/Stream'
+                  <Typography sx={{ marginY: 'auto', display: { xs: 'none', sm: 'block' } }}>
+                    {user.firstName} {user.lastName}
+                  </Typography>
+                  <UserIcon sx={{ height: '32px', width: '32px', m: 1 }}></UserIcon>
+                </Box>
+                <Menu
+                sx={{ display: { xs: "flex", md: "none" }}}
+                  id="mobile-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
                 >
-                  Stream Activos
-                </Button>
-                
-                <Button 
-                  color="inherit" 
-                  startIcon={<CallIcon />} 
-                  sx={{ textTransform: 'none' }}
-                  href='/Contactos'
-                >
-                  Contactos
-                </Button>
+                  <MenuItem >
+                    {user.firstName} {user.lastName}
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem onClick={handleMenuClose} href='/Profile'>
+                    <Person sx={{ mr: 1 }} />
+                    Tu perfil
+                  </MenuItem>
+                  <MenuItem onClick={handleMenuClose} href='/Torneos'>
+                    <SportsEsportsIcon sx={{ mr: 1 }} />
+                    Torneos
+                  </MenuItem>
+                  <MenuItem onClick={handleMenuClose} href='/Stream'>
+                    <LiveTvIcon sx={{ mr: 1 }} />
+                    Stream Activos
+                  </MenuItem>
+                  <MenuItem onClick={handleMenuClose} href='/Contactos'>
+                    <CallIcon sx={{ mr: 1 }} />
+                    Contactos
+                  </MenuItem>
+                  <MenuItem onClick={async()=>{
+                    const data=await get(process.env.NEXT_PUBLIC_HOST_SERVICE+'/auth/logout')
+                    await signOut()
+                    window.location.href = '/'
+                    }} >
+                    <Logout sx={{ mr: 1 }} />
+                    Cerrar sesion
+                  </MenuItem>
+                </Menu>
               </Box>
+            </Box>
+            {/* Opciones pantalla grande */}
 
-              <Box sx={{ flexGrow: 0 }}>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignContent: "center" }}>
+              <Button
+                color="inherit"
+                startIcon={<SportsEsportsIcon />}
+                sx={{ textTransform: 'none', marginLeft: "auto" }}
+                href='/Torneos'
+              >
+                Torneos
+              </Button>
 
-                <Button 
-                  color="inherit" 
-                  sx={{ textTransform: 'none' }}
-                  href='/sign-up'>
-                  Registrarme
-                </Button>
+              <Button
+                color="inherit"
+                startIcon={<LiveTvIcon />}
+                sx={{ textTransform: 'none', textWrap: 'nowrap', marginLeft: { lg: 4 } }}
+                href='/Stream'
+              >
+                Streams
+              </Button>
 
-                <Button 
-                  variant="contained" 
-                  sx={{  
-                    backgroundColor: 'white',
-                    marginRight:"10px",
-                    color:"#00003D", 
-                    textTransform: 'none', 
-                    borderColor: 'white',
-                    '&:hover': {
-                      backgroundColor: '#6A00FF', 
-                      color:"white"
-                    }
-                  }} 
-                  href='/login'
+              <Button
+                color="inherit"
+                startIcon={<CallIcon />}
+                sx={{ textTransform: 'none', marginRight: "auto", marginLeft: { lg: 4 } }}
+                href='/Contactos'
+              >
+                Contactos
+              </Button>
+              <Box
+                  onClick={handleMenuOpen}
+                  sx={{ display: 'flex', cursor: 'pointer' }}
                 >
-                  Iniciar sesión
-                </Button>
-              </Box>
-            </>
-          )}
+                  <Typography sx={{ marginY: 'auto', display: { xs: 'none', sm: 'block' } }}>
+                    {user.firstName} {user.lastName}
+                  </Typography>
+                  <UserIcon sx={{ height: '32px', width: '32px', m: 1 }}></UserIcon>
+                </Box>
+                <Menu
+                sx={{ display: { md: "flex", xs: "none" }}}
+                  id="mobile-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                >
+                  <MenuItem onClick={handleMenuClose} href='/Profile'>
+                    <Person sx={{ mr: 1 }} />
+                    Tu perfil
+                  </MenuItem>
+                  <MenuItem onClick={async()=>{
+                    const data=await get(process.env.NEXT_PUBLIC_HOST_SERVICE+'/auth/logout')
+                    await signOut()
+                    window.location.href = '/'
+                    }} >
+                    <Logout sx={{ mr: 1 }} />
+                    Cerrar sesion
+                  </MenuItem>
+                </Menu>
+            </Box>
+          </>}
         </Toolbar>
       </Container>
-    </AppBar>
+    </AppBar >
   );
 }
