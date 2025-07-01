@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 
 import CardTorneosDestacados from "./components/UX/Card/CardTorneosDestacados";
 import BoxHeader from "./components/UX/Box/Box";
-import GameCarusel from "./components/UX/Box/Carusel";
+// import GameCarusel from "./components/UX/Box/Carusel";
 import Background from "./components/UX/Background/Background";
 import Buttons from "./components/UX/Buttons/Buttons";
 
@@ -34,7 +34,7 @@ export default function Home() {
           </Typography>
         </Box>
         <Box>
-          <GameCarusel></GameCarusel>
+          {/* <GameCarusel></GameCarusel> */}
         </Box>
       </BoxHeader>
 
