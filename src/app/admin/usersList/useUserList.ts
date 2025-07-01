@@ -21,6 +21,7 @@ export default function useUserList() {
         return
       if (user?.role != 'admin') {
         toast.error('No posees permiso para entrar en esta vista')
+        router.back()
         return
       }
       try {
