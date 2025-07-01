@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 
 import CardTorneosDestacados from "./components/UX/Card/CardTorneosDestacados";
 import BoxHeader from "./components/UX/Box/Box";
-// import GameCarusel from "./components/UX/Box/Carusel";
+import GameCarusel from "./components/UX/Box/Carusel";
 import Background from "./components/UX/Background/Background";
 import Buttons from "./components/UX/Buttons/Buttons";
 
@@ -15,7 +15,7 @@ export default function Home() {
     <Box>
 
       <BoxHeader>
-        <Background src="./backgrounds/login.svg"></Background>
+        <Background src="./backgrounds/torneo.svg"></Background>
         <Box sx={{color:'white', margin:'220px 0  0 100px'}}>
 
           <Typography variant="h4" sx={{fontWeight: 'bold',marginBottom:'10px'}}>
@@ -34,7 +34,7 @@ export default function Home() {
           </Typography>
         </Box>
         <Box>
-          {/* <GameCarusel></GameCarusel> */}
+          <GameCarusel></GameCarusel>
         </Box>
       </BoxHeader>
 
@@ -86,7 +86,7 @@ export default function Home() {
       <Box sx={{height:'auto',  marginTop:'100px'}}>
         <Box sx={{p:'30px', display:'flex'}}>
           <Typography variant="h4" sx={{fontWeight: 'bold',color: 'white',marginLeft:'100px'}}>
-            Torneos Destacados
+            Torneos Proximos
           </Typography>
         </Box>
 
@@ -98,7 +98,7 @@ export default function Home() {
         </Box>
       </Box>
 
-      <Box sx={{height:'300px',width:'100%', backgroundColor:'#00003d', padding:'20px 60px',display:'flex',justifyContent:'center', flexDirection:'column', textAlign:'center'}}>
+      <Box sx={{height:'300px',width:'91%', backgroundColor:'#00003d', padding:'20px 60px',display:'flex',justifyContent:'center', flexDirection:'column', textAlign:'center'}}>
         <Typography variant="h4" sx={{fontWeight: 'bold',color: 'white'}}>
             Quieres Organizar un Torneo?
         </Typography>

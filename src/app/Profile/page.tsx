@@ -1,32 +1,13 @@
+'use client'
 import React from 'react'
 import { Box, Card, CardMedia, CardActions, CardContent, Typography, Button, Chip } from '@mui/material'
 import Background from '../components/UX/Background/Background';
-
-interface DataUser {
-  id: number;
-  name: string;
-  lastname: string;
-  username: string;
-  correo: string;
-  rol: string;
-  imageprofile: any;
-}
+import { useSession } from 'next-auth/react';
+import UserIcon from '../components/UX/UserIcon/UserIcon';
 
 export default function Profile() {
-    const Users: DataUser[] = [
-        {
-            id: 1,
-            name: 'Justin',
-            lastname: 'Vegas',
-            username: 'MentaColada',
-            correo: 'justinVegas@gmail.com',
-            rol: 'Admin',
-            imageprofile: '/assets/img/valorant.png'
-        }
-    ]
-    
-    // Accedemos al primer usuario del array
-    const User = Users[0];
+     const { data: session, } = useSession();
+      const user = session?.user;
 
     return (
         <Box sx={{ marginTop: '100px' }}>
@@ -46,12 +27,9 @@ export default function Profile() {
                             }
                         }}
                     >
-                        <CardMedia
-                            component="img"
-                            sx={{width:"200px", height:"140px"}}
-                            image={User.imageprofile}
-                            alt="Profile image"  
-                        />
+                        {/* <UserIcon src={user?._idImg?'/images/profile/'+user._idImg:undefined} sx={{width:128,height:128}}>
+
+                        </UserIcon> */}
 
                         <CardActions sx={{ justifyContent: 'space-between', p: 2 }}>
                             <Button size="small" variant="contained" sx={{ backgroundColor: '#77589c', color: 'white' }}>
@@ -60,22 +38,22 @@ export default function Profile() {
                         </CardActions>
                         <CardContent sx={{ flexGrow: 1 }}>
                             <Typography gutterBottom variant="h5" component="div" sx={{ color: "white" }}>
-                                {User.username}
+                                {user?.username??''}
                             </Typography>
 
                             <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
                                 <Chip label="Cuenta" sx={{ color: "white" }} size="small" />
-                                <Chip label={User.rol} variant="outlined" sx={{ color: "white" }} size="small" />
+                                <Chip label={user?.role??''} variant="outlined" sx={{ color: "white" }} size="small" />
                             </Box>
 
                             <Typography variant="body2" color="white" sx={{ mb: 1 }}>
-                                <strong>Nombre</strong> {User.name}
+                                <strong>Nombre</strong> {user?.firstName??''}
                             </Typography>
                             <Typography variant="body2" color="white" sx={{ mb: 1 }}>
-                                <strong>Apellido</strong> {User.lastname}
+                                <strong>Apellido</strong> {user?.lastName??""}
                             </Typography>
                             <Typography variant="body2" color="white" sx={{ mb: 1 }}>
-                                <strong>Correo Electrónico</strong> {User.correo}
+                                <strong>Correo Electrónico</strong> {user?.email??''}
                             </Typography>
 
                         </CardContent>

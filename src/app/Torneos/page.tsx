@@ -5,13 +5,13 @@ import { Box, Card, Typography, Button} from "@mui/material";
 import Background from "../components/UX/Background/Background";
 import BoxHeader from "../components/UX/Box/Box";
 import CardTorneosDestacados from "../components/UX/Card/CardTorneosDestacados";
-import CardTorneosProximos from "../components/UX/Card/CradTorneosProximos";
+import CardTorneosProximos from "../components/UX/Card/CradTorneos";
 
 export default function Torneos() {
   return (
-    <Box>
+    <Box sx={{ margin:'0'}}>
       <BoxHeader>
-        <Background src="./backgrounds/login.svg"></Background>
+        <Background src="./backgrounds/torneo.svg"></Background>
         <Box sx={{color:'white', margin:'220px 0  0 100px'}}>
 
           <Typography variant="h4" sx={{fontWeight: 'bold',marginBottom:'10px'}}>

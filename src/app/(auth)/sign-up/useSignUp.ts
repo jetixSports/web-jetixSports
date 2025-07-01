@@ -24,8 +24,8 @@ export default function useSignUp() {
     const loadingToast = toast.loading('Creando cuenta...');
       
     const res = await post(process.env.NEXT_PUBLIC_HOST_SERVICE + '/auth/signUp',{
-      name:name,
-      lastname:lastname,
+      firstName:name,
+      lastName:lastname,
       username:nameUser,
       email:email,
       password:password

@@ -11,6 +11,7 @@ function Background({ sx, src,alt,imgClassName,imgHeight,imgWidth }: BackgroundP
     height: "100vh",
     backgroundColor: "#2B2727",
     zIndex: -1,
+    backgroundImage:'cover',
     ...sx,
   };
   return (
