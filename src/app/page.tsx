@@ -1,6 +1,6 @@
 'use client';
 import React from "react";
-import { Box, Card, Typography, Button} from "@mui/material";
+import { Box, Card, Typography, Button } from "@mui/material";
 import CardMedia from '@mui/material/CardMedia';
 
 import CardTorneosDestacados from "./components/UX/Card/CardTorneosDestacados";
@@ -8,9 +8,11 @@ import BoxHeader from "./components/UX/Box/Box";
 import GameCarusel from "./components/UX/Box/Carusel";
 import Background from "./components/UX/Background/Background";
 import Buttons from "./components/UX/Buttons/Buttons";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
-
+  const { data: session, } = useSession();
+  const user = session?.user;
   return (
     <Box>
 
@@ -24,9 +26,9 @@ export default function Home() {
           <Typography>Disfruta streaming en vivo de torneos de eSports y deportes físicos,</Typography>
           <Typography> y descubre eventos exclusivos, todo en un solo lugar. </Typography>
           
-          <Box sx={{marginTop:'20px'}}>
+          {!user && <Box sx={{marginTop:'20px'}}>
             <Buttons sx={{color:'#00003d',backgroundColor:'white', p:'20px'}} href="/sign-up">Registrate</Buttons>
-          </Box>
+          </Box>}
         </Box>
         <Box>
           <Typography variant="h4" sx={{fontWeight: 'bold',color: 'white', marginTop:'100px',marginLeft:'100px'}}>
@@ -36,7 +38,7 @@ export default function Home() {
         <Box>
           <GameCarusel></GameCarusel>
         </Box>
-      </BoxHeader>
+      </BoxHeader >
 
 
 
@@ -110,6 +112,6 @@ export default function Home() {
         </Box>  
       </Box>
 
-    </Box>
+    </Box >
   );
 }

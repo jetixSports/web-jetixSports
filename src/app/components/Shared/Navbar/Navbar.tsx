@@ -213,7 +213,7 @@ export default function NavBar() {
                   <Typography sx={{ marginY: 'auto', display: { xs: 'none', sm: 'block' } }}>
                     {user.firstName} {user.lastName}
                   </Typography>
-                  <UserIcon sx={{ height: '32px', width: '32px', m: 1 }}></UserIcon>
+                  <UserIcon src={user?._idImg?'/images/profile/'+user._idImg:undefined} sx={{ height: '32px', width: '32px', m: 1 }}></UserIcon>
                 </Box>
                 <Menu
                   sx={{ display: { xs: "flex", md: "none" } }}
@@ -293,7 +293,7 @@ export default function NavBar() {
                 <Typography sx={{ marginY: 'auto', display: { xs: 'none', sm: 'block' } }}>
                   {user.firstName} {user.lastName}
                 </Typography>
-                <UserIcon sx={{ height: '32px', width: '32px', m: 1 }}></UserIcon>
+                <UserIcon src={user?._idImg?'/images/profile/'+user._idImg:undefined} sx={{ height: '32px', width: '32px', m: 1 }}></UserIcon>
               </Box>
               <Menu
                 sx={{ display: { md: "flex", xs: "none" } }}

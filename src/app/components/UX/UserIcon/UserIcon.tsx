@@ -5,13 +5,14 @@ import { UserIconParams } from "./UserIcon.types";
 import { Person } from "@mui/icons-material";
 
 function UserIcon({ sx, src }: UserIconParams) {
+    const borderRadius= '1000px'
     const styles: SxProps<Theme> = {
-        display:'flex',
+        display: 'flex',
         width: "100%",
         height: "100%",
         backgroundColor: "#EDEAE9",
         border: 'solid 2px #383837',
-        borderRadius: '1000px',
+        borderRadius,
         ...sx,
     };
     return (
@@ -23,8 +24,12 @@ function UserIcon({ sx, src }: UserIconParams) {
                     width={128}
                     alt={"fondo"}
                     className={"w-full h-full"}
+                    style={{
+                        borderRadius:borderRadius
+                    }}
+                    unoptimized={true}
                 ></Image> :
-                <Person sx={{color:'black', margin:'auto'}}/>
+                <Person sx={{ color: 'black', margin: 'auto' }} />
             }
         </Box>
     );

@@ -8,7 +8,8 @@ import UserIcon from '../components/UX/UserIcon/UserIcon';
 export default function Profile() {
      const { data: session, } = useSession();
       const user = session?.user;
-
+    console.log(user);
+    
     return (
         <Box sx={{ marginTop: '100px' }}>
             <Background src="./backgrounds/login.svg"></Background>
@@ -27,9 +28,9 @@ export default function Profile() {
                             }
                         }}
                     >
-                        {/* <UserIcon src={user?._idImg?'/images/profile/'+user._idImg:undefined} sx={{width:128,height:128}}>
+                        <UserIcon src={user?._idImg?'/images/profile/'+user._idImg:undefined} sx={{width:128,height:128}}>
 
-                        </UserIcon> */}
+                        </UserIcon> 
 
                         <CardActions sx={{ justifyContent: 'space-between', p: 2 }}>
                             <Button size="small" variant="contained" sx={{ backgroundColor: '#77589c', color: 'white' }}>
