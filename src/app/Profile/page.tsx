@@ -14,11 +14,23 @@ export default function Profile() {
     const updateUser=(data:UpdateUser)=>{
         update(data)
     }
+
     const user = session?.user;
+    const rolUser = user?.role;
+    let rol
     const imgHook=useProfileImg()
     const updateHook = useUpdateUser({callback:updateUser})
     const [showModalEdit, setShowModalEdit] = useState(false)
     const [showModalImg,setShowModalImg]=useState(false)
+
+    {rolUser === 'admin' ? (
+        rol = 'Admin'
+      ) : rolUser === 'organizer' ? (
+         rol = 'Organizador'
+      ) : (
+        rol = 'Usuario'
+      )}
+
     return (
         <>
             {showModalImg && <Box onClick={() => {
@@ -74,7 +86,7 @@ export default function Profile() {
 
                                 <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
                                     <Chip label="Cuenta" sx={{ color: "white" }} size="small" />
-                                    <Chip label={user?.role ?? ''} variant="outlined" sx={{ color: "white" }} size="small" />
+                                    <Chip label={rol} variant="outlined" sx={{ color: "white" }} size="small" />
                                 </Box>
 
                                 <Typography variant="body2" color="white" sx={{ mb: 1 }}>

@@ -52,15 +52,15 @@ export default function NavBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ transition: 'all 0.3s ease' }}>
           <Box sx={{ display: "flex", flexDirection: "row", alignContent: "center" }}>
-            <Box sx={{ width: "50px", height: "100%", }}>
+            <Box sx={{ width: "60px", height: "64px", margin:'3px 5px 0 0', justifyContent:'center',alignContent:'center'}}>
               <Image
-                src="/assets/logos/backWhite.jpg"
+                src="/assets/logos/backTransparent.png"
                 alt="logo"
-                height={64}
-                width={64}
+                height={50}
+                width={70}
               />
             </Box>
-            <Box sx={{ alignContent: "center" }}>
+            <Box sx={{ alignContent: "center", height:'65px', margin:'0 0 0 5px' }}>
               <Typography variant="h6" noWrap component="a" href="/"
                 sx={{
                   display: 'flex',
@@ -145,7 +145,7 @@ export default function NavBar() {
             </Box>
             {/* Opciones pantalla grande */}
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignContent: "center" }}>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignContent: "center",  height:'65px' }}>
               <Button
                 color="inherit"
                 startIcon={<SportsEsportsIcon />}

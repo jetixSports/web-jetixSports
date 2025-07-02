@@ -6,7 +6,7 @@ import usePage from '@/src/app/usePage';
 
 export default function CardTorneosDestacados() {
    const { TorneoDes, loading, error } = usePage();
-  //  const lenghtTorneo =
+  const Players = TorneoDes.length
 
    if (loading) {
     return (
@@ -77,12 +77,12 @@ export default function CardTorneosDestacados() {
                   </Typography>
                   
                   <Typography variant="body2" sx={{ mb: 1,color:"white" }}>
-                    Jugadores: {torneo.quotas}/{torneo.Players} • {torneo.teamSpace} vs {torneo.teamSpace} 
+                    Jugadores: {Players}/{torneo.quotas} • {torneo.teamSpace} vs {torneo.teamSpace} 
                   </Typography>
                   
                   <LinearProgress 
                     variant="determinate" 
-                    value={(torneo.quotas / torneo.Players) * 100} 
+                    value={(torneo.quotas / Players) * 100} 
                     sx={{ height: 8, borderRadius: 4, mb: 1,backgroundColor:'#fff' }}
                   />
                 </CardContent>

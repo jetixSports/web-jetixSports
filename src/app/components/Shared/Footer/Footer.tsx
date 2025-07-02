@@ -13,10 +13,10 @@ export default function Footer() {
         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 3, height: "70px" }}>
 
           <Box sx={{ width: "fitContent", height: "70px", display: 'flex', alignContent: "center", justifyContent: "Center" }}>
-            <Box sx={{ height: '64px', width: '64px' }}>
+            <Box sx={{ height: '60px', width: '75px' }}>
               <Image
-                height={64}
-                width={64}
+                height={40}
+                width={80}
                 src="/assets/logos/backTransparent.png"
                 alt="logo"
                 className='w-full h-full'
