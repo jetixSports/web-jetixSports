@@ -31,6 +31,8 @@ const DashboardView = () => {
         setActiveTab(newValue);
     };
     const dashboardHook = useDashboard()
+    const { data: session, } = useSession();
+    const user = session?.user;
     return (
         <Box sx={{ paddingTop: 15, display: 'flex', justifyContent: "center" }}>
             <Background sx={{ backgroundColor: '#270E60' }}></Background>
@@ -61,11 +63,12 @@ const DashboardView = () => {
                 {/* Contenido de las secciones */}
                 <Box sx={{ mt: 2 }}>
                     {activeTab === 0 && (
-                        <SectionTeams dashboardHook={dashboardHook} />
+                        <SectionTeams dashboardHook={dashboardHook} user={user} />
                     )}
 
                     {activeTab === 1 && (
                         <SectionTournaments
+                            user={user}
                             tournaments={dashboardHook.registeredTour}
                             type="registered"
                         />
@@ -73,6 +76,7 @@ const DashboardView = () => {
 
                     {activeTab === 2 && (
                         <SectionTournaments
+                            user={user}
                             tournaments={dashboardHook.myTournaments}
                             type="myTournaments"
                         />
@@ -84,7 +88,7 @@ const DashboardView = () => {
 };
 
 // Componente para la sección de Equipos
-const SectionTeams = ({ dashboardHook }: { dashboardHook: Dashboard }) => {
+const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard ,user:any}) => {
     const [showModalCreate, setShowModalCreate] = useState(false)
     const createTeamHook = useCreateTeam({
         callback() {
@@ -114,7 +118,7 @@ const SectionTeams = ({ dashboardHook }: { dashboardHook: Dashboard }) => {
                 <Buttons onClick={() => setShowModalCreate(true)} sx={{ color: "white" }}>Crear Equipo</Buttons>
                 <Grid container spacing={3} sx={{ marginY: 2 }}>
                     {dashboardHook.teams?.map((team, index) => (
-                        <Grid sx={{ width: 207, boxShadow: "0px 1px 4px " }}
+                        <Grid sx={{ width: 207, height:"100%", boxShadow: "0px 1px 4px " }}
                             key={index}
                         >
                             <Card>
@@ -137,10 +141,10 @@ const SectionTeams = ({ dashboardHook }: { dashboardHook: Dashboard }) => {
                                         <Typography variant="body2" color="white" sx={{ marginY: 1 }}>
                                             {team.members.length} miembros
                                         </Typography>
-                                        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                                        {team._idLeader == user?._id && <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                                             <Buttons sx={{ color: "white", marginBottom: 1 }}>Invitar</Buttons>
                                             <Buttons sx={{ color: "white" }}>Detalles</Buttons>
-                                        </Box>
+                                        </Box>}
 
                                     </Box>
                                 </CardActionArea>
@@ -154,9 +158,8 @@ const SectionTeams = ({ dashboardHook }: { dashboardHook: Dashboard }) => {
 
     )
 }
-const SectionTournaments = ({ tournaments, type }: { tournaments: any[] | null, type: string }) => {
-    const { data: session, } = useSession();
-    const user = session?.user;
+const SectionTournaments = ({ tournaments, type,user }: { tournaments: any[] | null, type: string,user:any }) => {
+
     return (
         <Box>
             {["admin", "organizer"].includes(user?.role ?? "") && <Buttons sx={{ color: "white" }}>Crear Torneo</Buttons>}
