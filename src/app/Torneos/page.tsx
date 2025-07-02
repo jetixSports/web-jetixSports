@@ -28,7 +28,7 @@ export default function Torneos() {
     { value: 'League of Legends', label: 'League of Legends' },
     { value: 'FIFA', label: 'FIFA' },
     { value: 'Pokemon', label: 'Pokemon' },
-    { value: 'basquet', label: 'G' },
+    { value: 'Caida', label: 'Caida' },
   ]
 
   return (

@@ -213,7 +213,7 @@ export default function NavBar() {
                   <Typography sx={{ marginY: 'auto', display: { xs: 'none', sm: 'block' } }}>
                     {user.firstName} {user.lastName}
                   </Typography>
-                  <UserIcon src={user?._idImg?'/images/profile/'+user._idImg:undefined} sx={{ height: '32px', width: '32px', m: 1 }}></UserIcon>
+                  <UserIcon src={user?._idImg ? '/images/profile/' + user._idImg : undefined} sx={{ height: '32px', width: '32px', m: 1 }}></UserIcon>
                 </Box>
                 <Menu
                   sx={{ display: { xs: "flex", md: "none" } }}
@@ -242,6 +242,9 @@ export default function NavBar() {
                   <MenuItem onClick={handleMenuClose} href='/Contactos'>
                     <CallIcon sx={{ mr: 1 }} />
                     Contactos
+                  </MenuItem>
+                  <MenuItem onClick={handleMenuClose} href='/dashboard'>
+                    Mi Página
                   </MenuItem>
                   {user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/admin/usersList'>
                     Lista de Usuarios
@@ -293,7 +296,7 @@ export default function NavBar() {
                 <Typography sx={{ marginY: 'auto', display: { xs: 'none', sm: 'block' } }}>
                   {user.firstName} {user.lastName}
                 </Typography>
-                <UserIcon src={user?._idImg?'/images/profile/'+user._idImg:undefined} sx={{ height: '32px', width: '32px', m: 1 }}></UserIcon>
+                <UserIcon src={user?._idImg ? '/images/profile/' + user._idImg : undefined} sx={{ height: '32px', width: '32px', m: 1 }}></UserIcon>
               </Box>
               <Menu
                 sx={{ display: { md: "flex", xs: "none" } }}
@@ -310,6 +313,9 @@ export default function NavBar() {
                 {user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/admin/usersList'>
                   Lista de Usuarios
                 </MenuItem>}
+                <MenuItem onClick={handleMenuClose} href='/dashboard'>
+                  Mi Página
+                </MenuItem>
                 <MenuItem onClick={async () => {
                   const data = await get(process.env.NEXT_PUBLIC_HOST_SERVICE + '/auth/logout')
                   await signOut()

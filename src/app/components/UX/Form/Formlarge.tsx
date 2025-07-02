@@ -9,7 +9,7 @@ function FormLarge({ styles, children, handleSubmit }: FormParams) {
         xs: "90%",   
         sm: "80%",    
         md: "70%",    
-        lg: "60%",    
+        lg: "80%",    
         xl: "800px"   
       },
       maxWidth: "800px",

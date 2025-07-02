@@ -3,6 +3,7 @@
 import { SessionProvider, useSession } from 'next-auth/react';
 import Narbar from "./components/Shared/Navbar/Navbar";
 import Footer from "./components/Shared/Footer/Footer";
+import { Box } from '@mui/material';
 
 interface Props {
     children: React.ReactNode;
@@ -15,8 +16,12 @@ export default function Context({ children }: Props) {
     return (
         <>
             <Narbar />
-            {children}
-            <Footer />
+            <Box sx={{ display: 'flex', flexDirection: "column", minHeight: "100vh" }}>
+                <Box sx={{ flex: 1 }} id={"Container"}>
+                    {children}
+                </Box>
+                <Footer />
+            </Box>
         </>
     );
 }
