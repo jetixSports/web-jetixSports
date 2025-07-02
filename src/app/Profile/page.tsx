@@ -10,15 +10,15 @@ import { UpdateUser } from '../types/updateUser';
 import useProfileImg from './useProfileImg';
 
 export default function Profile() {
-    const { data: session,update } = useSession();
-    const updateUser=(data:UpdateUser)=>{
+    const { data: session, update } = useSession();
+    const updateUser = (data: UpdateUser) => {
         update(data)
     }
     const user = session?.user;
-    const imgHook=useProfileImg()
-    const updateHook = useUpdateUser({callback:updateUser})
+    const imgHook = useProfileImg()
+    const updateHook = useUpdateUser({ callback: updateUser })
     const [showModalEdit, setShowModalEdit] = useState(false)
-    const [showModalImg,setShowModalImg]=useState(false)
+    const [showModalImg, setShowModalImg] = useState(false)
     return (
         <>
             {showModalImg && <Box onClick={() => {
@@ -45,14 +45,14 @@ export default function Profile() {
                     {updateHook.reactForm}
                 </Box>
             </Box>}
+            <Background src="/backgrounds/login.svg"></Background>
             <Box >
 
-                <Background src="/backgrounds/login.svg"></Background>
-                <Box sx={{ paddingY: 15, backgroundColor: '#00003d',display:'flex',justifyContent:'center'}}>
-                    <Box sx={{width:"290px",}}>
+                <Box sx={{ paddingY: 15, display: 'flex', justifyContent: 'center' }}>
+                    <Box sx={{ width: "290px", }}>
                         <Card
                             sx={{
-                                padding:2,
+                                padding: 2,
                                 height: 'fit-content',
                                 display: 'flex',
                                 backgroundColor: '#2f105b',
@@ -64,11 +64,11 @@ export default function Profile() {
                                 }
                             }}
                         >
-                            <UserIcon src={user?._idImg ? '/images/profile/' + user._idImg : undefined} sx={{ width: 128, height: 128, mx:"auto" }}>
+                            <UserIcon src={user?._idImg ? '/images/profile/' + user._idImg : undefined} sx={{ width: 128, height: 128, mx: "auto" }}>
                             </UserIcon>
 
                             <CardContent sx={{ flexGrow: 1 }}>
-                                <Typography gutterBottom variant="h5" component="div" sx={{ color: "white" }}>
+                                <Typography gutterBottom variant="h5" component="div" sx={{ color: "white", textAlign: "center" }}>
                                     {user?.username ?? ''}
                                 </Typography>
 
@@ -88,7 +88,7 @@ export default function Profile() {
                                 </Typography>
 
                             </CardContent>
-                            <CardActions sx={{ }}>
+                            <CardActions sx={{}}>
                                 <Button onClick={() => {
                                     setShowModalEdit(true)
                                     updateHook.setUser(user as any ?? null); updateHook.setIdUser(user?._id ?? '')
@@ -97,7 +97,7 @@ export default function Profile() {
                                 </Button>
                             </CardActions>
                             <CardActions sx={{}}>
-                                <Button onClick={()=>setShowModalImg(true)}  size="small" variant="contained" sx={{ backgroundColor: '#77589c', color: 'white' }}>
+                                <Button onClick={() => setShowModalImg(true)} size="small" variant="contained" sx={{ backgroundColor: '#77589c', color: 'white' }}>
                                     Cambiar Foto
                                 </Button>
                             </CardActions>
