@@ -15,11 +15,13 @@ import {
     Chip,
 } from "@mui/material";
 import useDashboard from "./useDashboard";
-import { Teams } from "./dashboard.types";
+import { Dashboard, Teams } from "./dashboard.types";
 import Image from "next/image";
 import Buttons from "../../components/UX/Buttons/Buttons";
 import { useSession } from "next-auth/react";
 import Background from "../../components/UX/Background/Background";
+import useCreateTeam from "./useCreateTeam";
+import { CancelOutlined } from "@mui/icons-material";
 
 
 
@@ -28,7 +30,7 @@ const DashboardView = () => {
     const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
         setActiveTab(newValue);
     };
-    const { teams, myTournaments, registeredTour } = useDashboard()
+    const dashboardHook = useDashboard()
     return (
         <Box sx={{ paddingTop: 15, display: 'flex', justifyContent: "center" }}>
             <Background sx={{ backgroundColor: '#270E60' }}></Background>
@@ -59,19 +61,19 @@ const DashboardView = () => {
                 {/* Contenido de las secciones */}
                 <Box sx={{ mt: 2 }}>
                     {activeTab === 0 && (
-                        <SectionTeams teams={teams} />
+                        <SectionTeams dashboardHook={dashboardHook} />
                     )}
 
                     {activeTab === 1 && (
                         <SectionTournaments
-                            tournaments={registeredTour}
+                            tournaments={dashboardHook.registeredTour}
                             type="registered"
                         />
                     )}
 
                     {activeTab === 2 && (
                         <SectionTournaments
-                            tournaments={myTournaments}
+                            tournaments={dashboardHook.myTournaments}
                             type="myTournaments"
                         />
                     )}
@@ -82,46 +84,76 @@ const DashboardView = () => {
 };
 
 // Componente para la sección de Equipos
-const SectionTeams = ({ teams }: { teams: Teams[] | null }) => (
-    <Box>
-        <Buttons sx={{ color: "white" }}>Crear Equipo</Buttons>
-        <Grid container spacing={3}>
-            {teams?.map((team, index) => (
-                <Grid sx={{ width: 207 }}
-                    key={index}
-                >
-                    <Card>
-                        <CardActionArea>
+const SectionTeams = ({ dashboardHook }: { dashboardHook: Dashboard }) => {
+    const [showModalCreate, setShowModalCreate] = useState(false)
+    const createTeamHook = useCreateTeam({
+        callback() {
+            createTeamHook.reset()
+            setShowModalCreate(false)
+            dashboardHook.getTeams()
+        },
+    })
+    return (
+        <>
+            {showModalCreate && <Box onClick={() => {
+                setShowModalCreate(false),
+                    createTeamHook.reset()
+            }} sx={{ zIndex: 10, paddingTop: 5, top: 0, left: 0, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
+                <Box sx={{ marginTop: 10 }} onClick={(e) => e.stopPropagation()}>
+                    <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end" }}>
+                        <Box sx={{ position: "absolute", margin: 4 }}><CancelOutlined onClick={() => {
+                            setShowModalCreate(false)
+                            createTeamHook.reset()
 
-                            <Box sx={{ width: '100%', height: 100 }}>
-                                <Image
-                                    src={process.env.NEXT_PUBLIC_HOST_SERVICE + "/images/tournaments/" + team._idImg}
-                                    height={128}
-                                    width={128}
-                                    alt={"fondo"}
-                                    className={"w-full h-full"}
-                                    unoptimized={true}
-                                ></Image>
-                            </Box>
-                            <Box sx={{ padding: 1 }}  >
-                                <Box >
-                                    <Typography variant="h6">{team.name}</Typography>
-                                    <Typography >{team.description}</Typography>
-                                </Box>
-                                <Typography variant="body2" color="text.secondary">
-                                    {team.members.length} miembros
-                                </Typography>
+                        }} sx={{ color: "white", cursor: "pointer" }}></CancelOutlined> </Box>
+                    </Box>
+                    {createTeamHook.reactForm}
+                </Box>
+            </Box>}
+            <Box>
+                <Buttons onClick={() => setShowModalCreate(true)} sx={{ color: "white" }}>Crear Equipo</Buttons>
+                <Grid container spacing={3} sx={{ marginY: 2 }}>
+                    {dashboardHook.teams?.map((team, index) => (
+                        <Grid sx={{ width: 207, boxShadow: "0px 1px 4px " }}
+                            key={index}
+                        >
+                            <Card>
+                                <CardActionArea>
+                                    <Box sx={{ width: '100%', height: 100 }}>
+                                        <Image
+                                            src={process.env.NEXT_PUBLIC_HOST_SERVICE + "/images/tournaments/" + team._idImg}
+                                            height={256}
+                                            width={256}
+                                            alt={"fondo"}
+                                            className={"w-full h-full"}
+                                            unoptimized={true}
+                                        ></Image>
+                                    </Box>
+                                    <Box sx={{ padding: 1, backgroundColor: "#440079" }}  >
+                                        <Box >
+                                            <Typography variant="h6" color="white">{team.name}</Typography>
+                                            <Typography color="white" >{team.description}</Typography>
+                                        </Box>
+                                        <Typography variant="body2" color="white" sx={{ marginY: 1 }}>
+                                            {team.members.length} miembros
+                                        </Typography>
+                                        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                                            <Buttons sx={{ color: "white", marginBottom: 1 }}>Invitar</Buttons>
+                                            <Buttons sx={{ color: "white" }}>Detalles</Buttons>
+                                        </Box>
 
-                            </Box>
-                        </CardActionArea>
-                    </Card>
+                                    </Box>
+                                </CardActionArea>
+                            </Card>
+                        </Grid>
+                    ))}
                 </Grid>
-            ))}
-        </Grid>
-        {!teams && <Box sx={{ marginY: 3 }}> <Typography sx={{ textAlign: "center", color: "white" }}>No estas en ningun equipo</Typography></Box>}
-    </Box>
+                {!dashboardHook.teams && <Box sx={{ marginY: 3 }}> <Typography sx={{ textAlign: "center", color: "white" }}>No estas en ningun equipo</Typography></Box>}
+            </Box>
+        </>
 
-);
+    )
+}
 const SectionTournaments = ({ tournaments, type }: { tournaments: any[] | null, type: string }) => {
     const { data: session, } = useSession();
     const user = session?.user;
