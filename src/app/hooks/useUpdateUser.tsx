@@ -9,17 +9,17 @@ import Buttons from '../components/UX/Buttons/Buttons'
 import useFetch from './useFetch'
 import toast from 'react-hot-toast'
 
-function useUpdateUser({ defaultValues }: { defaultValues?: UpdateUser }) {
+function useUpdateUser({ defaultValues,callback ,sendRole}: { defaultValues?: UpdateUser,callback?:(data:UpdateUser)=>any ,sendRole?:boolean}) {
     const { post } = useFetch()
     const [user, setUser] = useState<UpdateUser | null>(null)
     const [idUser, setIdUser] = useState<string | null>(null)
     const [status, setStatus] = useState(true)
     const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues })
-    const fields = {
+    const fields:{[key:string]:any} = {
         firstName: register("firstName", { required: "El nombre es requerido" }),
         lastName: register("lastName", { required: "El apellido es requerido" }),
         username: register("username", { required: "El nombre de usuario es requerido" }),
-        role: register("role", { required: "El rol es requerido" }),
+        // role: register("role", { required: "El rol es requerido" }),
     }
     const onSubmit = async (updateData: UpdateUser) => {
         if (!status)
@@ -31,11 +31,15 @@ function useUpdateUser({ defaultValues }: { defaultValues?: UpdateUser }) {
             if (updateUser.statusCode != 200)
                 return toast.error(updateUser.message)
             toast.success(updateUser.message)
+            if(callback)
+                callback(updateData)
         } catch (error) {
             toast.error(error + "")
             setStatus(true)
         }
     }
+    if(sendRole)
+        fields.role=register("role", { required: "El rol es requerido" })
     return {
         user,
         setUser,
@@ -92,7 +96,7 @@ function useUpdateUser({ defaultValues }: { defaultValues?: UpdateUser }) {
                 error={!!errors?.username}
                 helperText={errors?.username?.message + ""}
             ></Inputs>
-            <Typography sx={{ color: "white" }}>Rol</Typography>
+            {sendRole && <><Typography sx={{ color: "white" }}>Rol</Typography>
             <Select
                 value={user?.role}
                 sx={{
@@ -110,13 +114,13 @@ function useUpdateUser({ defaultValues }: { defaultValues?: UpdateUser }) {
                     if (!user)
                         return
                     const newObj = { ...user }
-                    newObj.role = e.target.value
+                    newObj.role = e.target.value+''
                     setUser(newObj)
                 }}>
                 <MenuItem value={"admin"}>Administrador</MenuItem>
                 <MenuItem value={"user"}>Usuario</MenuItem>
                 <MenuItem value={"organizer"}>Organizador</MenuItem>
-            </Select>
+            </Select></>}
             <Box sx={{ minWidth: "290px", display: "flex", justifyContent: "space-between" }}>
                 <Buttons type="submit" sx={{ marginTop: "5px", marginLeft: "auto" }} variant="contained">Guardar</Buttons>
             </Box>

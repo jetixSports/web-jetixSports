@@ -30,7 +30,7 @@ export default function UserList() {
   const usersHook = useUserList()
   const fetchHook = useFetch()
   const [status, setStatus] = useState(true)
-  const updateHook = useUpdateUser({})
+  const updateHook = useUpdateUser({sendRole:true})
   const [showModalEdit, setShowModalEdit] = useState(false)
   const [deleteData, setDeleteData] = useState<UsersInList | null>(null)
   const [filter, setFilter] = useState(["Todos", ""])
@@ -39,10 +39,10 @@ export default function UserList() {
     ["email", "Correo"], ["username", "Nombre de usuario"]
   ]
   return (
-    <Box sx={{ width: "100%", "display": 'flex', "alignItems": "center", flexDirection: "column", height: "84.1vh" }}>
+    <Box sx={{ width: "100%", "display": 'flex', "alignItems": "center", flexDirection: "column", minHeight: "84.1vh" }}>
       <Background src="/backgrounds/login.svg"></Background>
       {deleteData && <Box onClick={() => setDeleteData(null)}
-        sx={{ zIndex: 10, marginTop: 5, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
+        sx={{ zIndex: 10, paddingY: 5, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
         <Box>
           <Box sx={{
             maxWidth: "380px",
@@ -82,7 +82,7 @@ export default function UserList() {
       {showModalEdit && <Box onClick={() => {
         usersHook.findUsers()
         setShowModalEdit(false)
-      }} sx={{ zIndex: 10, marginTop: 5, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
+      }} sx={{ zIndex: 10, paddingY: 5, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
         <Box sx={{ marginTop: 10 }} onClick={(e) => e.stopPropagation()}>
           <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end" }}>
             <Box sx={{ position: "absolute", margin: 4 }}><CancelOutlined onClick={() => {
