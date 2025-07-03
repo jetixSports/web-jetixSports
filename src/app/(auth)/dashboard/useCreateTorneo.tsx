@@ -15,14 +15,14 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
   const [status, setStatus] = useState(true)
   const { data: session, } = useSession();
   const user = session?.user;
-  const juegosOptions = [
+
+    const juegosOptions = [
     { value: 'Valorant', label: 'Valorant' },
     { value: 'League of Legends', label: 'League of Legends' },
     { value: 'FIFA', label: 'FIFA' },
     { value: 'Pokemon', label: 'Pokemon' },
     { value: 'Caida', label: 'Caida' },
   ]
-
 
   const fields = {
     name: register("name", { required: "El nombre es obligatorio" }),
@@ -59,7 +59,10 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
       setStatus(true)
     }
   }
+
+
   return {
+    
     reset,
     reactForm: (
 
@@ -84,19 +87,27 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
             helperText={errors?.name?.message + ""}
           ></Inputs>
 
-          <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", fontSize:14}}>
+          <Typography sx={{ marginY: 1,color: "white"}}>
               Selecciona el Juego
           </Typography>
-          <Inputs
-            sx={{ width: "98%", marginTop:'4px', height: 36, marginLeft:'6%', backgroundColor:'#20105B',
+          <Select
+            sx={{ width: "98%", marginTop:'4px', height: 36, backgroundColor:'#20105B',
               borderRadius:"10px",color:'white'}}
               {...fields.typeSport}
               error={!!errors?.typeSport}
-              helperText={errors?.typeSport?.message + ""}
             
             >
-              
-          </Inputs>
+              <MenuItem  value="">Seleccione un juego</MenuItem>
+              {juegosOptions.map((option) => (
+                <MenuItem key={option.value} value={option.value} >
+                  {option.label}
+                </MenuItem>
+              ))}
+
+          </Select>
+          <Typography sx={{ marginY: 1,color: "white"}}>
+             {errors?.typeSport?.message + ""}
+          </Typography>
 
           <Typography sx={{ color: "white" }}>Detalles del torneo</Typography>
           <Inputs
@@ -110,9 +121,9 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
           
           <Box sx={{display: 'flex', flexDirection: "row"}}>
                       
-            <Box sx={{width:'100%',display: 'flex', flexDirection: "column"}}>
-              <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", fontSize:14}}>
-                Precio
+            <Box sx={{width:'98%',display: 'flex', flexDirection: "column"}}>
+              <Typography sx={{ marginY: 1, color: "white"}}>
+                Precio de Inscripcion
               </Typography>
               <Inputs
                 type="number"
@@ -121,9 +132,9 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
               />
             </Box>
 
-            <Box sx={{width:'100%',display: 'flex', flexDirection: "column"}}>
-              <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", fontSize:14, marginLeft:'8%'}}>
-                Cuota
+            <Box sx={{width:'98%',display: 'flex', flexDirection: "column"}}>
+              <Typography sx={{ marginY: 1, color: "white", marginLeft:'6%'}}>
+                Cuota de jugadores
               </Typography>
               <Inputs
                 type="number"
@@ -136,8 +147,8 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
             </Box>
                           
             <Box sx={{width:'100%',display: 'flex', flexDirection: "column"}}>
-              <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", fontSize:14, marginLeft:'8%'}}>
-                  Jugadores
+              <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", fontSize:14, marginLeft:'5%'}}>
+                  Jugadores por Equipos
               </Typography>
               <Inputs
                 type="number"
@@ -149,7 +160,9 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
               />
             </Box>    
           </Box>
-
+          <Typography sx={{ marginY: 1, color: "white"}}>
+           Fecha de Inicio del Torneo
+          </Typography>
           <Inputs
             type="Date"
             sx={{ width: "100%", height: 60 }}
@@ -158,6 +171,9 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
             helperText={errors?.startDate?.message + ""}
           ></Inputs>
 
+          <Typography sx={{ marginY: 1, color: "white"}}>
+              Fecha de Finalizacíon del Torneo
+          </Typography>
           <Inputs
             type="Date"
             sx={{ width: "100%", height: 60 }}
@@ -166,7 +182,7 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
             helperText={errors?.endDate?.message + ""}
           ></Inputs>
 
-          <Typography sx={{ color: "white" }}>Foto del equipo</Typography>
+          <Typography sx={{ color: "white" }}>Foto de la Portada del Torneo</Typography>
           <Inputs
             type="file"
             sx={{ width: "100%", height: 36 }}
