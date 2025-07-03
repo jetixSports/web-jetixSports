@@ -69,7 +69,7 @@ const DashboardView = () => {
                     {activeTab === 1 && (
                         <SectionTournaments
                             user={user}
-                            tournaments={dashboardHook.registeredTour}
+                            dashboardHook={dashboardHook}
                             type="registered"
                         />
                     )}
@@ -77,7 +77,7 @@ const DashboardView = () => {
                     {activeTab === 2 && (
                         <SectionTournaments
                             user={user}
-                            tournaments={dashboardHook.myTournaments}
+                            dashboardHook={dashboardHook}
                             type="myTournaments"
                         />
                     )}
@@ -88,13 +88,13 @@ const DashboardView = () => {
 };
 
 // Componente para la sección de Equipos
-const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard ,user:any}) => {
+const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard, user: any }) => {
     const [showModalCreate, setShowModalCreate] = useState(false)
     const createTeamHook = useCreateTeam({
         callback() {
             createTeamHook.reset()
             setShowModalCreate(false)
-            dashboardHook.getMyTournaments()
+            dashboardHook.getTeams()
         },
     })
     return (
@@ -118,7 +118,7 @@ const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard ,user:
                 <Buttons onClick={() => setShowModalCreate(true)} sx={{ color: "white" }}>Crear Equipo</Buttons>
                 <Grid container spacing={3} sx={{ marginY: 2 }}>
                     {dashboardHook.teams?.map((team, index) => (
-                        <Grid sx={{ width: 207, height:"100%", boxShadow: "0px 1px 4px " }}
+                        <Grid sx={{ width: 207, height: "100%", boxShadow: "0px 1px 4px " }}
                             key={index}
                         >
                             <Card>
@@ -159,9 +159,8 @@ const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard ,user:
     )
 }
 
-const SectionTournaments = ({ tournaments, type,user }: { tournaments: any[] | null, type: string,user:any }) => {
+const SectionTournaments = ({ dashboardHook, type, user }: {  dashboardHook: Dashboard, type: string, user: any }) => {
 
-    const dashboardHook = useDashboard()
     const [showModalCreate, setShowModalCreate] = useState(false)
     const createTorneoHook = useCreateTorneo({
         callback() {
@@ -171,84 +170,89 @@ const SectionTournaments = ({ tournaments, type,user }: { tournaments: any[] | n
         },
     })
 
-    return ( 
+    return (
         <>
             {showModalCreate && <Box onClick={() => {
                 setShowModalCreate(false),
                     createTorneoHook.reset()
+            }} sx={{
+                zIndex: 10, position: "fixed", top: 0, left: 0, width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex",
+                justifyContent: "center", alignItems: "flex-start", overflow: "hidden"
+            }}>
 
-            }} sx={{ zIndex: 10,  position: "fixed", top: 0, left: 0, width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex",
-                 justifyContent: "center", alignItems: "flex-start", overflow: "hidden"}}>
-                
-                <Box sx={{  width: "90%", maxWidth: "600px",  maxHeight: "80vh", display: "flex", flexDirection: "column", 
-                    borderRadius: "10px", position: "relative", overflow: "hidden"}} onClick={(e) => e.stopPropagation()}>
-                    <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end" }}>
-                        <Box sx={{ position: "absolute", margin: 4 }}>
-                          <CancelOutlined onClick={() => {
-                            setShowModalCreate(false)
-                            createTorneoHook.reset()
-                            }} sx={{ color: "white", cursor: "pointer" }}>
-                          </CancelOutlined> 
-                        </Box>
-                    </Box>
-                    <Box sx={{ width:'600px',flex: 1, overflowY: "auto", '&::-webkit-scrollbar': { width: '6px',},
+                <Box sx={{
+                    marginTop: 15, maxHeight: "75vh", display: "flex", flexDirection: "column",
+                    borderRadius: "10px", position: "relative", overflow: "hidden"
+                }} onClick={(e) => e.stopPropagation()}>
+                    <Box sx={{
+                         flex: 1, overflowY: "auto", '&::-webkit-scrollbar': { width: '6px', },
                         '&::-webkit-scrollbar-thumb': {
-                             backgroundColor: 'white', borderRadius: '3px',}
+                            backgroundColor: 'white', borderRadius: '3px',
+                        }
                     }}>
+                        <Box sx={{ position: "relative", width: "100%", display: 'flex', justifyContent: "end" }}>
+                            <Box sx={{ position: "absolute", marginY: 4, marginX:4 }}>
+                                <CancelOutlined onClick={() => {
+                                    setShowModalCreate(false)
+                                    createTorneoHook.reset()
+                                }} sx={{ color: "white", cursor: "pointer" }}>
+                                </CancelOutlined>
+                            </Box>
+                        </Box>
                         {createTorneoHook.reactForm}
                     </Box>
                 </Box>
             </Box>}
-        
-        <Box>
-            {["admin", "organizer"].includes(user?.role ?? "") && <Buttons onClick={() => setShowModalCreate(true)} sx={{ color: "white" }}>Crear Torneo</Buttons>}
-            <Grid container spacing={3}>
-                {tournaments?.map((tournament) => (
-                    <Grid sx={{ width: 207, padding: 0 }} >
-                        <Card sx={{ padding: 0 }}>
-                            <Box sx={{ width: '100%', height: 100 }}>
-                                <Image
-                                    src={process.env.NEXT_PUBLIC_HOST_SERVICE + "/images/tournaments/" + tournament._idImg}
-                                    height={128}
-                                    width={128}
-                                    alt={"fondo"}
-                                    className={"w-full h-full"}
-                                    unoptimized={true}
-                                ></Image>
-                            </Box>
-                            <Box sx={{ padding: 1 }}  >
-                                <Typography variant="h6" gutterBottom>
-                                    {tournament.name}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary" gutterBottom>
-                                    Inicia: {new Date(tournament.startDate).toLocaleDateString()}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary" gutterBottom>
-                                    Termina: {new Date(tournament.endDate).toLocaleDateString()}
-                                </Typography>
 
-                                {type === "registered" && (
-                                    <Chip
-                                        label={tournament.status}
-                                        color={tournament.status === "active" ? "success" : "default"}
-                                    />
-                                )}
-                                {type === "myTournaments" && (
-                                    <Typography variant="body2" >
-                                        {tournament.teams.length} equipos participantes
+            <Box>
+                {["admin", "organizer"].includes(user?.role ?? "") && <Buttons onClick={() => setShowModalCreate(true)} sx={{ color: "white" }}>Crear Torneo</Buttons>}
+                <Grid container spacing={3}>
+                    {dashboardHook?.[type === "registered"?'registeredTour':'myTournaments']?.map((tournament,i) => (
+                        <Grid sx={{ width: 207, padding: 0 }} key={i} >
+                            <Card sx={{ padding: 0 }}>
+                                <Box sx={{ width: '100%', height: 100 }}>
+                                    <Image
+                                        src={process.env.NEXT_PUBLIC_HOST_SERVICE + "/images/tournaments/" + tournament._idImg}
+                                        height={128}
+                                        width={128}
+                                        alt={"fondo"}
+                                        className={"w-full h-full"}
+                                        unoptimized={true}
+                                    ></Image>
+                                </Box>
+                                <Box sx={{ padding: 1 }}  >
+                                    <Typography variant="h6" gutterBottom>
+                                        {tournament.name}
                                     </Typography>
-                                )}
-                            </Box>
-                        </Card>
-                    </Grid>
-                ))}
-            </Grid>
-            {!tournaments && <Box sx={{ marginY: 3 }}> <Typography sx={{ textAlign: "center", color: "white" }}>{
-                type == "myTournaments" ? "No tienes ningun torneo" : "No estas en ningun torneo"}</Typography></Box>}
+                                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                                        Inicia: {new Date(tournament.startDate).toLocaleDateString()}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                                        Termina: {new Date(tournament.endDate).toLocaleDateString()}
+                                    </Typography>
 
-        </Box >
-    </>
-        
+                                    {type === "registered" && (
+                                        <Chip
+                                            label={tournament.status}
+                                            color={tournament.status === "active" ? "success" : "default"}
+                                        />
+                                    )}
+                                    {type === "myTournaments" && (
+                                        <Typography variant="body2" >
+                                            {tournament.teams.length} equipos participantes
+                                        </Typography>
+                                    )}
+                                </Box>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
+                {!dashboardHook?.[type === "registered"?'registeredTour':'myTournaments'] && <Box sx={{ marginY: 3 }}> <Typography sx={{ textAlign: "center", color: "white" }}>{
+                    type == "myTournaments" ? "No tienes ningun torneo" : "No estas en ningun torneo"}</Typography></Box>}
+
+            </Box >
+        </>
+
     );
 }
 

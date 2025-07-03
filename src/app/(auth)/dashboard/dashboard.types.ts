@@ -17,6 +17,7 @@ interface Tournaments {
   teamSpace: number;
   startDate: Date;
   endDate: Date;
+  status:string;
   rounds: {
     nRound: string;
     _idMatchs: string[];

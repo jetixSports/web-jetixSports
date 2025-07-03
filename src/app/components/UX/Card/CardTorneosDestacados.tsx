@@ -33,9 +33,9 @@ export default function CardTorneosDestacados() {
           justifyContent: 'center',
           gap: 4 }}>
 
-          {TorneoDes.map((torneo) => (
+          {TorneoDes.map((torneo,i) => (
             <Box 
-              key={torneo.id}
+              key={i}
               sx={{width: { xs: '100%', sm: 'calc(50% - 32px)', 
                 md: 'calc(33.333% - 32px)' },maxWidth: 400
               }}
