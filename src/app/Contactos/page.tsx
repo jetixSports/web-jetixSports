@@ -14,7 +14,8 @@ export default function Contact() {
             <Background src="./backgrounds/login.svg"></Background>
             <Box sx={{color:'white', margin:'220px 0  0 100px'}}>
                 <Typography variant="h4" sx={{fontWeight: 'bold',marginBottom:'10px'}}>
-                    Disfruta de tus Torneos Favoritos</Typography>
+                    Contactanos en una de nuestras Redes Sociales
+                </Typography>
                 <Typography>Diseñada para los verdaderos competidores y fans. </Typography>
                 <Typography>Disfruta streaming en vivo de torneos de eSports y deportes físicos,</Typography>
                 <Typography> y descubre eventos exclusivos, todo en un solo lugar. </Typography>
@@ -22,11 +23,6 @@ export default function Contact() {
         </BoxHeader>
         
         <Box sx={{marginTop:'120px', display:'flex',justifyContent:'center', backgroundColor:'#00003d', flexDirection:'column',textAlign:'center'}}>
-            
-            <Typography variant="h6" sx={{fontWeight: 'bold',marginBottom:'10px', color:'white'}}>
-                Escribe un Mensaje
-            </Typography>
-           
             <CardContacos></CardContacos>
         </Box>
     </Box>
