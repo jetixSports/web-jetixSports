@@ -5,6 +5,7 @@ import Background from '../components/UX/Background/Background';
 import Buttons from '../components/UX/Buttons/Buttons';
 import BoxHeader from '../components/UX/Box/Box';
 import Inputs from '../components/UX/Inputs/Inputs';
+import CardContacos from '../components/UX/Card/CardContacos';
 
 export default function Contact() {
   return (
@@ -20,36 +21,13 @@ export default function Contact() {
             </Box>
         </BoxHeader>
         
-        <Box sx={{marginTop:'120px', display:'flex',justifyContent:'center',padding:"40px 30%", backgroundColor:'#00003d', flexDirection:'column',textAlign:'center'}}>
+        <Box sx={{marginTop:'120px', display:'flex',justifyContent:'center', backgroundColor:'#00003d', flexDirection:'column',textAlign:'center'}}>
             
             <Typography variant="h6" sx={{fontWeight: 'bold',marginBottom:'10px', color:'white'}}>
                 Escribe un Mensaje
             </Typography>
-            
-            <FormControl>
-                <Box sx={{display:'flex', flexDirection:'row'}}>
-                    <Inputs  
-                        placeholder="   Nombre"
-                    /> 
-                    <Inputs
-                        placeholder="   Apellido"
-                        sx={{marginLeft:'5px'}}
-                    /> 
-                </Box>
-                <Inputs
-                    type="email"
-                    placeholder="   Correo Electronico"
-                />
-                <Inputs
-                    placeholder="   Motivo"
-                />
-                <Inputs
-                    placeholder="   Mensaje"
-                />
-                <Box sx={{display:'flex', justifyContent:'center', marginTop:'15px'}}>
-                    <Buttons href='/Contactos' sx={{color:'#fff', padding:'20px'}}>Enviar</Buttons>
-                </Box>
-            </FormControl>
+           
+            <CardContacos></CardContacos>
         </Box>
     </Box>
   )
