@@ -8,6 +8,7 @@ interface Teams {
   description: string;
 }
 interface Tournaments {
+  _id:string,
   name: string;
   description: string;
   _idImg: string;

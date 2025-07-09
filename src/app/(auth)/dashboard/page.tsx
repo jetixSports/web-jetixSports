@@ -23,6 +23,7 @@ import Background from "../../components/UX/Background/Background";
 import useCreateTeam from "./useCreateTeam";
 import { CancelOutlined } from "@mui/icons-material";
 import useCreateTorneo from "./useCreateTorneo";
+import { useRouter } from "next/navigation";
 
 
 const DashboardView = () => {
@@ -160,7 +161,7 @@ const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard, user:
 }
 
 const SectionTournaments = ({ dashboardHook, type, user }: {  dashboardHook: Dashboard, type: string, user: any }) => {
-
+    const router=useRouter()
     const [showModalCreate, setShowModalCreate] = useState(false)
     const createTorneoHook = useCreateTorneo({
         callback() {
@@ -203,12 +204,11 @@ const SectionTournaments = ({ dashboardHook, type, user }: {  dashboardHook: Das
                     </Box>
                 </Box>
             </Box>}
-
             <Box>
                 {["admin", "organizer"].includes(user?.role ?? "") && <Buttons onClick={() => setShowModalCreate(true)} sx={{ color: "white" }}>Crear Torneo</Buttons>}
-                <Grid container spacing={3}>
+                <Grid container spacing={3} sx={{ marginY: 2 }}>
                     {dashboardHook?.[type === "registered"?'registeredTour':'myTournaments']?.map((tournament,i) => (
-                        <Grid sx={{ width: 207, padding: 0 }} key={i} >
+                        <Grid sx={{ width: 207, padding: 0 }} key={i} onClick={()=>router.push('/Torneos/'+tournament._id)} >
                             <Card sx={{ padding: 0 }}>
                                 <Box sx={{ width: '100%', height: 100 }}>
                                     <Image

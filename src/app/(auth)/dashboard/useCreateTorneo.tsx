@@ -41,8 +41,6 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
       return
     try {
       setStatus(false)
-      console.log(data);
-      
       const formData = new FormData();
       Object.entries(data).forEach(([key, value]) => {
         const newValue = key == "file" ? value[0] : value

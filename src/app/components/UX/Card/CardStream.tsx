@@ -1,6 +1,11 @@
+'use client'
 import React from 'react';
-import {  Box,  Card,  Typography,  Button, CardMedia, CardContent, CardActions,
- Chip, LinearProgress, Container} from "@mui/material";
+import {
+  Box, Card, Typography, Button, CardMedia, CardContent, CardActions,
+  Chip, LinearProgress, Container
+} from "@mui/material";
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 
 interface Torneo {
@@ -19,6 +24,7 @@ interface Torneo {
 }
 
 export default function CardStream() {
+  const router = useRouter()
   const TorneoPro: Torneo[] = [
     {
       id: 1,
@@ -32,21 +38,22 @@ export default function CardStream() {
       numPlayers: 80,
       Team: 5,
       image: './assets/img/valorant.png',
-      url: 'htpps://ejemplo.com'
+      url: 'https://www.twitch.tv/ibai'
     },
     {
       id: 2,
       title: 'Campeonato Valorant Champions',
       juego: 'Valorant',
       fecha: '02/12/2025',
-      plataforma: 'YouTube Gaming',
+      plataforma: 'Twitch',
+
       premio: '500$',
       Precio: '10$',
       Players: 100,
       numPlayers: 75,
       Team: 5,
       image: './assets/img/valorant.png',
-      url: 'htpps://ejemplo.com'
+      url: 'https://www.twitch.tv/ibai'
     },
     {
       id: 3,
@@ -54,27 +61,29 @@ export default function CardStream() {
       juego: 'Fortnite',
       fecha: '02/12/2025',
       plataforma: 'Twitch',
+
       premio: '450$',
       Precio: '5$',
       Players: 150,
       numPlayers: 120,
       Team: 2,
       image: './assets/img/valorant.png',
-      url: 'htpps://ejemplo.com'
+      url: 'https://www.twitch.tv/ibai'
     },
     {
       id: 4,
       title: 'CS:GO Global Offensive',
       juego: 'CS:GO',
       fecha: '02/12/2025',
-      plataforma: 'Facebook Gaming',
+      plataforma: 'Twitch',
+
       premio: '600$',
       Precio: '12$',
       Players: 80,
       numPlayers: 65,
       Team: 5,
       image: './assets/img/valorant.png',
-      url: 'htpps://ejemplo.com'
+      url: 'https://www.twitch.tv/ibai'
     },
     {
       id: 5,
@@ -82,48 +91,54 @@ export default function CardStream() {
       juego: 'Dota 2',
       fecha: '02/12/2025',
       plataforma: 'Twitch',
+
       premio: '750$',
       Precio: '15$',
       Players: 90,
       numPlayers: 85,
       Team: 5,
       image: './assets/img/valorant.png',
-      url: 'htpps://ejemplo.com'
+      url: 'https://www.twitch.tv/ibai'
     },
     {
       id: 6,
       title: 'Rocket League Championship',
       juego: 'Rocket League',
       fecha: '02/12/2025',
-      plataforma: 'YouTube Gaming',
+      plataforma: 'Twitch',
+
       premio: '350$',
       Precio: '7$',
       Players: 110,
       numPlayers: 95,
       Team: 3,
       image: './assets/img/valorant.png',
-      url: 'htpps://ejemplo.com'
+      url: 'https://www.twitch.tv/ibai'
     }
   ];
 
   return (
-    <Box sx={{ py: 3,width: '100%' }}>
+    <Box sx={{ py: 3, width: '100%' }}>
       <Container maxWidth="lg">
         <Box sx={{
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'center',
-          gap: 4 }}>
+          gap: 4
+        }}>
 
           {TorneoPro.map((torneo) => (
-            <Box key={torneo.id} sx={{width:'100%'}}
+            <Link href={torneo.url} key={torneo.id} className='w-full no-underline' target="_blank"
             >
-              <Card sx={{ height: '120px',width:'100%', display: 'flex',backgroundColor:'#2f105b',flexDirection: 'row',
-                  transition: 'transform 0.3s, box-shadow 0.3s',
-                  '&:hover': {
-                    transform: 'translateY(-5px)',
-                    boxShadow: 6 }}}
-               >
+              <Card sx={{
+                cursor: 'pointer', height: '120px', width: '100%', display: 'flex', backgroundColor: '#2f105b', flexDirection: 'row',
+                transition: 'transform 0.3s, box-shadow 0.3s',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: 6
+                }
+              }}
+              >
                 <CardMedia
                   component="img"
                   sx={{ width: 200 }}
@@ -132,39 +147,34 @@ export default function CardStream() {
                 />
                 <Box sx={{ flexGrow: '1', display: 'flex', flexDirection: 'row' }}>
 
-                    <CardContent sx={{ display: 'flex', flexDirection: 'row'}}>
-                        
-                        <Box sx={{ display: 'flex', flexDirection: 'column',width: '400px', justifyContent:'center' }}>
-                            <Typography gutterBottom variant="h5" component="div" sx={{color:"white" }}>
-                            {torneo.title}
-                            </Typography>
-                  
-                            <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
-                                <Chip label={torneo.juego} sx={{color:"white" }} size="small" />
-                                <Chip label={torneo.plataforma} variant="outlined" sx={{color:"white" }} size="small" />
-                            </Box>
-                        </Box>
+                  <CardContent sx={{ display: 'flex', flexDirection: 'row' }}>
 
-                        <Box sx={{ display: 'flex', justifyContent:'center', flexDirection: 'column',width:'300px' }}>
-                            
-                            <Typography variant="body2" color="white" sx={{ mb: 1, marginBottom:'10px'}}>
-                                Premio: <strong>{torneo.premio}</strong> • Inscripción: <strong>{torneo.Precio}</strong>
-                            </Typography>
-                    
-                            <Typography variant="body2" sx={{ mb: 1,color:"white" }}>
-                                Jugadores: {torneo.numPlayers}/{torneo.Players} • {torneo.Team} vs {torneo.Team} 
-                            </Typography>
-                    
-                        </Box> 
-                    </CardContent>
-                    <CardActions sx={{ display: 'flex', flexDirection: 'row', marginLeft:'15px'}}>
-                        <Button href={torneo.url} size="small" variant="contained" sx={{backgroundColor:'#77589c',color:'white'}}>
-                            Ir al Torneo
-                        </Button>
-                    </CardActions>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', width: '400px', justifyContent: 'center' }}>
+                      <Typography gutterBottom variant="h5" component="div" sx={{ color: "white" }}>
+                        {torneo.title}
+                      </Typography>
+
+                      <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
+                        <Chip label={torneo.juego} sx={{ color: "white" }} size="small" />
+                        <Chip label={torneo.plataforma} variant="outlined" sx={{ color: "white" }} size="small" />
+                      </Box>
+                    </Box>
+
+                    <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', width: '300px' }}>
+                      <Typography variant="body2" sx={{ mb: 1, color: "white" }}>
+                        Jugadores: {torneo.numPlayers}/{torneo.Players} • {torneo.Team} vs {torneo.Team}
+                      </Typography>
+
+                    </Box>
+                  </CardContent>
+                  <CardActions sx={{ display: 'flex', flexDirection: 'row', marginLeft: '15px' }}>
+                    <Button href={'/Torneos/'} size="small" variant="contained" sx={{ backgroundColor: '#77589c', color: 'white' }}>
+                      Ir al Torneo
+                    </Button>
+                  </CardActions>
                 </Box>
               </Card>
-            </Box>
+            </Link>
           ))}
         </Box>
       </Container>

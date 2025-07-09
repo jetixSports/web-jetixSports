@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import useFetch from "./hooks/useFetch";
 
 interface Torneo {
-  id: number;
+  _id: string;
   name: string;
   typeSport: string;
   status:string;
@@ -12,7 +12,8 @@ interface Torneo {
   teamSpace:number;
   amount: string;
   startDate: string;
-  image: any;
+  _idImg: string;
+  teams:any[]
 }
 
 export default function usePage() {
