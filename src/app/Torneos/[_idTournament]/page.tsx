@@ -185,15 +185,13 @@ function TeamsSection({ hookTour }: { hookTour: HookTour }) {
                   <Typography variant="body2" color="text.secondary">
                     Miembros:
                   </Typography>
-                  <List dense>
+                  <Box sx={{paddingLeft:2}}>
                     {team.members.map((_idUser, index) => {
                       const user=users?.find(u=>u._id==_idUser)
                       return (
-                      <ListItem key={index}>
-                        <ListItemText primary={`${user?.firstName} ${user?.lastName}`} />
-                      </ListItem>
+                        <Typography key={index}>{`${index+1}) ${user?.firstName} ${user?.lastName}`}</Typography>
                     )})}
-                  </List>
+                  </Box>
                 </CardContent>
               </Card>
             </Grid>

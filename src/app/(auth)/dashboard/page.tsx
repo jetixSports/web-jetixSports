@@ -24,6 +24,7 @@ import useCreateTeam from "./useCreateTeam";
 import { CancelOutlined } from "@mui/icons-material";
 import useCreateTorneo from "./useCreateTorneo";
 import { useRouter } from "next/navigation";
+import TeamDetails from "../../components/UX/TeamDetails/TeamDetails";
 
 
 const DashboardView = () => {
@@ -91,6 +92,7 @@ const DashboardView = () => {
 // Componente para la sección de Equipos
 const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard, user: any }) => {
     const [showModalCreate, setShowModalCreate] = useState(false)
+    const [showModalDetails, setShowModalDetails] = useState<Teams|null>(null)
     const createTeamHook = useCreateTeam({
         callback() {
             createTeamHook.reset()
@@ -113,6 +115,18 @@ const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard, user:
                         }} sx={{ color: "white", cursor: "pointer" }}></CancelOutlined> </Box>
                     </Box>
                     {createTeamHook.reactForm}
+                </Box>
+            </Box>}
+            {showModalDetails && <Box onClick={() => {
+                setShowModalDetails(null)
+            }} sx={{ zIndex: 10, paddingTop: 5, top: 0, left: 0, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
+                <Box sx={{ marginTop: 10 }} onClick={(e) => e.stopPropagation()}>
+                    <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end" }}>
+                        <Box sx={{ position: "absolute", margin: 4 }}><CancelOutlined onClick={() => {
+                            setShowModalDetails(null)
+                        }} sx={{ color: "white", cursor: "pointer" }}></CancelOutlined> </Box>
+                    </Box>
+                    <TeamDetails team={showModalDetails}></TeamDetails>
                 </Box>
             </Box>}
             <Box>
@@ -142,11 +156,10 @@ const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard, user:
                                         <Typography variant="body2" color="white" sx={{ marginY: 1 }}>
                                             {team.members.length} miembros
                                         </Typography>
-                                        {team._idLeader == user?._id && <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                                            <Buttons sx={{ color: "white", marginBottom: 1 }}>Invitar</Buttons>
-                                            <Buttons sx={{ color: "white" }}>Detalles</Buttons>
-                                        </Box>}
-
+                                        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                                            {team._idLeader == user?._id && <Buttons sx={{ color: "white", marginBottom: 1,}}>Invitar</Buttons>}
+                                            <Buttons onClick={() => setShowModalDetails(team)} sx={{ color: "white", marginLeft:"auto"  }}>Detalles</Buttons>
+                                        </Box>
                                     </Box>
                                 </CardActionArea>
                             </Card>

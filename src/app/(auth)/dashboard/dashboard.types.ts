@@ -4,6 +4,7 @@ interface Teams {
   _idImg: string;
   _idLeader: string;
   members: string[];
+  createdDate:string;
   status: string;
   description: string;
 }
