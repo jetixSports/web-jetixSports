@@ -12,16 +12,23 @@ import Form from "../components/UX/Form/Form";
 import Buttons from "../components/UX/Buttons/Buttons";
 import Inputs from "../components/UX/Inputs/Inputs";
 import { useSession } from "next-auth/react";
+import useCreateTorneo from "../(auth)/dashboard/useCreateTorneo";
+import { CancelOutlined } from "@mui/icons-material";
 
 export default function Torneos() {
   const { data: session } = useSession();
   
   const user = session?.user
   const rol = user?.role;
-  
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [showModalCreate, setShowModalCreate] = useState(false)
+    const createTorneoHook = useCreateTorneo({
+        callback() {
+            createTorneoHook.reset()
+            setShowModalCreate(false)
+        },
+    })
+  const handleOpen = () => setShowModalCreate(true);
+  const handleClose = () => setShowModalCreate(false);
 
   const juegosOptions = [
     { value: 'Valorant', label: 'Valorant' },
@@ -33,6 +40,37 @@ export default function Torneos() {
 
   return (
     <Box sx={{ margin:'0'}}>
+        {showModalCreate && <Box onClick={() => {
+                      setShowModalCreate(false),
+                          createTorneoHook.reset()
+                  }} sx={{
+                      zIndex: 10, position: "fixed", top: 0, left: 0, width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex",
+                      justifyContent: "center", alignItems: "flex-start", overflow: "hidden"
+                  }}>
+      
+                      <Box sx={{
+                          marginTop: 15, maxHeight: "75vh", display: "flex", flexDirection: "column",
+                          borderRadius: "10px", position: "relative", overflow: "hidden"
+                      }} onClick={(e) => e.stopPropagation()}>
+                          <Box sx={{
+                               flex: 1, overflowY: "auto", '&::-webkit-scrollbar': { width: '6px', },
+                              '&::-webkit-scrollbar-thumb': {
+                                  backgroundColor: 'white', borderRadius: '3px',
+                              }
+                          }}>
+                              <Box sx={{ position: "relative", width: "100%", display: 'flex', justifyContent: "end" }}>
+                                  <Box sx={{ position: "absolute", marginY: 4, marginX:4 }}>
+                                      <CancelOutlined onClick={() => {
+                                          setShowModalCreate(false)
+                                          createTorneoHook.reset()
+                                      }} sx={{ color: "white", cursor: "pointer" }}>
+                                      </CancelOutlined>
+                                  </Box>
+                              </Box>
+                              {createTorneoHook.reactForm}
+                          </Box>
+                      </Box>
+                  </Box>}
       <BoxHeader>
         <Background  sx={{backgroundColor: "#00003D"}} src="./backgrounds/torneo.svg"></Background>
         <Box sx={{color:'white', margin:'220px 0  0 100px'}}>
@@ -43,7 +81,7 @@ export default function Torneos() {
           <Typography>Disfruta streaming en vivo de torneos de eSports y deportes físicos,</Typography>
           <Typography> y descubre eventos exclusivos, todo en un solo lugar. </Typography>
           
-          {rol === 'organizer' ? (
+          {rol === 'organizer' || rol=="admin" ? (
             <Buttons variant="contained" onClick={handleOpen} sx={{marginTop:'15px', borderRadius:'6px', backgroundColor:'white', color:'#00003d'}}>
             Crear Torneo
             </Buttons>
@@ -74,7 +112,7 @@ export default function Torneos() {
             </Box>
         </Box>
 
-  <Dialog open={open} onClose={handleClose}>
+  {/* <Dialog open={open} onClose={handleClose}>
     <DialogTitle sx={{backgroundColor:'#00003d',color:'white', height:'auto', width:'auto'}}>
       <Typography sx={{ fontWeight: 'bold', color: "white", textAlign: "center", fontSize: 24 }}>
         Crear Torneo
@@ -213,7 +251,7 @@ export default function Torneos() {
         </Form>   
        </DialogContent>
     </Box>
-  </Dialog>
+  </Dialog> */}
 
 </Box>
     

@@ -220,14 +220,14 @@ const SectionTournaments = ({ dashboardHook, type, user }: {  dashboardHook: Das
                                         unoptimized={true}
                                     ></Image>
                                 </Box>
-                                <Box sx={{ padding: 1 }}  >
-                                    <Typography variant="h6" gutterBottom>
+                                <Box sx={{ padding: 1,backgroundColor: "#440079"  }}  >
+                                    <Typography variant="h6" gutterBottom sx={{ color: "white" }}>
                                         {tournament.name}
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                                    <Typography variant="body2" color="text.secondary" gutterBottom sx={{ color: "white" }}>
                                         Inicia: {new Date(tournament.startDate).toLocaleDateString()}
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                                    <Typography variant="body2" color="text.secondary" gutterBottom sx={{ color: "white" }}>
                                         Termina: {new Date(tournament.endDate).toLocaleDateString()}
                                     </Typography>
 
@@ -238,7 +238,7 @@ const SectionTournaments = ({ dashboardHook, type, user }: {  dashboardHook: Das
                                         />
                                     )}
                                     {type === "myTournaments" && (
-                                        <Typography variant="body2" >
+                                        <Typography variant="body2" sx={{ color: "white" }}>
                                             {tournament.teams.length} equipos participantes
                                         </Typography>
                                     )}

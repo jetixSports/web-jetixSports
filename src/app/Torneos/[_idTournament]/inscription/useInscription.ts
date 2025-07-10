@@ -58,7 +58,7 @@ function useInscription({_idTournament}:{_idTournament:string}) {
         
         toast.dismiss(loadingToast);
         setStatus(true)
-        if (res?.status != 200) {
+        if (res?.statusCode != 200) {
             toast.error(!res?.message || res?.message == '' ? "Ha ocurrido un error." : res?.message, {
                 duration: 4000,
                 position: 'top-center',

@@ -74,7 +74,7 @@ function App({ params }: { params: { _idTournament: string } }) {
             </MenuItem>
           )})}
         </Select>
-        <Box sx={{ width: "100%", gap: 2, display: 'flex', flexDirection: "column" }}>
+        <Box sx={{ width: "100%", gap: 2,marginY:"20px", display: 'flex', flexDirection: "column" }}>
           <Buttons disabled={!status} type="submit" sx={{ marginTop: "5px" }} variant="contained">Inscribirse</Buttons>
         </Box>
       </Form>

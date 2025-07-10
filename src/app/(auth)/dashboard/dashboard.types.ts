@@ -8,7 +8,7 @@ interface Teams {
   description: string;
 }
 interface Tournaments {
-  _id:string,
+  _id: string,
   name: string;
   description: string;
   _idImg: string;
@@ -18,15 +18,21 @@ interface Tournaments {
   teamSpace: number;
   startDate: Date;
   endDate: Date;
-  status:string;
+  status: string;
   rounds: {
     nRound: string;
     _idMatchs: string[];
     teamsWinners: string[];
-    teamsMatches: string[];
+    teamsMatchs: string[];
     status: string;
   }[];
-  teams: string;
+  teams: {
+    _id: string;
+    _idTeam: string;
+    status: string;
+    playersMembers: string[];
+    _idLeader: string;
+  }[];
 }
 interface Dashboard {
   teams: Teams[] | null;
