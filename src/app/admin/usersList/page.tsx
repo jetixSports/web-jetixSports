@@ -40,7 +40,7 @@ export default function UserList() {
   ]
   return (
     <Box sx={{ width: "100%", "display": 'flex', "alignItems": "center", flexDirection: "column", minHeight: "84.1vh" }}>
-      <Background src="/backgrounds/login.svg"></Background>
+      <Background sx={{backgroundColor:'#00003d'}}></Background>
       {deleteData && <Box onClick={() => setDeleteData(null)}
         sx={{ zIndex: 10, paddingY: 5, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
         <Box>
@@ -50,7 +50,7 @@ export default function UserList() {
             margin: 10,
             paddingX: { xs: 4, sm: 5 },
             paddingY: { xs: 2, sm: 3 },
-            backgroundColor: "#00003D",
+            backgroundColor: "#2f105b",
             border: "solid white 1px",
             borderRadius: "14px",
           }} onClick={(e) => e.stopPropagation()}>
@@ -94,14 +94,14 @@ export default function UserList() {
         </Box>
       </Box>}
       <Box sx={{ marginTop: 15, marginX: 2 }}>
-        <TableContainer component={Paper} sx={{ maxWidth: 900, color: "white", backgroundColor: "#00003D" }}>
+        <TableContainer component={Paper} sx={{ maxWidth: 900, color: "white",  backgroundColor: "#20105b" }}>
           <Box sx={{ display: 'flex', margin: 1, flexDirection: 'column' }}>
             <Typography variant="h6" sx={{ p: 2 }}>Lista de Usuarios</Typography>
             <Box sx={{ marginX: 1, display: 'flex', gap: 1, }}>
               <Select sx={{
                 paddingX: "10px",
                 marginY: "5px",
-                backgroundColor: "#20105B",
+                backgroundColor: "#070744ff",
                 borderRadius: "10px",
                 color: "white",
                 height: 36,
@@ -111,7 +111,7 @@ export default function UserList() {
                   return <MenuItem key={index} value={item[0]}>{item[1]}</MenuItem>
                 })}
               </Select>
-              <Inputs sx={filter[0] == "Todos" ? { opacity: 0.6 } : {}} disabled={filter[0] == "Todos"} value={filter[1]} onChange={(e) => {
+              <Inputs sx={filter[0] == "Todos" ? { opacity: 0.6 } : {}} style={{backgroundColor:'#070744ff'}} disabled={filter[0] == "Todos"} value={filter[1]} onChange={(e) => {
                 const newValue = [filter[0], e.target.value]
                 setFilter(newValue)
               }}></Inputs>

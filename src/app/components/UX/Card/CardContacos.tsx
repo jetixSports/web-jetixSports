@@ -10,7 +10,6 @@ import EmailIcon from '@mui/icons-material/Email'
 
 export default function CardContacos() {
 
-    const [selectedCard, setSelectedCard] = React.useState(0);
     const cards = [
         {
             id: 1,
@@ -67,7 +66,6 @@ export default function CardContacos() {
             }}} />
         }
     ];
-
 
   return (
     <Box

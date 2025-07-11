@@ -9,7 +9,7 @@ const GameCarusel = () => {
     {
       id: 1,
       title: 'FIFA',
-      image: './assets/img/valorant.png',
+      image: './assets/img/lol.png',
     },
     {
       id: 2,

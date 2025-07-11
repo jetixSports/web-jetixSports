@@ -14,10 +14,6 @@ import {
   Grid,
   Chip,
   Divider,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
   Paper
 } from '@mui/material';
 import { ExpandMore, ExpandLess, SportsEsports, People, LiveTv } from '@mui/icons-material';
@@ -25,6 +21,7 @@ import Background from '../../components/UX/Background/Background';
 import useIdTournament from './useIdTournament';
 import { Teams, Tournaments } from '../../(auth)/dashboard/dashboard.types';
 import { Match } from '../../types/matchs.types';
+import Buttons from '../../components/UX/Buttons/Buttons';
 
 interface HookTour {
   users: { _id: string, firstName: string, lastName: string }[] | null,
@@ -36,7 +33,7 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
   const hookIdTour = useIdTournament({ _idTournament })
   const [activeTab, setActiveTab] = useState(0);
   const [expandedRounds, setExpandedRounds] = useState<number[]>([]);
-
+  
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
   };
@@ -53,9 +50,14 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
     <Box sx={{ paddingTop: 15, display: 'flex', justifyContent: "center" }}>
       <Background sx={{ backgroundColor: '#270E60' }}></Background>
       <Box sx={{ maxWidth: 900, width: "90%", marginBottom: 3 }}>
-        <Typography variant="h4" gutterBottom color="white">
+        <Box>
+          <Typography variant="h4" gutterBottom color="white">
           {hookIdTour.tournament?.name}
-        </Typography>
+          </Typography>
+          <Buttons sx={{color:'white',borderRadius:'8px',margin:'5px 0 5px 0', '&:hover': {color:'#00003d', backgroundColor:'white'}}} href={`/Torneos/${_idTournament}/inscription`}>
+            Incribirse
+          </Buttons>
+        </Box>
         <Typography variant="h6" gutterBottom color="white">
           {hookIdTour.tournament?.description}
         </Typography>

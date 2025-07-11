@@ -27,6 +27,7 @@ function useCreateTeam({ callback }: { callback?: () => any }) {
       setStatus(false)
 
       const formData = new FormData();
+
       Object.entries(data).forEach(([key, value]) => {
         const newValue = key == "file" ? value[0] : value
         formData.append(key, newValue)
@@ -35,6 +36,7 @@ function useCreateTeam({ callback }: { callback?: () => any }) {
       formData.append("_idLeader", user?._id ?? "")
       const updateUser = await post(process.env.NEXT_PUBLIC_HOST_SERVICE + '/teams/', formData, true)
       setStatus(true)
+      
       if (updateUser.statusCode != 200)
         return toast.error(updateUser.message)
       toast.success(updateUser.message)

@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-function useInscription({_idTournament}:{_idTournament:string}) {
+function useMethodPay({_idTournament}:{_idTournament:string}) {
     const router = useRouter()
     const { get, post } = useFetch()
     const { data: session } = useSession();
@@ -80,12 +80,12 @@ function useInscription({_idTournament}:{_idTournament:string}) {
         tournament,
         handleSubmit: handleSubmit(onSubmit as any),
         fields: {
-            _idTeam: register('_idTeam', { required: 'El equipo es obligatorio', }),
-            playersMembers: register('playersMembers', { required: 'Los miembros son obligatorios' })
+            typePay: register('_idTeam', { required: 'El equipo es obligatorio', }),
+            Details: register('playersMembers', { required: 'Los miembros son obligatorios' })
         },
         errors,
         status
     }
 }
 
-export default useInscription
+export default useMethodPay

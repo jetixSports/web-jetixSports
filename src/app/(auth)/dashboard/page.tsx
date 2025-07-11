@@ -37,7 +37,7 @@ const DashboardView = () => {
     const user = session?.user;
     return (
         <Box sx={{ paddingTop: 15, display: 'flex', justifyContent: "center" }}>
-            <Background sx={{ backgroundColor: '#270E60' }}></Background>
+            <Background sx={{ backgroundColor: '#00003d' }}></Background>
             <Box sx={{ maxWidth: 900, width: "90%", }}>
                 <Typography variant="h4" gutterBottom color="white">
                     Mi Pagina

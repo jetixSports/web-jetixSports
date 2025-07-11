@@ -67,13 +67,6 @@ export default function CardTorneosDestacados() {
                   className={"w-full h-full"}
                   unoptimized={true}
                 ></Image>
-                {/* <CardMedia
-                  component="img"
-                  height="140"
-                  image={torneo.image}
-                  alt={torneo.name}
-                      unoptimized={true}
-                /> */}
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography gutterBottom variant="h5" component="div" sx={{ color: "white" }}>
                     {torneo.name}
