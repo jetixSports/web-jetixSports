@@ -33,7 +33,7 @@ const GameCarusel = () => {
     },
     {
       id: 6,
-      title: 'counter strike',
+      title: 'Counter Srike',
       image: './assets/img/counter.png',
     },
   ];
