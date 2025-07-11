@@ -16,7 +16,11 @@ export default function useIdTournament({ _idTournament }: { _idTournament: stri
     const [matchs,setMatchs]=useState<Match[]|null>(null)
     useEffect(() => {
         (async () => {
-            if (!user || teams || tournament || users || matchs) return;
+        if (!user || teams || tournament || users || matchs) return;
+            await getData()
+        })();
+    }, [user]);
+    async function getData() {
             try {
                 const tournamentRes = await post(
                     process.env.NEXT_PUBLIC_HOST_SERVICE + "/tournaments/filter/",
@@ -44,13 +48,12 @@ export default function useIdTournament({ _idTournament }: { _idTournament: stri
             } catch (error) {
                 toast.error(error + "");
             }
-        })();
-    }, [user]);
-
+    }
     return {
         teams,
         tournament,
         users,
-        matchs
+        matchs,
+        getData
     };
 }

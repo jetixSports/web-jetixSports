@@ -13,6 +13,7 @@ interface Match {
   createdAt: string | Date;
   updatedAt: string | Date;
   _idTeamWinner: string | null; 
+  initMatch:string;
   duration?: number; 
 }
 

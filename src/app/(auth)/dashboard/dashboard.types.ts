@@ -20,21 +20,23 @@ interface Tournaments {
   startDate: Date;
   endDate: Date;
   status: string;
-  rounds: {
-    nRound: string;
-    _idMatchs: string[];
-    teamsWinners: string[];
-    teamsMatchs: string[];
-    status: string;
-  }[];
-  teams: {
+  rounds:Rounds[];
+  teams: TourTeams[];
+}
+interface TourTeams{
     _id: string;
     _idTeam: string;
     status: string;
     playersMembers: string[];
     _idLeader: string;
-  }[];
-}
+  }
+interface Rounds{
+    nRound: string;
+    _idMatchs: string[];
+    teamsWinners: string[];
+    teamsMatchs: string[];
+    status: string;
+  }
 interface Dashboard {
   teams: Teams[] | null;
   myTournaments: Tournaments[] | null;
@@ -43,4 +45,4 @@ interface Dashboard {
   getMyTournaments: () => any;
   getRegisteredTour: () => any;
 }
-export type { Teams, Tournaments, Dashboard };
+export type { Teams, Tournaments, Dashboard,Rounds,TourTeams };

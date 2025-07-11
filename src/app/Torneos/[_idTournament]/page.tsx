@@ -20,17 +20,23 @@ import {
   ListItemText,
   Paper
 } from '@mui/material';
-import { ExpandMore, ExpandLess, SportsEsports, People, LiveTv } from '@mui/icons-material';
+import { ExpandMore, ExpandLess, SportsEsports, People, LiveTv, CancelOutlined } from '@mui/icons-material';
 import Background from '../../components/UX/Background/Background';
 import useIdTournament from './useIdTournament';
 import { Teams, Tournaments } from '../../(auth)/dashboard/dashboard.types';
 import { Match } from '../../types/matchs.types';
+import Buttons from '../../components/UX/Buttons/Buttons';
+import useCreateRound from './useCreateRound';
+import useFetch from '../../hooks/useFetch';
+import { useSession } from 'next-auth/react';
+import toast from 'react-hot-toast';
 
 interface HookTour {
   users: { _id: string, firstName: string, lastName: string }[] | null,
   tournament: Tournaments | null,
   teams: Teams[] | null,
-  matchs: Match[] | null
+  matchs: Match[] | null,
+  getData: () => any
 }
 export default function TournamentView({ params: { _idTournament } }: { params: { _idTournament: string } }) {
   const hookIdTour = useIdTournament({ _idTournament })
@@ -59,6 +65,11 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
         <Typography variant="h6" gutterBottom color="white">
           {hookIdTour.tournament?.description}
         </Typography>
+        <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', marginBottom: 2 }}>
+
+          <Buttons href={`${_idTournament}/inscription`} sx={{ color: "white" }}>Inscribirse</Buttons>
+
+        </Box>
         <Paper sx={{ mb: 3, backgroundColor: '#2f105b', boxShadow: '0px 5px 5px ', }}>
           <Tabs value={activeTab} onChange={handleTabChange} variant="fullWidth"
             sx={{
@@ -93,17 +104,39 @@ function RoundsSection({ expandedRounds, toggleRound, hookTour }: {
   hookTour: HookTour
 }) {
   const { tournament, matchs, teams } = hookTour
+  const [showCreate, setShowCreate] = useState(false)
+  const creatRoundHook = useCreateRound({ teams, tournament, callback: () => { hookTour.getData(); setShowCreate(false) } })
+  const { post, get } = useFetch();
+  const [statusRound, setStatusRound] = useState(true)
+  const { data: session } = useSession();
+  const user = session?.user;
+
   return (
     <Box>
+      {showCreate && <Box onClick={() => {
+        setShowCreate(false)
+      }} sx={{ zIndex: 10, paddingTop: 5, top: 0, left: 0, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
+        <Box sx={{ marginTop: 10 }} onClick={(e) => e.stopPropagation()}>
+          <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end" }}>
+            <Box sx={{ position: "absolute", margin: 4 }}><CancelOutlined onClick={() => {
+              setShowCreate(false)
+
+            }} sx={{ color: "white", cursor: "pointer" }}></CancelOutlined> </Box>
+          </Box>
+          {creatRoundHook.reactForm}
+        </Box>
+      </Box>}
       <Typography variant="h5" gutterBottom color="white">
         Progreso del Torneo
       </Typography>
+      <Buttons onClick={() => setShowCreate(true)} sx={{ color: "white", marginBottom: 2 }}>Crear Ronda</Buttons>
+
       {tournament?.rounds?.length == 0 && <Box sx={{ marginY: 3 }}> <Typography sx={{ textAlign: "center", color: "white" }}>Este torneo no posee ninguna ronda</Typography></Box>}
       {tournament?.rounds.map((round, i) => (
         <Card key={i} sx={{ mb: 2 }}>
           <CardHeader
             sx={{ cursor: 'pointer' }}
-            title={"Ronda " + round.nRound}
+            title={"Ronda " + round.nRound + '   -  ' + (round.status == 'active' ? "Activa" : "Finalizada")}
             onClick={() => toggleRound(i)}
             action={
               <IconButton >
@@ -111,7 +144,6 @@ function RoundsSection({ expandedRounds, toggleRound, hookTour }: {
               </IconButton>
             }
           />
-
           <Collapse in={expandedRounds.includes(i)} timeout="auto" unmountOnExit>
             <CardContent>
               <Grid container spacing={2}>
@@ -120,21 +152,28 @@ function RoundsSection({ expandedRounds, toggleRound, hookTour }: {
                   if (!match) return ''
                   const teamWinner = match._idTeamWinner && match._idTeamWinner != '' ? teams?.find(t => t._id == match._idTeamWinner)?.name ?? '--' : '--'
                   return (
-                    <Grid key={j}>
+                    <Grid key={j} sx={{ minWidth: '280px' }}>
                       <Paper elevation={2} sx={{ p: 2 }}>
                         <Typography variant="h6" gutterBottom >
                           Encuentro {j + 1}
                         </Typography>
-                        {match.teams.map((matchTeam, k) => {
-                          const team = teams?.find((t) => t._id == matchTeam._idTeam)
-                          return <Box key={k} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <Typography>{team?.name + ' '} </Typography>
-                            <Typography>{matchTeam.score || '-'}</Typography>
-                          </Box>
-                        })}
+                        <Typography>Equipos: </Typography>
+                        <Box sx={{ paddingLeft: 2, marginY: 1 }}>
+
+                          {match.teams.map((matchTeam, k) => {
+                            const team = teams?.find((t) => t._id == matchTeam._idTeam)
+                            return <Box key={k} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                              <Typography>{team?.name + ' '} </Typography>
+                              <Typography>{matchTeam.score || '--'}</Typography>
+                            </Box>
+                          })}
+                        </Box>
+                        <Typography>Estatus: {(match.status == 'active' ? "Activo" : "Finalizado")}</Typography>
+                        <Typography>Fecha: {(new Date(match.initMatch).toLocaleString())}</Typography>
+
                         <Box sx={{ mt: 1, textAlign: 'center' }}>
                           <Chip
-                            label={`Ganador: ${teamWinner}`}
+                            label={`Equipo Ganador: ${teamWinner} `}
                             color="success"
                             size="small"
                           />
@@ -144,6 +183,34 @@ function RoundsSection({ expandedRounds, toggleRound, hookTour }: {
                   )
                 })}
               </Grid>
+              {(round.status != 'finished' && tournament._idReferee == user?._id) && <Box sx={{ display: "flex" }}>
+                <Buttons sx={{ color: 'white', marginTop: 2, marginLeft: 'auto' }}
+                  onClick={async () => {
+                    if (!statusRound)
+                      return
+                    try {
+                      setStatusRound(false)
+                      const loadindToast = toast.loading("Finalizando ronda...")
+                      const res = await post(
+                        process.env.NEXT_PUBLIC_HOST_SERVICE + "/tournaments/finishedRound",
+                        {
+                          _idTournament: tournament?._id,
+                          _idUser: user?._id
+                        }
+                      );
+                      toast.dismiss(loadindToast)
+                      setStatusRound(true)
+                      if (res.statusCode != 200)
+                        return toast.error(res.message)
+                      hookTour.getData()
+                      toast.success(res.message)
+                    } catch (error) {
+                      toast.error(error + "")
+                      setStatusRound(true)
+                    }
+                  }}
+                >Finalizar Ronda</Buttons>
+              </Box>}
             </CardContent>
           </Collapse>
         </Card>
@@ -159,6 +226,7 @@ function TeamsSection({ hookTour }: { hookTour: HookTour }) {
       <Typography variant="h5" gutterBottom color="white">
         Equipos Participantes
       </Typography>
+      {tournament?.teams?.length == 0 && <Box sx={{ marginY: 3 }}> <Typography sx={{ textAlign: "center", color: "white" }}>No se ha inscrito ningun equipo</Typography></Box>}
       <Grid container spacing={3}>
         {tournament?.teams.map((teamTour, i) => {
           const team = teams?.find((t) => t._id == teamTour._idTeam)
@@ -179,18 +247,19 @@ function TeamsSection({ hookTour }: { hookTour: HookTour }) {
                     </Avatar>
                   }
                   title={team.name}
-                  subheader={`Ronda actual: ${onlyRound?.nRound??'-'}`}
+                  subheader={`Ronda actual: ${onlyRound?.nRound ?? '-'}`}
                 />
                 <CardContent>
                   <Typography variant="body2" color="text.secondary">
                     Miembros:
                   </Typography>
-                  <Box sx={{paddingLeft:2}}>
+                  <Box sx={{ paddingLeft: 2 }}>
                     {team.members.map((_idUser, index) => {
-                      const user=users?.find(u=>u._id==_idUser)
+                      const user = users?.find(u => u._id == _idUser)
                       return (
-                        <Typography key={index}>{`${index+1}) ${user?.firstName} ${user?.lastName}`}</Typography>
-                    )})}
+                        <Typography key={index}>{`${index + 1}) ${user?.firstName} ${user?.lastName}`}</Typography>
+                      )
+                    })}
                   </Box>
                 </CardContent>
               </Card>
