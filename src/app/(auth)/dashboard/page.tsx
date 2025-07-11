@@ -25,6 +25,7 @@ import { CancelOutlined } from "@mui/icons-material";
 import useCreateTorneo from "./useCreateTorneo";
 import { useRouter } from "next/navigation";
 import TeamDetails from "../../components/UX/TeamDetails/TeamDetails";
+import useInviteTeam from "./useInviteTeam";
 
 
 const DashboardView = () => {
@@ -92,7 +93,8 @@ const DashboardView = () => {
 // Componente para la sección de Equipos
 const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard, user: any }) => {
     const [showModalCreate, setShowModalCreate] = useState(false)
-    const [showModalDetails, setShowModalDetails] = useState<Teams|null>(null)
+    const [showModalDetails, setShowModalDetails] = useState<Teams | null>(null)
+    const [invitationTeam, setInvitationTeam] = useState<string | null>(null)
     const createTeamHook = useCreateTeam({
         callback() {
             createTeamHook.reset()
@@ -100,8 +102,21 @@ const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard, user:
             dashboardHook.getTeams()
         },
     })
+    const inviteTeamHooks=useInviteTeam({teamId:invitationTeam})
     return (
         <>
+            {invitationTeam && <Box onClick={() => {
+                setInvitationTeam(null)
+            }} sx={{ zIndex: 10, paddingTop: 5, top: 0, left: 0, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
+                <Box sx={{ marginY: 5 }} onClick={(e) => e.stopPropagation()}>
+                    <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end" }}>
+                        <Box sx={{ position: "absolute", margin: 4,}}><CancelOutlined onClick={() => {
+                            setInvitationTeam(null)
+                        }} sx={{ color: "white", cursor: "pointer" }}></CancelOutlined> </Box>
+                    </Box>
+                    {inviteTeamHooks.reactForm}
+                </Box>
+            </Box>}
             {showModalCreate && <Box onClick={() => {
                 setShowModalCreate(false),
                     createTeamHook.reset()
@@ -157,8 +172,8 @@ const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard, user:
                                             {team.members.length} miembros
                                         </Typography>
                                         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                                            {team._idLeader == user?._id && <Buttons sx={{ color: "white", marginBottom: 1,}}>Invitar</Buttons>}
-                                            <Buttons onClick={() => setShowModalDetails(team)} sx={{ color: "white", marginLeft:"auto"  }}>Detalles</Buttons>
+                                            {team._idLeader == user?._id && <Buttons onClick={()=>setInvitationTeam(team._id)} sx={{ color: "white", marginBottom: 1, }}>Invitar</Buttons>}
+                                            <Buttons onClick={() => setShowModalDetails(team)} sx={{ color: "white", marginLeft: "auto" }}>Detalles</Buttons>
                                         </Box>
                                     </Box>
                                 </CardActionArea>
@@ -173,8 +188,8 @@ const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard, user:
     )
 }
 
-const SectionTournaments = ({ dashboardHook, type, user }: {  dashboardHook: Dashboard, type: string, user: any }) => {
-    const router=useRouter()
+const SectionTournaments = ({ dashboardHook, type, user }: { dashboardHook: Dashboard, type: string, user: any }) => {
+    const router = useRouter()
     const [showModalCreate, setShowModalCreate] = useState(false)
     const createTorneoHook = useCreateTorneo({
         callback() {
@@ -199,13 +214,13 @@ const SectionTournaments = ({ dashboardHook, type, user }: {  dashboardHook: Das
                     borderRadius: "10px", position: "relative", overflow: "hidden"
                 }} onClick={(e) => e.stopPropagation()}>
                     <Box sx={{
-                         flex: 1, overflowY: "auto", '&::-webkit-scrollbar': { width: '6px', },
+                        flex: 1, overflowY: "auto", '&::-webkit-scrollbar': { width: '6px', },
                         '&::-webkit-scrollbar-thumb': {
                             backgroundColor: 'white', borderRadius: '3px',
                         }
                     }}>
                         <Box sx={{ position: "relative", width: "100%", display: 'flex', justifyContent: "end" }}>
-                            <Box sx={{ position: "absolute", marginY: 4, marginX:4 }}>
+                            <Box sx={{ position: "absolute", marginY: 4, marginX: 4 }}>
                                 <CancelOutlined onClick={() => {
                                     setShowModalCreate(false)
                                     createTorneoHook.reset()
@@ -220,8 +235,8 @@ const SectionTournaments = ({ dashboardHook, type, user }: {  dashboardHook: Das
             <Box>
                 {["admin", "organizer"].includes(user?.role ?? "") && <Buttons onClick={() => setShowModalCreate(true)} sx={{ color: "white" }}>Crear Torneo</Buttons>}
                 <Grid container spacing={3} sx={{ marginY: 2 }}>
-                    {dashboardHook?.[type === "registered"?'registeredTour':'myTournaments']?.map((tournament,i) => (
-                        <Grid sx={{ width: 207, padding: 0 }} key={i} onClick={()=>router.push('/Torneos/'+tournament._id)} >
+                    {dashboardHook?.[type === "registered" ? 'registeredTour' : 'myTournaments']?.map((tournament, i) => (
+                        <Grid sx={{ width: 207, padding: 0 }} key={i} onClick={() => router.push('/Torneos/' + tournament._id)} >
                             <Card sx={{ padding: 0 }}>
                                 <Box sx={{ width: '100%', height: 100 }}>
                                     <Image
@@ -233,7 +248,7 @@ const SectionTournaments = ({ dashboardHook, type, user }: {  dashboardHook: Das
                                         unoptimized={true}
                                     ></Image>
                                 </Box>
-                                <Box sx={{ padding: 1,backgroundColor: "#440079"  }}  >
+                                <Box sx={{ padding: 1, backgroundColor: "#440079" }}  >
                                     <Typography variant="h6" gutterBottom sx={{ color: "white" }}>
                                         {tournament.name}
                                     </Typography>
@@ -260,7 +275,7 @@ const SectionTournaments = ({ dashboardHook, type, user }: {  dashboardHook: Das
                         </Grid>
                     ))}
                 </Grid>
-                {!dashboardHook?.[type === "registered"?'registeredTour':'myTournaments'] && <Box sx={{ marginY: 3 }}> <Typography sx={{ textAlign: "center", color: "white" }}>{
+                {!dashboardHook?.[type === "registered" ? 'registeredTour' : 'myTournaments'] && <Box sx={{ marginY: 3 }}> <Typography sx={{ textAlign: "center", color: "white" }}>{
                     type == "myTournaments" ? "No tienes ningun torneo" : "No estas en ningun torneo"}</Typography></Box>}
 
             </Box >
