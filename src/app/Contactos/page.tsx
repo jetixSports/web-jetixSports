@@ -16,10 +16,10 @@ export default function Contact() {
                 <Typography variant="h4" sx={{fontWeight: 'bold',marginBottom:'10px'}}>
                     Contactanos en una de nuestras Redes Sociales
                 </Typography>
-                <Typography>Siempre hay una novedad en Jetix Sports, si quieres 
-                    mantenerte al tanto de todos los eventos, actualizaciones 
-                    y torneos por venir, mantente al día con nuestras redes 
-                    sociales y no pierdas el ritmo. </Typography>
+                <Typography>Siempre hay una novedad en Jetix Sports, si quieres <br/>
+                    mantenerte al tanto de todos los eventos, actualizaciones <br/>
+                    y torneos por venir, mantente al día con nuestras redes <br/>
+                    sociales y no pierdas el ritmo.<br/> </Typography>
             </Box>
         </BoxHeader>
         

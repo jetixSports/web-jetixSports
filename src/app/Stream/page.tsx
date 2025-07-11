@@ -14,11 +14,11 @@ export default function Streaming() {
                 <Box sx={{color:'white', margin:'220px 0  0 100px'}}>
                     <Typography variant="h4" sx={{fontWeight: 'bold',marginBottom:'10px'}}>
                     Para los espectadores, ¡vive la emoción en vivo!</Typography>
-                    <Typography>¡No te pierdas ningún evento! Jetix Sports garantiza 
-                        streams en alta calidad para tus eventos de eSports favoritos, 
-                        de tus juegos favoritos con tus competidores favoritos. 
-                        Mantente al día con los horarios y no te pierdas los torneos 
-                        del momento. ¡Se parte de la competencia, todo show necesita 
+                    <Typography>¡No te pierdas ningún evento! Jetix Sports garantiza<br/> 
+                        streams en alta calidad para tus eventos de eSports favoritos,<br/> 
+                        de tus juegos favoritos con tus competidores favoritos. <br/>
+                        Mantente al día con los horarios y no te pierdas los torneos <br/>
+                        del momento. ¡Se parte de la competencia, todo show necesita <br/>
                         su audiencia después de todo!</Typography>
                 </Box>
             </Box>
