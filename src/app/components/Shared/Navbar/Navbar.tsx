@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import UserIcon from '../../UX/UserIcon/UserIcon';
-import { Logout, Person } from '@mui/icons-material';
+import { Logout, Mail, Person } from '@mui/icons-material';
 import useFetch from '@/src/app/hooks/useFetch';
 
 export default function NavBar() {
@@ -231,6 +231,10 @@ export default function NavBar() {
                     <Person sx={{ mr: 1 }} />
                     Tu perfil
                   </MenuItem>
+                  <MenuItem onClick={handleMenuClose} href='/invitations'>
+                    <Mail sx={{ mr: 1 }} />
+                    Invitaciones
+                  </MenuItem>
                   <MenuItem onClick={handleMenuClose} href='/Torneos'>
                     <SportsEsportsIcon sx={{ mr: 1 }} />
                     Torneos
@@ -309,6 +313,10 @@ export default function NavBar() {
                 <MenuItem onClick={handleMenuClose} href='/Profile'>
                   <Person sx={{ mr: 1 }} />
                   Tu perfil
+                </MenuItem>
+                <MenuItem onClick={handleMenuClose} href='/invitations'>
+                  <Mail sx={{ mr: 1 }} />
+                  Invitaciones
                 </MenuItem>
                 {user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/admin/usersList'>
                   Lista de Usuarios
