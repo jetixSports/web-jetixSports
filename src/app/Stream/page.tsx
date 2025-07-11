@@ -13,10 +13,13 @@ export default function Streaming() {
                 <Background src="./backgrounds/login.svg"></Background>
                 <Box sx={{color:'white', margin:'220px 0  0 100px'}}>
                     <Typography variant="h4" sx={{fontWeight: 'bold',marginBottom:'10px'}}>
-                        Disfruta de tus Torneos Favoritos</Typography>
-                    <Typography>Diseñada para los verdaderos competidores y fans. </Typography>
-                    <Typography>Disfruta streaming en vivo de torneos de eSports y deportes físicos,</Typography>
-                    <Typography> y descubre eventos exclusivos, todo en un solo lugar. </Typography>
+                    Para los espectadores, ¡vive la emoción en vivo!</Typography>
+                    <Typography>¡No te pierdas ningún evento! Jetix Sports garantiza 
+                        streams en alta calidad para tus eventos de eSports favoritos, 
+                        de tus juegos favoritos con tus competidores favoritos. 
+                        Mantente al día con los horarios y no te pierdas los torneos 
+                        del momento. ¡Se parte de la competencia, todo show necesita 
+                        su audiencia después de todo!</Typography>
                 </Box>
             </Box>
         </BoxHeader>
