@@ -9,22 +9,22 @@ const GameCarusel = () => {
     {
       id: 1,
       title: 'FIFA',
-      image: './assets/img/valorant.png',
+      image: './assets/img/FIFA.png',
     },
     {
       id: 2,
       title: 'Free Fire',
-      image: './assets/img/valorant.png',
+      image: './assets/img/free.png',
     },
     {
       id: 3,
       title: 'Call of Duty',
-      image: './assets/img/valorant.png',
+      image: './assets/img/warfare.png',
     },
     {
       id: 4,
       title: 'League of Legends',
-      image: './assets/img/valorant.png',
+      image: './assets/img/LOL.png',
     },
     {
       id: 5,
@@ -33,8 +33,8 @@ const GameCarusel = () => {
     },
     {
       id: 6,
-      title: 'Pokemón',
-      image: './assets/img/lol.png',
+      title: 'counter strike',
+      image: './assets/img/counter.png',
     },
   ];
 
