@@ -11,7 +11,7 @@ import Form from '../../components/UX/Form/Form'
 import { Rounds, Teams, Tournaments } from '../../(auth)/dashboard/dashboard.types'
 import BoxSelect from '../../components/UX/BoxSelect/BoxSelect'
 
-function useCreateRound({ tournament, teams,callback }: { tournament: Tournaments | null, teams: Teams[] | null ,callback?:()=>any}) {
+function useCreateRound({ tournament, teams, callback }: { tournament: Tournaments | null, teams: Teams[] | null, callback?: () => any }) {
   const { post } = useFetch()
   const { register, handleSubmit, formState: { errors }, setValue } = useForm()
   const [status, setStatus] = useState(true)
@@ -61,7 +61,7 @@ function useCreateRound({ tournament, teams,callback }: { tournament: Tournament
       if (res.statusCode != 200)
         return toast.error(res.message)
       toast.success(res.message)
-      if(callback)
+      if (callback)
         callback()
     } catch (error) {
       toast.error(error + "")
@@ -69,8 +69,8 @@ function useCreateRound({ tournament, teams,callback }: { tournament: Tournament
     }
   }
   function genMatch() {
-    const mount = teamsValues.length 
-    const numbersArr = Array.from({ length: mount  }, (_, i) => i);
+    const mount = teamsValues.length
+    const numbersArr = Array.from({ length: mount }, (_, i) => i);
     const result = [];
 
     for (let i = 0; i < mount; i++) {
@@ -100,68 +100,71 @@ function useCreateRound({ tournament, teams,callback }: { tournament: Tournament
         >
           Crear Ronda
         </Typography>
-        <Typography sx={{ color: "white" }}>Equipos Adelantados</Typography>
-        <BoxSelect
+        {onlyTeams.length < 2 && <>
+          <Typography sx={{ color: "red", textAlign: "center" }}>No posees la cantidad de equipos suficientes para crear una ronda</Typography>
+        </>}
+        {onlyTeams.length > 1 && <><Typography sx={{ color: "white" }}>Equipos Adelantados</Typography>
+          <BoxSelect
             setValue={setValue}
-          options={teamsValues}
-          valuesDisabled={selectedTeams.flat(2)}
-          externalValue={selectedTeams[onlyTeams.slice(0, Math.floor(onlyTeams.length / 2)).length]}
-          onChange={(e) => {
-            const newSelect = [...selectedTeams]
-            newSelect[onlyTeams.slice(0, Math.floor(onlyTeams.length / 2)).length] = (typeof e.target.value === 'string' ? e.target.value.split(',') : e.target.value)
-            setSelectedTeams(newSelect)
-          }}
-          field={fields.teamsPass}
-        ></BoxSelect>
-        {(onlyTeams.slice(0, Math.floor(onlyTeams.length / 2))).map((item, index: number) => {
-          return <Box key={index}><Typography sx={{ color: "white" }}>Encuentro {index + 1}</Typography>
-            <BoxSelect
-            setValue={setValue}
-              options={teamsValues}
-              valuesDisabled={selectedTeams.flat(2)}
-              externalValue={selectedTeams[index]}
-              onChange={(e) => {
-                const newSelect = [...selectedTeams]
-                newSelect[index] = (typeof e.target.value === 'string' ? e.target.value.split(',') : e.target.value)
-                setSelectedTeams(newSelect)
-              }}
-              field={register('match_' + index)}
-            ></BoxSelect>
-            <Box sx={{ display: 'flex', gap: 1 }}>
-              <Box sx={{ width: "100%" }}>
-                <Typography sx={{ color: "white" }}>Fecha {index + 1}</Typography>
-                <Inputs type='date' {...register('date_' + index)}></Inputs>
-              </Box>
-              <Box sx={{ width: "100%" }}>
-                <Typography sx={{ color: "white" }}>Hora {index + 1}</Typography>
-                <Inputs type='time' {...register('time_' + index)}></Inputs>
+            options={teamsValues}
+            valuesDisabled={selectedTeams.flat(2)}
+            externalValue={selectedTeams[onlyTeams.slice(0, Math.floor(onlyTeams.length / 2)).length]}
+            onChange={(e) => {
+              const newSelect = [...selectedTeams]
+              newSelect[onlyTeams.slice(0, Math.floor(onlyTeams.length / 2)).length] = (typeof e.target.value === 'string' ? e.target.value.split(',') : e.target.value)
+              setSelectedTeams(newSelect)
+            }}
+            field={fields.teamsPass}
+          ></BoxSelect>
+          {(onlyTeams.slice(0, Math.floor(onlyTeams.length / 2))).map((item, index: number) => {
+            return <Box key={index}><Typography sx={{ color: "white" }}>Encuentro {index + 1}</Typography>
+              <BoxSelect
+                setValue={setValue}
+                options={teamsValues}
+                valuesDisabled={selectedTeams.flat(2)}
+                externalValue={selectedTeams[index]}
+                onChange={(e) => {
+                  const newSelect = [...selectedTeams]
+                  newSelect[index] = (typeof e.target.value === 'string' ? e.target.value.split(',') : e.target.value)
+                  setSelectedTeams(newSelect)
+                }}
+                field={register('match_' + index)}
+              ></BoxSelect>
+              <Box sx={{ display: 'flex', gap: 1 }}>
+                <Box sx={{ width: "100%" }}>
+                  <Typography sx={{ color: "white" }}>Fecha {index + 1}</Typography>
+                  <Inputs type='date' {...register('date_' + index)}></Inputs>
+                </Box>
+                <Box sx={{ width: "100%" }}>
+                  <Typography sx={{ color: "white" }}>Hora {index + 1}</Typography>
+                  <Inputs type='time' {...register('time_' + index)}></Inputs>
+                </Box>
               </Box>
             </Box>
-          </Box>
-        })}
-        <Box
-          sx={{
-            minWidth: "290px",
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          <Buttons
-            type="button"
-            sx={{ marginTop: "5px", }}
-            variant="contained"
-            onClick={genMatch}
+          })}
+          <Box
+            sx={{
+              minWidth: "290px",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
           >
-            Generar
-          </Buttons>
-          <Buttons
-            type="submit"
-            sx={{ marginTop: "5px", marginLeft: "auto" }}
-            variant="contained"
-          >
-            Guardar
-          </Buttons>
-        </Box>
+            <Buttons
+              type="button"
+              sx={{ marginTop: "5px", }}
+              variant="contained"
+              onClick={genMatch}
+            >
+              Generar
+            </Buttons>
+            <Buttons
+              type="submit"
+              sx={{ marginTop: "5px", marginLeft: "auto" }}
+              variant="contained"
+            >
+              Guardar
+            </Buttons>
+          </Box></>}
       </Form>
     ),
   };

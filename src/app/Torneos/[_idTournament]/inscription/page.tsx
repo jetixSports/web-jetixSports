@@ -7,8 +7,8 @@ import Form from '@/src/app/components/UX/Form/Form'
 import Buttons from '@/src/app/components/UX/Buttons/Buttons'
 
 function App({ params }: { params: { _idTournament: string } }) {
-  const { handleSubmit, tournament, status,fields,teams,watch ,users} = useInscription({ _idTournament: params._idTournament })
-  const [persons,setPerson]=useState<string[]>([])
+  const { handleSubmit, tournament, status, fields, teams, watch, users } = useInscription({ _idTournament: params._idTournament })
+  const [persons, setPerson] = useState<string[]>([])
   const handleChange = (event: SelectChangeEvent<string[]>) => {
     const {
       target: { value },
@@ -27,6 +27,9 @@ function App({ params }: { params: { _idTournament: string } }) {
         <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", textAlign: "center", }}>
           Torneo: {tournament?.name}
         </Typography>
+        {(teams?.length ?? 0) < 1 && <>
+          <Typography sx={{ color: "red", textAlign: "center" }}>No posees ningun equipo que registrar</Typography>
+        </>}
         <Typography sx={{ color: "white" }}>Equipo:</Typography>
         <Select
           sx={{
@@ -39,13 +42,13 @@ function App({ params }: { params: { _idTournament: string } }) {
             height: 36,
           }}
           {...fields._idTeam}
-          onChange={(e)=>{
-            if(fields._idTeam)
+          onChange={(e) => {
+            if (fields._idTeam)
               fields._idTeam.onChange(e)
             setPerson([])
           }}
-          >
-            {teams?.map((item,i)=><MenuItem key={i} value={item._id}>{item.name}</MenuItem>)}
+        >
+          {teams?.map((item, i) => <MenuItem key={i} value={item._id}>{item.name}</MenuItem>)}
         </Select>
         <Typography sx={{ color: "white" }}>Integrantes:</Typography>
         <Select
@@ -62,19 +65,20 @@ function App({ params }: { params: { _idTournament: string } }) {
           value={persons}
           {...fields.playersMembers}
           onChange={handleChange}
-          >
-        {teams?.find(team=>team._id==watch('_idTeam'))?.members.map((_idUser) => {
-          const user=users?.find(item=>item._id==_idUser)
-          return(
-            <MenuItem
-              key={_idUser}
-              value={_idUser}
-            >
-              {user?.firstName} {user?.lastName}
-            </MenuItem>
-          )})}
+        >
+          {teams?.find(team => team._id == watch('_idTeam'))?.members.map((_idUser) => {
+            const user = users?.find(item => item._id == _idUser)
+            return (
+              <MenuItem
+                key={_idUser}
+                value={_idUser}
+              >
+                {user?.firstName} {user?.lastName}
+              </MenuItem>
+            )
+          })}
         </Select>
-        <Box sx={{ width: "100%", gap: 2,marginY:"20px", display: 'flex', flexDirection: "column" }}>
+        <Box sx={{ width: "100%", gap: 2, marginY: "20px", display: 'flex', flexDirection: "column" }}>
           <Buttons disabled={!status} type="submit" sx={{ marginTop: "5px" }} variant="contained">Inscribirse</Buttons>
         </Box>
       </Form>

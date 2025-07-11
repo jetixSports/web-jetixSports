@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react';
+import { use, useState } from 'react';
 import {
   Box,
   Typography,
@@ -30,6 +30,9 @@ import useCreateRound from './useCreateRound';
 import useFetch from '../../hooks/useFetch';
 import { useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
+import useFinishedMatch from './useFinishedMatch';
+import useCreateStream from './useCreateStream';
+import { useRouter } from 'next/navigation';
 
 interface HookTour {
   users: { _id: string, firstName: string, lastName: string }[] | null,
@@ -42,6 +45,13 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
   const hookIdTour = useIdTournament({ _idTournament })
   const [activeTab, setActiveTab] = useState(0);
   const [expandedRounds, setExpandedRounds] = useState<number[]>([]);
+  const [streamData, setStreamData] = useState<{ _idUser: string, _idTournament: string, _idMatch?: string, _idTeam?: string, type: string } | null>(null)
+  const createStreamHook = useCreateStream({
+    dataStream: streamData, callback() {
+      setStreamData(null);
+      hookIdTour.getData()
+    },
+  })
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
@@ -58,6 +68,18 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
   return (
     <Box sx={{ paddingTop: 15, display: 'flex', justifyContent: "center" }}>
       <Background sx={{ backgroundColor: '#270E60' }}></Background>
+      {streamData && <Box onClick={() => {
+        setStreamData(null)
+      }} sx={{ zIndex: 10, paddingTop: 5, top: 0, left: 0, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
+        <Box sx={{ marginTop: 10 }} onClick={(e) => e.stopPropagation()}>
+          <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end" }}>
+            <Box sx={{ position: "absolute", margin: 4 }}><CancelOutlined onClick={() => {
+              setStreamData(null)
+            }} sx={{ color: "white", cursor: "pointer" }}></CancelOutlined> </Box>
+          </Box>
+          {createStreamHook.reactForm}
+        </Box>
+      </Box>}
       <Box sx={{ maxWidth: 900, width: "90%", marginBottom: 3 }}>
         <Typography variant="h4" gutterBottom color="white">
           {hookIdTour.tournament?.name}
@@ -88,6 +110,7 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
               expandedRounds={expandedRounds}
               toggleRound={toggleRound}
               hookTour={hookIdTour}
+              setStreamData={setStreamData as any}
             />
           )}
 
@@ -98,18 +121,23 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
   );
 }
 
-function RoundsSection({ expandedRounds, toggleRound, hookTour }: {
+function RoundsSection({ expandedRounds, toggleRound, hookTour, setStreamData }: {
   expandedRounds: number[],
   toggleRound: (id: number) => void,
+  setStreamData: (data: { _idUser: string, _idTournament: string, _idMatch?: string, _idTeam?: string, type: string } | null) => {}
   hookTour: HookTour
 }) {
-  const { tournament, matchs, teams } = hookTour
-  const [showCreate, setShowCreate] = useState(false)
-  const creatRoundHook = useCreateRound({ teams, tournament, callback: () => { hookTour.getData(); setShowCreate(false) } })
-  const { post, get } = useFetch();
-  const [statusRound, setStatusRound] = useState(true)
   const { data: session } = useSession();
   const user = session?.user;
+  const { tournament, matchs, teams } = hookTour
+  const router = useRouter()
+  const [showCreate, setShowCreate] = useState(false)
+  const creatRoundHook = useCreateRound({ teams, tournament, callback: () => { hookTour.getData(); setShowCreate(false) } })
+  const [selectedMatch, setSelectedMatch] = useState<Match | null>(null)
+  const finishedMatchHook = useFinishedMatch({ match: selectedMatch, teams, _idUser: user?._id ?? "", callback: () => { hookTour.getData(); setSelectedMatch(null) } })
+  const { post, get } = useFetch();
+  const [statusRound, setStatusRound] = useState(true)
+
 
   return (
     <Box>
@@ -120,16 +148,28 @@ function RoundsSection({ expandedRounds, toggleRound, hookTour }: {
           <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end" }}>
             <Box sx={{ position: "absolute", margin: 4 }}><CancelOutlined onClick={() => {
               setShowCreate(false)
-
             }} sx={{ color: "white", cursor: "pointer" }}></CancelOutlined> </Box>
           </Box>
           {creatRoundHook.reactForm}
         </Box>
       </Box>}
+      {selectedMatch && <Box onClick={() => {
+        setSelectedMatch(null)
+      }} sx={{ zIndex: 10, paddingTop: 5, top: 0, left: 0, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
+        <Box sx={{ marginTop: 10 }} onClick={(e) => e.stopPropagation()}>
+          <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end" }}>
+            <Box sx={{ position: "absolute", margin: 4 }}><CancelOutlined onClick={() => {
+              setSelectedMatch(null)
+            }} sx={{ color: "white", cursor: "pointer" }}></CancelOutlined> </Box>
+          </Box>
+          {finishedMatchHook.reactForm}
+        </Box>
+      </Box>}
+
       <Typography variant="h5" gutterBottom color="white">
         Progreso del Torneo
       </Typography>
-      <Buttons onClick={() => setShowCreate(true)} sx={{ color: "white", marginBottom: 2 }}>Crear Ronda</Buttons>
+      {tournament?._idReferee == user?._id && <Buttons onClick={() => setShowCreate(true)} sx={{ color: "white", marginBottom: 2 }}>Crear Ronda</Buttons>}
 
       {tournament?.rounds?.length == 0 && <Box sx={{ marginY: 3 }}> <Typography sx={{ textAlign: "center", color: "white" }}>Este torneo no posee ninguna ronda</Typography></Box>}
       {tournament?.rounds.map((round, i) => (
@@ -151,6 +191,7 @@ function RoundsSection({ expandedRounds, toggleRound, hookTour }: {
                   const match = matchs?.find((m) => m._id == _idMatch)
                   if (!match) return ''
                   const teamWinner = match._idTeamWinner && match._idTeamWinner != '' ? teams?.find(t => t._id == match._idTeamWinner)?.name ?? '--' : '--'
+                  const userMatch = match.teams.find(m => teams?.find(t => t._id == m._idTeam)?._idLeader == user?._id)
                   return (
                     <Grid key={j} sx={{ minWidth: '280px' }}>
                       <Paper elevation={2} sx={{ p: 2 }}>
@@ -169,8 +210,8 @@ function RoundsSection({ expandedRounds, toggleRound, hookTour }: {
                           })}
                         </Box>
                         <Typography>Estatus: {(match.status == 'active' ? "Activo" : "Finalizado")}</Typography>
+                        <Typography>Duración: {match?.duration ?? "--"}</Typography>
                         <Typography>Fecha: {(new Date(match.initMatch).toLocaleString())}</Typography>
-
                         <Box sx={{ mt: 1, textAlign: 'center' }}>
                           <Chip
                             label={`Equipo Ganador: ${teamWinner} `}
@@ -178,12 +219,24 @@ function RoundsSection({ expandedRounds, toggleRound, hookTour }: {
                             size="small"
                           />
                         </Box>
+                        {match.status != "finished" && <Box sx={{ display: "flex", marginTop: 2 }}>
+                          {userMatch && <Buttons onClick={() => {
+                            if (userMatch?._idStream && userMatch?._idStream != "") {
+                              return router.push("/Stream/" + userMatch?._idStream)
+                            }
+                            setStreamData({ _idTournament: tournament?._id, _idUser: user?._id ?? "", type: "match", _idMatch: match._id, _idTeam: userMatch._idTeam })
+                          }} sx={{ color: "white", }}>
+                            {userMatch?._idStream && userMatch?._idStream != "" ? "Ver mi stream" : "Subir stream"}
+                          </Buttons>}
+                          <Buttons onClick={() => setSelectedMatch(match)} sx={{ color: "white", marginLeft: "auto" }}>Finalizar</Buttons>
+                        </Box>}
                       </Paper>
                     </Grid>
                   )
                 })}
               </Grid>
               {(round.status != 'finished' && tournament._idReferee == user?._id) && <Box sx={{ display: "flex" }}>
+
                 <Buttons sx={{ color: 'white', marginTop: 2, marginLeft: 'auto' }}
                   onClick={async () => {
                     if (!statusRound)

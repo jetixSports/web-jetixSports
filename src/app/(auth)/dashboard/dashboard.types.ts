@@ -4,12 +4,13 @@ interface Teams {
   _idImg: string;
   _idLeader: string;
   members: string[];
-  createdDate:string;
+  createdDate: string;
   status: string;
   description: string;
 }
 interface Tournaments {
-  _id: string,
+  _id: string;
+  _idReferee: string;
   name: string;
   description: string;
   _idImg: string;
@@ -20,23 +21,23 @@ interface Tournaments {
   startDate: Date;
   endDate: Date;
   status: string;
-  rounds:Rounds[];
+  rounds: Rounds[];
   teams: TourTeams[];
 }
-interface TourTeams{
-    _id: string;
-    _idTeam: string;
-    status: string;
-    playersMembers: string[];
-    _idLeader: string;
-  }
-interface Rounds{
-    nRound: string;
-    _idMatchs: string[];
-    teamsWinners: string[];
-    teamsMatchs: string[];
-    status: string;
-  }
+interface TourTeams {
+  _id: string;
+  _idTeam: string;
+  status: string;
+  playersMembers: string[];
+  _idLeader: string;
+}
+interface Rounds {
+  nRound: string;
+  _idMatchs: string[];
+  teamsWinners: string[];
+  teamsMatchs: string[];
+  status: string;
+}
 interface Dashboard {
   teams: Teams[] | null;
   myTournaments: Tournaments[] | null;
@@ -45,4 +46,4 @@ interface Dashboard {
   getMyTournaments: () => any;
   getRegisteredTour: () => any;
 }
-export type { Teams, Tournaments, Dashboard,Rounds,TourTeams };
+export type { Teams, Tournaments, Dashboard, Rounds, TourTeams };

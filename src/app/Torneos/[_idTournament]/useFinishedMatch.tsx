@@ -5,88 +5,56 @@ import { useSession } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import Buttons from '../../components/UX/Buttons/Buttons'
-import { Box, Typography } from '@mui/material'
+import { Box, MenuItem, Select, Typography } from '@mui/material'
 import Inputs from '../../components/UX/Inputs/Inputs'
 import Form from '../../components/UX/Form/Form'
 import { Rounds, Teams, Tournaments } from '../../(auth)/dashboard/dashboard.types'
 import BoxSelect from '../../components/UX/BoxSelect/BoxSelect'
+import { Match } from '../../types/matchs.types'
 
-function useFinishedMatch({ tournament, teams,callback }: { tournament: Tournaments | null, teams: Teams[] | null ,callback?:()=>any}) {
+function useFinishedMatch({ match, teams, _idUser, callback }: { match: Match | null, teams: Teams[] | null, _idUser: string, callback?: () => any }) {
   const { post } = useFetch()
-  const { register, handleSubmit, formState: { errors }, setValue } = useForm()
+  const { register, handleSubmit, formState: { errors }, reset } = useForm()
   const [status, setStatus] = useState(true)
-  const lastRound = tournament?.rounds.reduce((acc, item) => (!acc?.nRound || item.nRound > acc.nRound) ? item : acc, null as null | Rounds)
-  const onlyTeams = (lastRound?.teamsWinners ?? tournament?.teams.map(t => t._idTeam) ?? [])
-  const teamsValues = onlyTeams.map((team) => ({ value: team, name: teams?.find(t => t._id == team)?.name }))
-  const [selectedTeams, setSelectedTeams] = useState<string[][]>([])
   const fields = {
-    teamsPass: register("teamsPass"),
+    _idTeamWinner: register("_idTeamWinner", { required: "El equipo ganador es obligatorio" }),
+    duration: register("duration", { required: "La duración es obligatoria" }),
   }
-  const onSubmit = async (data: { [key: string]: string | string[] }) => {
+  const onSubmit = async (data: { [key: string]: string }) => {
     if (!status)
       return
     try {
       setStatus(false)
-      let errors = ''
-      const matchs = (onlyTeams.slice(0, Math.floor(onlyTeams.length / 2))).reduce((acc, item, index) => {
-        if (errors != '') return acc
-        if (!data['match_' + index] || data['match_' + index] == '') return acc
-        if (data['match_' + index].length < 2) {
-          errors = 'No se emparejo bien el encuentro ' + (index + 1)
-          return acc
-        }
-        const matchDate = new Date(String(data?.['date_' + index]) + ' ' + data?.['time_' + index])
-        if (matchDate + '' == 'Invalid Date') {
-          errors = 'Fecha mal creada en el encuentro  ' + (index + 1)
-          return acc
-        }
-        acc.push({
-          initMatch: matchDate.getDate(),
-          teams: data['match_' + index]
-        })
-        return acc
-      }, [] as any)
-      if (errors != '')
-        return toast.error(errors)
+      const { duration, _idTeamWinner, ...teamsPoints } = data
+      const scoreTeams = Object.entries(teamsPoints).map(([key, value]) => ({
+        _idTeam: key,
+        score: value
+      }))
       const res = await post(
-        process.env.NEXT_PUBLIC_HOST_SERVICE + "/tournaments/createRound",
+        process.env.NEXT_PUBLIC_HOST_SERVICE + "/tournaments/finishedMatch",
         {
-          _idTournament: tournament?._id,
-          typeSport: tournament?.typeSport,
-          matchs,
-          teamsPass: data?.teamsPass ?? []
+          _idMatch: match?._id,
+          _idTournament: match?._idTournament,
+          scoreTeams,
+          duration: Number(duration),
+          _idTeamWinner,
+          _idUser
         }
       );
       setStatus(true)
       if (res.statusCode != 200)
         return toast.error(res.message)
       toast.success(res.message)
-      if(callback)
+      if (callback)
         callback()
     } catch (error) {
       toast.error(error + "")
       setStatus(true)
     }
   }
-  function genMatch() {
-    const mount = teamsValues.length 
-    const numbersArr = Array.from({ length: mount  }, (_, i) => i);
-    const result = [];
 
-    for (let i = 0; i < mount; i++) {
-      const randomIndex = Math.floor(Math.random() * numbersArr.length);
-      const selectedNumber = numbersArr.splice(randomIndex, 1)[0];
-      result.push(onlyTeams[selectedNumber]);
-    }
-    const matchs = []
-    for (let i = 0; i < result.length; i += 2) {
-      const group = result.slice(i, i + 2);
-      matchs.push(group);
-    }
-    setSelectedTeams(matchs)
-  }
   return {
-    reset: () => setSelectedTeams([]),
+    reset,
     reactForm: (
       <Form handleSubmit={handleSubmit(onSubmit as any)}>
         <Typography
@@ -98,45 +66,43 @@ function useFinishedMatch({ tournament, teams,callback }: { tournament: Tourname
             fontSize: 24,
           }}
         >
-          Crear Ronda
+          Finalizar Encuentro
         </Typography>
-        <Typography sx={{ color: "white" }}>Equipos Adelantados</Typography>
-        <BoxSelect
-            setValue={setValue}
-          options={teamsValues}
-          valuesDisabled={selectedTeams.flat(2)}
-          externalValue={selectedTeams[onlyTeams.slice(0, Math.floor(onlyTeams.length / 2)).length]}
-          onChange={(e) => {
-            const newSelect = [...selectedTeams]
-            newSelect[onlyTeams.slice(0, Math.floor(onlyTeams.length / 2)).length] = (typeof e.target.value === 'string' ? e.target.value.split(',') : e.target.value)
-            setSelectedTeams(newSelect)
-          }}
-          field={fields.teamsPass}
-        ></BoxSelect>
-        {(onlyTeams.slice(0, Math.floor(onlyTeams.length / 2))).map((item, index: number) => {
-          return <Box key={index}><Typography sx={{ color: "white" }}>Encuentro {index + 1}</Typography>
-            <BoxSelect
-            setValue={setValue}
-              options={teamsValues}
-              valuesDisabled={selectedTeams.flat(2)}
-              externalValue={selectedTeams[index]}
-              onChange={(e) => {
-                const newSelect = [...selectedTeams]
-                newSelect[index] = (typeof e.target.value === 'string' ? e.target.value.split(',') : e.target.value)
-                setSelectedTeams(newSelect)
-              }}
-              field={register('match_' + index)}
-            ></BoxSelect>
-            <Box sx={{ display: 'flex', gap: 1 }}>
-              <Box sx={{ width: "100%" }}>
-                <Typography sx={{ color: "white" }}>Fecha {index + 1}</Typography>
-                <Inputs type='date' {...register('date_' + index)}></Inputs>
-              </Box>
-              <Box sx={{ width: "100%" }}>
-                <Typography sx={{ color: "white" }}>Hora {index + 1}</Typography>
-                <Inputs type='time' {...register('time_' + index)}></Inputs>
-              </Box>
-            </Box>
+        <Box ><Typography sx={{ color: "white" }}>Equipo Ganador</Typography>
+          <Select
+            sx={{
+              width: "100%",
+              paddingX: "10px",
+              marginY: "5px",
+              backgroundColor: "#20105B",
+              borderRadius: "10px",
+              color: "white",
+              height: 36,
+            }}
+            {...fields._idTeamWinner}
+          >
+            {match?.teams?.map((item, i) => <MenuItem key={i} value={item._idTeam}>{teams?.find((t) => t._id == item._idTeam)?.name}</MenuItem>)}
+          </Select>
+        </Box>
+        <Box><Typography sx={{ color: "white" }}>Duración (en minutos)</Typography>
+          <Inputs
+            type="number"
+            sx={{ width: "100%", height: 36 }}
+            {...fields.duration}
+            error={!!errors?.duration}
+            helperText={errors?.duration?.message + ""}
+          ></Inputs>
+        </Box>
+        {match?.teams.map((item, index: number) => {
+          const team = teams?.find((t) => t._id == item._idTeam)
+          return <Box key={index}><Typography sx={{ color: "white" }}>Puntuación del equipo {team?.name}</Typography>
+            <Inputs
+              type="number"
+              sx={{ width: "100%", height: 36 }}
+              {...register(item._idTeam, { required: "La puntuación es obligatorio" })}
+              error={!!errors?.[item._idTeam]}
+              helperText={errors?.[item._idTeam]?.message + ""}
+            ></Inputs>
           </Box>
         })}
         <Box
@@ -146,14 +112,6 @@ function useFinishedMatch({ tournament, teams,callback }: { tournament: Tourname
             justifyContent: "space-between",
           }}
         >
-          <Buttons
-            type="button"
-            sx={{ marginTop: "5px", }}
-            variant="contained"
-            onClick={genMatch}
-          >
-            Generar
-          </Buttons>
           <Buttons
             type="submit"
             sx={{ marginTop: "5px", marginLeft: "auto" }}
