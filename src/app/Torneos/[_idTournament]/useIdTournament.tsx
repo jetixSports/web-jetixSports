@@ -9,8 +9,6 @@ import { useRouter } from "next/navigation";
 
 export default function useIdTournament({ _idTournament }: { _idTournament: string }) {
     const { post, get } = useFetch();
-    const { data: session } = useSession();
-    const user = session?.user;
     const router = useRouter()
     const [teams, setTeams] = useState<Teams[] | null>(null);
     const [tournament, setTournament] = useState<Tournaments | null>(null);
@@ -18,10 +16,10 @@ export default function useIdTournament({ _idTournament }: { _idTournament: stri
     const [matchs, setMatchs] = useState<Match[] | null>(null)
     useEffect(() => {
         (async () => {
-            if (!user || teams || tournament || users || matchs) return;
+            if (teams || tournament || users || matchs) return;
             await getData()
         })();
-    }, [user]);
+    }, []);
     async function getData() {
         try {
             const tournamentRes = await post(
