@@ -12,6 +12,9 @@ import { signOut, useSession } from 'next-auth/react';
 import UserIcon from '../../UX/UserIcon/UserIcon';
 import { Logout, Mail, Person } from '@mui/icons-material';
 import useFetch from '@/src/app/hooks/useFetch';
+import ArticleIcon from '@mui/icons-material/Article';
+import AddCardIcon from '@mui/icons-material/AddCard';
+import GroupIcon from '@mui/icons-material/Group';
 
 export default function NavBar() {
   const { get } = useFetch()
@@ -247,12 +250,18 @@ export default function NavBar() {
                     <CallIcon sx={{ mr: 1 }} />
                     Contactos
                   </MenuItem>
-                  <MenuItem onClick={handleMenuClose} href='/dashboard'>
-                    Mi Página
-                  </MenuItem>
                   {user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/admin/usersList'>
+                    <GroupIcon sx={{ mr: 1 }}/>
                     Lista de Usuarios
                   </MenuItem>}
+                  {user?.role == "organizer" || user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/MethodPay'>
+                  <AddCardIcon sx={{ mr: 1 }}/>
+                  Mis metodos de pago
+                </MenuItem>}
+                  <MenuItem onClick={handleMenuClose} href='/dashboard'>
+                    <ArticleIcon sx={{ mr: 1 }}/>
+                    Mi Página
+                  </MenuItem>
                   <MenuItem onClick={async () => {
                     const data = await get(process.env.NEXT_PUBLIC_HOST_SERVICE + '/auth/logout')
                     await signOut()
@@ -319,11 +328,17 @@ export default function NavBar() {
                   Invitaciones
                 </MenuItem>
                 {user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/admin/usersList'>
-                  Lista de Usuarios
+                    <GroupIcon sx={{ mr: 1 }}/>
+                    Lista de Usuarios
+                  </MenuItem>}
+                  {user?.role == "organizer" || user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/MethodPay'>
+                  <AddCardIcon sx={{ mr: 1 }}/>
+                  Mis metodos de pago
                 </MenuItem>}
-                <MenuItem onClick={handleMenuClose} href='/dashboard'>
-                  Mi Página
-                </MenuItem>
+                  <MenuItem onClick={handleMenuClose} href='/dashboard'>
+                    <ArticleIcon sx={{ mr: 1 }}/>
+                    Mi Página
+                  </MenuItem>
                 <MenuItem onClick={async () => {
                   const data = await get(process.env.NEXT_PUBLIC_HOST_SERVICE + '/auth/logout')
                   await signOut()
