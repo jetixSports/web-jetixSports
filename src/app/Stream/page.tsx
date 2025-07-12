@@ -15,11 +15,7 @@ export default function Streaming() {
                     <Typography variant="h4" sx={{fontWeight: 'bold',marginBottom:'10px'}}>
                     Para los espectadores, ¡vive la emoción en vivo!</Typography>
                     <Typography>¡No te pierdas ningún evento! Jetix Sports garantiza<br/> 
-                        streams en alta calidad para tus eventos de eSports favoritos,<br/> 
-                        de tus juegos favoritos con tus competidores favoritos. <br/>
-                        Mantente al día con los horarios y no te pierdas los torneos <br/>
-                        del momento. ¡Se parte de la competencia, todo show necesita <br/>
-                        su audiencia después de todo!</Typography>
+                        streams en alta calidad para tus eventos de eSports favoritos.</Typography>
                 </Box>
             </Box>
         </BoxHeader>

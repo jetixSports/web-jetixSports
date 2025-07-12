@@ -14,11 +14,10 @@ export default function Contact() {
             <Background src="./backgrounds/login.svg"></Background>
             <Box sx={{color:'white', margin:'220px 0  0 100px'}}>
                 <Typography variant="h4" sx={{fontWeight: 'bold',marginBottom:'10px'}}>
-                    Contactanos en una de nuestras Redes Sociales
+                    Contactanos en una de nuestras Redes Sociales.
                 </Typography>
-                <Typography>Siempre hay una novedad en Jetix Sports, si quieres <br/>
-                    mantenerte al tanto de todos los eventos, actualizaciones <br/>
-                    y torneos por venir, mantente al día con nuestras redes <br/>
+                <Typography>Siempre hay una novedad en Jetix Sports,<br/>
+                     mantente al día con nuestras redes <br/>
                     sociales y no pierdas el ritmo.<br/> </Typography>
             </Box>
         </BoxHeader>

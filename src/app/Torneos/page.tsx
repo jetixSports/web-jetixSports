@@ -59,9 +59,9 @@ export default function Torneos() {
 
           <Typography variant="h4" sx={{fontWeight: 'bold',marginBottom:'10px'}}>
            Torneos Favoritos</Typography>
-          <Typography>Diseñada para los verdaderos competidores y fans. </Typography>
-          <Typography>Disfruta streaming en vivo de torneos de eSports y deportes físicos,</Typography>
-          <Typography> y descubre eventos exclusivos, todo en un solo lugar. </Typography>    
+          <Typography>¿Quieres convertirte en un competidor o quieres ser el que trae a la competencia? </Typography>
+          <Typography>Si es así, ¡estas en lugar correcto! </Typography>
+          <Typography>Jetix Sports ofrece acceso a torneos exclusivos en tus videojuegos favoritos. </Typography>    
         </Box>
         <Box>
           <Typography variant="h4" sx={{fontWeight: 'bold',color: 'white', marginTop:'100px',marginLeft:'100px'}}>

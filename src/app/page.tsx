@@ -22,15 +22,10 @@ export default function Home() {
 
           <Typography variant="h4" sx={{fontWeight: 'bold',marginBottom:'10px'}}>
             Disfruta de tus Torneos Favoritos</Typography>
-          <Typography>¡Bienvenido al epicentro de la competencia!</Typography>
-          <Typography>¿Quieres convertirte en un competidor o quieres<br/> 
-            ser el que trae a la competencia? Si es así, ¡estas en lugar correcto!<br/>
-            Jetix Sports ofrece acceso a torneos exclusivos <br/>
-            en tus videojuegos favoritos, por lo que puedes<br/>
-            competir por la gloria en donde te sientas mas cómodo.<br/>
-            O quizás eres más de organizar eventos, <br/>
-            por lo cual no te preocupes, también ofrecemos cuentas<br/>
-            para organizadores. ¡Sigue tu pasión y compite hoy!<br/></Typography>
+          <Typography>Diseñada para los verdaderos competidores y fans.</Typography>
+          <Typography>Disfruta del streaming en vivo de torneos de eSports y deportes físicos,<br/>
+            y descubre eventos exclusivos, todo en un solo lugar.</Typography>
+          
           
           
           {!user && <Box sx={{marginTop:'20px'}}>
