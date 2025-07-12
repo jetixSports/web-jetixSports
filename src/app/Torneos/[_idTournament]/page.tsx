@@ -22,16 +22,13 @@ import useIdTournament from './useIdTournament';
 import { Teams, Tournaments } from '../../(auth)/dashboard/dashboard.types';
 import { Match } from '../../types/matchs.types';
 import Buttons from '../../components/UX/Buttons/Buttons';
-<<<<<<< HEAD
-=======
-import useCreateRound from './useCreateRound';
-import useFetch from '../../hooks/useFetch';
-import { useSession } from 'next-auth/react';
-import toast from 'react-hot-toast';
-import useFinishedMatch from './useFinishedMatch';
 import useCreateStream from './useCreateStream';
+import { useSession } from 'next-auth/react';
+import useCreateRound from './useCreateRound';
+import useFinishedMatch from './useFinishedMatch';
+import useFetch from '../../hooks/useFetch';
+import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
->>>>>>> 1f2004799da62cb9a15cfdec79dc3c5d1ef20fe9
 
 interface HookTour {
   users: { _id: string, firstName: string, lastName: string }[] | null,
@@ -44,9 +41,6 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
   const hookIdTour = useIdTournament({ _idTournament })
   const [activeTab, setActiveTab] = useState(0);
   const [expandedRounds, setExpandedRounds] = useState<number[]>([]);
-<<<<<<< HEAD
-  
-=======
   const [streamData, setStreamData] = useState<{ _idUser: string, _idTournament: string, _idMatch?: string, _idTeam?: string, type: string } | null>(null)
   const createStreamHook = useCreateStream({
     dataStream: streamData, callback() {
@@ -55,7 +49,6 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
     },
   })
 
->>>>>>> 1f2004799da62cb9a15cfdec79dc3c5d1ef20fe9
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
   };
@@ -88,9 +81,7 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
           <Typography variant="h4" gutterBottom color="white">
           {hookIdTour.tournament?.name}
           </Typography>
-          <Buttons sx={{color:'white',borderRadius:'8px',margin:'5px 0 5px 0', '&:hover': {color:'#00003d', backgroundColor:'white'}}} href={`/Torneos/${_idTournament}/inscription`}>
-            Incribirse
-          </Buttons>
+          
         </Box>
         <Typography variant="h6" gutterBottom color="white">
           {hookIdTour.tournament?.description}
