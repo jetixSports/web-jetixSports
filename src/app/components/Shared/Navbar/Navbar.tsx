@@ -9,13 +9,12 @@ import { useTheme } from '@mui/material/styles';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
-import { Logout, Person } from '@mui/icons-material';
-import AddCardIcon from '@mui/icons-material/AddCard';
-import ArticleIcon from '@mui/icons-material/Article';
-import GroupIcon from '@mui/icons-material/Group';
-
 import UserIcon from '../../UX/UserIcon/UserIcon';
+import { Logout, Mail, Person } from '@mui/icons-material';
 import useFetch from '@/src/app/hooks/useFetch';
+import ArticleIcon from '@mui/icons-material/Article';
+import AddCardIcon from '@mui/icons-material/AddCard';
+import GroupIcon from '@mui/icons-material/Group';
 
 export default function NavBar() {
   const { get } = useFetch()
@@ -235,6 +234,10 @@ export default function NavBar() {
                     <Person sx={{ mr: 1 }} />
                     Tu perfil
                   </MenuItem>
+                  <MenuItem onClick={handleMenuClose} href='/invitations'>
+                    <Mail sx={{ mr: 1 }} />
+                    Invitaciones
+                  </MenuItem>
                   <MenuItem onClick={handleMenuClose} href='/Torneos'>
                     <SportsEsportsIcon sx={{ mr: 1 }} />
                     Torneos
@@ -319,6 +322,10 @@ export default function NavBar() {
                 <MenuItem onClick={handleMenuClose} href='/Profile'>
                   <Person sx={{ mr: 1 }} />
                   Tu perfil
+                </MenuItem>
+                <MenuItem onClick={handleMenuClose} href='/invitations'>
+                  <Mail sx={{ mr: 1 }} />
+                  Invitaciones
                 </MenuItem>
                 {user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/admin/usersList'>
                     <GroupIcon sx={{ mr: 1 }}/>

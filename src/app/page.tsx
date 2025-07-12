@@ -22,9 +22,16 @@ export default function Home() {
 
           <Typography variant="h4" sx={{fontWeight: 'bold',marginBottom:'10px'}}>
             Disfruta de tus Torneos Favoritos</Typography>
-          <Typography>Diseñada para los verdaderos competidores y fans. </Typography>
-          <Typography>Disfruta streaming en vivo de torneos de eSports y deportes físicos,</Typography>
-          <Typography> y descubre eventos exclusivos, todo en un solo lugar. </Typography>
+          <Typography>¡Bienvenido al epicentro de la competencia!</Typography>
+          <Typography>¿Quieres convertirte en un competidor o quieres<br/> 
+            ser el que trae a la competencia? Si es así, ¡estas en lugar correcto!<br/>
+            Jetix Sports ofrece acceso a torneos exclusivos <br/>
+            en tus videojuegos favoritos, por lo que puedes<br/>
+            competir por la gloria en donde te sientas mas cómodo.<br/>
+            O quizás eres más de organizar eventos, <br/>
+            por lo cual no te preocupes, también ofrecemos cuentas<br/>
+            para organizadores. ¡Sigue tu pasión y compite hoy!<br/></Typography>
+          
           
           {!user && <Box sx={{marginTop:'20px'}}>
             <Buttons sx={{color:'#00003d',backgroundColor:'white', p:'20px'}} href="/sign-up">Registrate</Buttons>
@@ -76,7 +83,7 @@ export default function Home() {
             <Card sx={{ maxWidth: 500,height: 340 }}>
               <CardMedia
                 sx={{ height: 340}}
-                image='./assets/img/valorant.png'/>
+                image='./assets/img/jugar.png'/>
             </Card>
           </Box>
 

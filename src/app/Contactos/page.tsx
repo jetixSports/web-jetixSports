@@ -16,9 +16,10 @@ export default function Contact() {
                 <Typography variant="h4" sx={{fontWeight: 'bold',marginBottom:'10px'}}>
                     Contactanos en una de nuestras Redes Sociales
                 </Typography>
-                <Typography>Diseñada para los verdaderos competidores y fans. </Typography>
-                <Typography>Disfruta streaming en vivo de torneos de eSports y deportes físicos,</Typography>
-                <Typography> y descubre eventos exclusivos, todo en un solo lugar. </Typography>
+                <Typography>Siempre hay una novedad en Jetix Sports, si quieres <br/>
+                    mantenerte al tanto de todos los eventos, actualizaciones <br/>
+                    y torneos por venir, mantente al día con nuestras redes <br/>
+                    sociales y no pierdas el ritmo.<br/> </Typography>
             </Box>
         </BoxHeader>
         
