@@ -52,7 +52,7 @@ export default function App() {
             <Box sx={{ width: "100%", display: 'flex', flexDirection: "row", alignItems: "center" }}>
               <Checkboxes checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} />
               <Typography sx={{ display: "flex", fontSize: "15px", marginBottom: "0", marginRight: "5px", color: "white" }} variant="body2" gutterBottom> Aceptas los</Typography>
-              <Link href="#" sx={{ fontSize: "15px" }} underline="hover" variant="body2"> {'Terminos y Condiciones'}</Link>
+              <Link href="/terms" sx={{ fontSize: "15px" }} underline="hover" variant="body2"> {'Terminos y Condiciones'}</Link>
             </Box>
             <Buttons disabled={!status} type="submit" sx={{ marginTop: "5px" }} variant="contained">Registrar</Buttons>
           </Box>
