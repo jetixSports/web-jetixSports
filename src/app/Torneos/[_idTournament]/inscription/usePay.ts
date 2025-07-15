@@ -83,9 +83,7 @@ export default function usePay({ _idTournament }: { _idTournament: string }) {
 
       // Enviar datos al servidor
       const response = await post(
-        `${process.env.NEXT_PUBLIC_HOST_SERVICE}/payments-history`,
-        formData,
-        true
+        `${process.env.NEXT_PUBLIC_HOST_SERVICE}/payments-history`, formData, true
       );
 
       if (!response.ok) {

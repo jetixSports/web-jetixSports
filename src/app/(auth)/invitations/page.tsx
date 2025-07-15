@@ -33,11 +33,11 @@ export default function Invitations() {
         denied: 'Rechazada'
     }
     return (
-        <Box sx={{ width: "100%", "display": 'flex', "alignItems": "center", flexDirection: "column", minHeight: "84.1vh" }}>
+        <Box sx={{ width: "100%",  display: 'flex',  alignItems: "center",  flexDirection: "column",  minHeight: "90vh", backgroundColor: "#00003D",  paddingTop: 15}}>
             <Background src="/backgrounds/login.svg"></Background>
             {invitationsHook.ReactDialog}
-            <Box sx={{ marginTop: 15, marginX: 2, marginBottom: 2 }}>
-                <TableContainer component={Paper} sx={{ maxWidth: 900, color: "white", backgroundColor: "#00003D" }}>
+            <Box sx={{width: "80%",  maxWidth: 600, marginBottom: 4 }}>
+                <TableContainer component={Paper} sx={{ maxWidth: 900, color: "white", backgroundColor: "#20105b" }}>
                     <Box sx={{ display: 'flex', margin: 1, flexDirection: 'column' }}>
                         <Typography variant="h6" sx={{ p: 2 }}>Lista de Invitaciones</Typography>
                         <Typography sx={{ paddingX: 1 }}>Buscar por Equipo:</Typography>
@@ -45,7 +45,7 @@ export default function Invitations() {
                             <Select sx={{
                                 paddingX: "10px",
                                 marginY: "5px",
-                                backgroundColor: "#20105B",
+                                backgroundColor: "#070744ff",
                                 borderRadius: "10px",
                                 color: "white",
                                 width:'100%',

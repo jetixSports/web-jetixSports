@@ -39,7 +39,7 @@ export default function UserList() {
     ["email", "Correo"], ["username", "Nombre de usuario"]
   ]
   return (
-    <Box sx={{ width: "100%", "display": 'flex', "alignItems": "center", flexDirection: "column", minHeight: "84.1vh" }}>
+    <Box sx={{  width: "100%",  display: 'flex',  alignItems: "center",  flexDirection: "column",  minHeight: "60vh", backgroundColor: "#00003D",  paddingTop: 15}}>
       <Background sx={{backgroundColor:'#00003d'}}></Background>
       {deleteData && <Box onClick={() => setDeleteData(null)}
         sx={{ zIndex: 10, paddingY: 5, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
@@ -93,7 +93,7 @@ export default function UserList() {
           {updateHook.reactForm}
         </Box>
       </Box>}
-      <Box sx={{ marginTop: 15, marginX: 2 }}>
+      <Box sx={{width: "80%",  maxWidth: 900, marginBottom: 4 }}>
         <TableContainer component={Paper} sx={{ maxWidth: 900, color: "white",  backgroundColor: "#20105b" }}>
           <Box sx={{ display: 'flex', margin: 1, flexDirection: 'column' }}>
             <Typography variant="h6" sx={{ p: 2 }}>Lista de Usuarios</Typography>

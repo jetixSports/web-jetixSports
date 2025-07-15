@@ -4,17 +4,20 @@ import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, useMediaQuery,
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import CallIcon from '@mui/icons-material/Call';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from '@mui/material/styles';
+import ArticleIcon from '@mui/icons-material/Article';
+import AddCardIcon from '@mui/icons-material/AddCard';
+import GroupIcon from '@mui/icons-material/Group';
+
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import UserIcon from '../../UX/UserIcon/UserIcon';
 import { Logout, Mail, Person } from '@mui/icons-material';
 import useFetch from '@/src/app/hooks/useFetch';
-import ArticleIcon from '@mui/icons-material/Article';
-import AddCardIcon from '@mui/icons-material/AddCard';
-import GroupIcon from '@mui/icons-material/Group';
+
 
 export default function NavBar() {
   const { get } = useFetch()
@@ -254,6 +257,10 @@ export default function NavBar() {
                     <GroupIcon sx={{ mr: 1 }}/>
                     Lista de Usuarios
                   </MenuItem>}
+                  {user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/Currency'>
+                    <MonetizationOnIcon sx={{ mr: 1 }}/>
+                    Divisa
+                  </MenuItem>}
                   {user?.role == "organizer" || user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/MethodPay'>
                   <AddCardIcon sx={{ mr: 1 }}/>
                   Mis metodos de pago
@@ -331,6 +338,10 @@ export default function NavBar() {
                     <GroupIcon sx={{ mr: 1 }}/>
                     Lista de Usuarios
                   </MenuItem>}
+                {user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/Currency'>
+                  <MonetizationOnIcon sx={{ mr: 1 }}/>
+                    Divisa
+                </MenuItem>}
                   {user?.role == "organizer" || user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/MethodPay'>
                   <AddCardIcon sx={{ mr: 1 }}/>
                   Mis metodos de pago

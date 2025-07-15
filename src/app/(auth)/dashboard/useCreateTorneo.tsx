@@ -1,14 +1,14 @@
 "use client"
-import { Box, Typography, MenuItem, Select } from "@mui/material";
+import { Box, Typography, MenuItem, Select, Stack, InputLabel } from "@mui/material";
 import { useForm } from "react-hook-form";
 import Inputs from "../../components/UX/Inputs/Inputs";
-import Formlarge from "../../components/UX/Form/Formlarge";
 import Buttons from "../../components/UX/Buttons/Buttons";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
 import Form from "../../components/UX/Form/Form";
+import useMethod from "../../MethodPay/useMethod";
 
 function useCreateTorneo({ callback }: { callback?: () => any }) {
   const { post } = useFetch()
@@ -16,7 +16,7 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
   const [status, setStatus] = useState(true)
   const { data: session, } = useSession();
   const user = session?.user;
-
+  const {methods, error} = useMethod()
   const juegosOptions = [
     { value: 'Valorant', label: 'Valorant' },
     { value: 'League of Legends', label: 'League of Legends' },
@@ -24,6 +24,19 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
     { value: 'Pokemon', label: 'Pokemon' },
     { value: 'Caida', label: 'Caida' },
   ]
+  const [paymentType, setPaymentType] = useState('');
+  const [selectedMethod, setSelectedMethod] = useState('');
+
+  const handlePaymentTypeChange = (event: { target: { value: SetStateAction<string>; }; }) => {
+    setPaymentType(event.target.value);
+    setSelectedMethod('');
+  };
+
+  const handleMethodChange = (event: { target: { value: SetStateAction<string>; }; }) => {
+    setSelectedMethod(event.target.value);
+    const selected = methods.find(m => m._id === event.target.value);
+    console.log("Método seleccionado:", selected);
+  };
 
   const fields = {
     name: register("name", { required: "El nombre es obligatorio" }),
@@ -161,6 +174,104 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
             />
           </Box>
         </Box>
+            <Stack spacing={{ xs: 3, sm: 2 }} useFlexGap>
+              <InputLabel id="payment-type-label" sx={{ color: 'white' }}>
+                Tipo de Método de Pago
+              </InputLabel>
+              <Select
+                labelId="payment-type-label"
+                id="payment-type-select"
+                value={paymentType}
+                label="Tipo de Método de Pago"
+                onChange={handlePaymentTypeChange}
+                sx={{
+                  width: "100%",
+                  paddingX: "10px",
+                  marginY: "5px",
+                  backgroundColor: "#20105B",
+                  borderRadius: "10px",
+                  color: "white",
+                  height: 36,
+                }}
+              >
+                <MenuItem value="mobile_payment">
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Typography>Pago Móvil</Typography>
+                  </Box>
+                </MenuItem>
+                <MenuItem value="bank_transfer">
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Typography>Transferencia Bancaria</Typography>
+                  </Box>
+                </MenuItem>
+                <MenuItem value="binance">
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Typography>Binance</Typography>
+                  </Box>
+                </MenuItem>
+              </Select>
+
+              <InputLabel id="specific-method-label" sx={{ color: 'white' }}>
+                Método de Pago
+              </InputLabel>
+              <Select
+                labelId="specific-method-label"
+                id="specific-method-select"
+                value={selectedMethod}
+                label="Método de Pago"
+                onChange={handleMethodChange}
+                disabled={!paymentType}
+                renderValue={(selected) => {
+                    const method = methods.find(m => m._id === selected);
+                    if (!method) return null;
+                    
+                    if (method.typePay === 'mobile_payment') {
+                      return `Pago Móvil: ${method.details.phoneNumber}`;
+                    }
+                    if (method.typePay === 'bank_transfer') {
+                      return `Transferencia: ${method.details.bankNumber}`;
+                    }
+                    if (method.typePay === 'binance') {
+                      return `Binance: ${method.details.email}`;
+                    }
+                    return selected;
+                  }}
+                sx={{
+                  width: "100%",
+                  paddingX: "10px",
+                  marginY: "5px",
+                  backgroundColor: "#20105B",
+                  borderRadius: "10px",
+                  color: "white",
+                  height: 36,
+                }}
+              >
+                {methods.filter(method => method.typePay === paymentType).map((method) => (
+                    <MenuItem key={method._id} value={method._id}>
+                      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                        {method.typePay === 'mobile_payment' && (
+                          <>
+                            <Typography><strong>Codigo del Banco: </strong>{method.details.mobileCode}</Typography>                   
+                            <Typography><strong>Numero de telefono: </strong>{method.details.phoneNumber}</Typography>
+                            <Typography><strong>Cedula: </strong>{method.details.identity}</Typography> 
+                          </> 
+                        )}
+                        {method.typePay === 'bank_transfer' && (
+                          <>
+                            <Typography><strong>Numero de cuenta: </strong>{method.details.bankNumber}</Typography> 
+                            <Typography><strong>Cedula: </strong>{method.details.identity}</Typography> 
+                          </>
+                        )}
+                        {method.typePay === 'binance' && (
+                          <>
+                            <Typography><strong>Emil: </strong>{method.details.email}</Typography> 
+                          </>
+                        )}
+                      </Box>
+                    </MenuItem>
+                ))}
+              </Select>
+        </Stack>
         <Typography sx={{ marginY: 1, color: "white" }}>
           Fecha de Inicio del Torneo
         </Typography>

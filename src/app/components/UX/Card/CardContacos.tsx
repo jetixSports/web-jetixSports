@@ -2,7 +2,7 @@
 import React from 'react'
 import { Box, Typography, Card, CardActionArea, CardContent, IconButton } from '@mui/material'
 import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import XIcon from '@mui/icons-material/X';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram'
 import EmailIcon from '@mui/icons-material/Email'
@@ -15,7 +15,7 @@ export default function CardContacos() {
             id: 1,
             title: 'Facebook',
             description: 'JetixSport',
-            url:'https://ejmplo.com',
+            url:'https://www.facebook.com/share/1FSwb2f3o6/',
             logo:<FacebookIcon sx={{ fontSize: 40, color: 'white',
               '&:hover': { 
                 borderRadius:'10px',
@@ -24,19 +24,19 @@ export default function CardContacos() {
         },
         {
             id: 2,
-            title: 'Twitter',
+            title: 'X',
             description: '@JetixSport',
-            url:'https://ejmplo.com',
-            logo:<TwitterIcon sx={{ fontSize: 40, color: 'white',
-              '&:hover': { color: '#1DA1F2', 
+            url:'https://x.com/JetixSport',
+            logo:<XIcon sx={{ fontSize: 40, color: 'white',
+              '&:hover': { color: '#ffffffff', 
                  borderRadius:'5px',
-                 backgroundColor: 'rgba(29, 161, 242, 0.1)'}}} />
+                 backgroundColor: 'rgba(0, 0, 0, 1)'}}} />
         },
         {
             id: 3,
             title: 'WhatsApp',
             description: '+58 412 657 89 63',
-            url:'https://ejmplo.com',
+            url:'https://whatsapp.com/channel/0029VbANtekEgGfEAaZPvG02',
             logo:<WhatsAppIcon sx={{ fontSize: 40, color: 'white',
               '&:hover': { color: '#25D366', 
                 borderRadius:'5px',
@@ -45,8 +45,8 @@ export default function CardContacos() {
         {
             id: 4,
             title: 'Instagram',
-            description: '@JetixSport.',
-            url:'https://ejmplo.com',
+            description: '@jetixsport',
+            url:'https://www.instagram.com/jetixsport/?igsh=MW9wZjh2ZmVhaHByNg%3D%3D#',
             logo:<InstagramIcon sx={{ fontSize: 40, color: 'white',
               '&:hover': {
                 borderRadius:'10px',
@@ -58,6 +58,7 @@ export default function CardContacos() {
             id: 5,
             title: 'Gmail',
             description: 'JetixSport@gmail.com',
+            url:'https://mail.google.com',
             logo: <EmailIcon sx={{ fontSize: 40, color: 'white',
               '&:hover': {
                 borderRadius:'10px',
@@ -78,10 +79,10 @@ export default function CardContacos() {
         textAlign:'center'
       }}
     >
-      {cards.map((card, index) => (
+      {cards.map((card) => (
         <Card>
           <CardActionArea
-            onClick={() => {card.url}}
+            onClick={() => { window.open(card.url, '_blank') }}
             sx={{
               height: '100%',
               width:'200px',

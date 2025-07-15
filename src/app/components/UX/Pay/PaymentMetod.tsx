@@ -15,6 +15,7 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 
 import Inputs from '../Inputs/Inputs';
 import Card from '../Card/CardPay';
+import useMethod from '@/src/app/MethodPay/useMethod';
 
 export default function PaymentMetod() {
 
@@ -24,6 +25,7 @@ export default function PaymentMetod() {
     }) => {
     setPaymentType(event.target.value);
     };
+    
 
   return (
 
@@ -31,7 +33,7 @@ export default function PaymentMetod() {
         
      <Stack spacing={{ xs: 3, sm: 2 }} useFlexGap>
       <FormControl component="fieldset" fullWidth>
-         <InputLabel id="payment-method-label" sx={{color:'white'}}>Método de pago</InputLabel>
+      <InputLabel id="payment-method-label" sx={{color:'white'}}>Método de pago</InputLabel>
         <Select
             labelId="payment-method-label"
             id="payment-method-select"
@@ -48,12 +50,12 @@ export default function PaymentMetod() {
             height: 36,
           }}
         >
-            <MenuItem value="payMovile">
+          <MenuItem value="mobile_payments">
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Typography>Pago Móvil</Typography>
             </Box>
             </MenuItem>
-            <MenuItem value="bankTransfer">
+            <MenuItem value="bank_transfer">
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Typography>Transferencia Bancaria</Typography>
             </Box>

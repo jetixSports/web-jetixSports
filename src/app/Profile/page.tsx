@@ -57,7 +57,7 @@ export default function Profile() {
                     {updateHook.reactForm}
                 </Box>
             </Box>}
-            <Background src="./backgrounds/torneo.svg"></Background>
+            <Background sx={{backgroundColor:'#00003d'}}></Background>
             <Box >
 
                 <Box sx={{ paddingY: 15, display: 'flex', justifyContent: 'center' }}>
