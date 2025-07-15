@@ -54,7 +54,6 @@ export default function Currency() {
                         ) : currencies && currencies.length > 0 ? (
                             currencies.map((currency) => (
                                 <TableRow key={currency.id} hover>
-                                
                                 <TableCell sx={{ color: 'white' }}>
                                     {currency.name}
                                 </TableCell>

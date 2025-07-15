@@ -58,7 +58,7 @@ export default function Torneos() {
         <Box sx={{color:'white', margin:'220px 0  0 100px'}}>
 
           <Typography variant="h4" sx={{fontWeight: 'bold',marginBottom:'10px'}}>
-           Torneos Favoritos</Typography>
+           Torneos</Typography>
           <Typography>¿Quieres convertirte en un competidor o quieres ser el que trae a la competencia? </Typography>
           <Typography>Si es así, ¡estas en lugar correcto! </Typography>
           <Typography>Jetix Sports ofrece acceso a torneos exclusivos en tus videojuegos favoritos. </Typography>    
