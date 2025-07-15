@@ -23,7 +23,7 @@ export default function useCurrency() {
 
     try {
       const res = await post(
-        `${process.env.NEXT_PUBLIC_HOST_SERVICE}/currency`
+        `${process.env.NEXT_PUBLIC_HOST_SERVICE}/currency/find`
       );
 
       if (!res || res.statusCode !== 200 || !Array.isArray(res.data)) {

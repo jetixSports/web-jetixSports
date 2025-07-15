@@ -31,14 +31,7 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
     setPaymentType(event.target.value);
     setSelectedMethod('');
   };
-
-  const handleMethodChange = (event: { target: { value: SetStateAction<string>; }; }) => {
-    setSelectedMethod(event.target.value);
-    const selected = methods.find(m => m._id === event.target.value);
-    console.log("Método seleccionado:", selected);
-  };
-
-  const fields = {
+const fields = {
     name: register("name", { required: "El nombre es obligatorio" }),
     description: register("description", { required: "la descripción es obligatoria" }),
     typeSport: register("typeSport", { required: "El Juego es obligatoria" }),
@@ -47,19 +40,30 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
     teamSpace: register("teamSpace", { required: "la descripción es obligatoria" }),
     startDate: register("startDate", { required: "la fecha es obligatoria" }),
     endDate: register("endDate", { required: "la fecha es obligatoria" }),
+    paymentsDetails: register("paymentsDetails", { required: "los detalles de pago es obligatorio" }),
     file: register("file", { required: "La imagen es obligatoria" })
   }
-  const onSubmit = async (data: { name: string, description: string,amount:string, typeSport: string, quotas: number, teamSpace: number, startDate: Date, endDate: Date, file: any }) => {
+  const handleMethodChange = (event: { target: { value: SetStateAction<string>; }; }) => {
+    setSelectedMethod(event.target.value);
+    const selected = methods.find(m => m._id === event.target.value);
+    if(fields.paymentsDetails?.onChange)
+      fields.paymentsDetails?.onChange(event)
+    console.log("Método seleccionado:", selected);
+  };
+
+  
+  const onSubmit = async (data: {paymentsDetails:string, name: string, description: string,amount:string, typeSport: string, quotas: number, teamSpace: number, startDate: Date, endDate: Date, file: any }) => {
     if (!status)
       return
     try {
       setStatus(false)
+      const {paymentsDetails,...dataForm}=data
       const formData = new FormData();
-      Object.entries(data).forEach(([key, value]) => {
+      Object.entries(dataForm).forEach(([key, value]) => {
         const newValue = key == "file" ? value[0] : value
         formData.append(key, newValue)
       })
-
+      formData.append("_idPayments[0]",paymentsDetails)     
       formData.append("_idReferee", user?._id ?? "")
       const creatTorneo = await post(process.env.NEXT_PUBLIC_HOST_SERVICE + '/tournaments/', formData, true)
       setStatus(true)
@@ -219,8 +223,9 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
                 id="specific-method-select"
                 value={selectedMethod}
                 label="Método de Pago"
-                onChange={handleMethodChange}
                 disabled={!paymentType}
+                {...fields.paymentsDetails}
+                onChange={handleMethodChange}
                 renderValue={(selected) => {
                     const method = methods.find(m => m._id === selected);
                     if (!method) return null;

@@ -36,6 +36,7 @@ export default function Currency() {
                           <TableCell sx={{ color: "white" }}><strong>Divisa</strong></TableCell>
                           <TableCell sx={{ color: "white" }}><strong>Abreviatura</strong></TableCell>
                           <TableCell sx={{ color: "white" }}><strong>Simbolo</strong></TableCell>
+                          <TableCell sx={{ color: "white" }}><strong>Acciones</strong></TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -53,7 +54,7 @@ export default function Currency() {
                           </TableRow>
                         ) : currencies && currencies.length > 0 ? (
                             currencies.map((currency) => (
-                                <TableRow key={currency.id} hover>
+                                <TableRow key={currency._id} hover>
                                 
                                 <TableCell sx={{ color: 'white' }}>
                                     {currency.name}
