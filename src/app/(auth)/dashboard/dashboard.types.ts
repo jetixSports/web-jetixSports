@@ -17,6 +17,7 @@ interface Tournaments {
   typeSport: string;
   _idPayDetails:string;
   _idUsers: string[];
+  _idPayDetails:string[]
   quotas: number;
   amount: number;
   teamSpace: number;
@@ -48,4 +49,17 @@ interface Dashboard {
   getMyTournaments: () => any;
   getRegisteredTour: () => any;
 }
-export type { Teams, Tournaments, Dashboard, Rounds, TourTeams };
+
+type PaymentDetails = {
+  _id: string;
+  _idUser: string;
+  typePay: string;
+  details: {
+    email: string;
+    bankNumber: string;
+    identity: string;
+    mobileCode: string;
+    phoneNumber: string;
+  };
+};
+export type { Teams, Tournaments, Dashboard, Rounds, TourTeams,PaymentDetails };

@@ -1,5 +1,5 @@
 "use client";
-import { Teams, Tournaments } from "@/src/app/(auth)/dashboard/dashboard.types";
+import { PaymentDetails, Teams, Tournaments } from "@/src/app/(auth)/dashboard/dashboard.types";
 import useFetch from "@/src/app/hooks/useFetch";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -13,6 +13,7 @@ function useInscription({ _idTournament }: { _idTournament: string }) {
   const { data: session } = useSession();
   const user = session?.user;
   const [teams, setTeams] = useState<Teams[] | null>();
+  const [payDetails, setPayDetails] = useState<PaymentDetails[] | null>(null);
   const [tournament, setTournament] = useState<Tournaments | null>();
   const [users, setUsers] = useState<
     { _id: string; firstName: string; lastName: string }[] | null
@@ -46,9 +47,14 @@ function useInscription({ _idTournament }: { _idTournament: string }) {
         process.env.NEXT_PUBLIC_HOST_SERVICE + "/users/getNames/",
         { _id: ids }
       );
+      const detailsRes = await post(
+        process.env.NEXT_PUBLIC_HOST_SERVICE + "/payments-details/findIds",
+        { id: myTournaments?.data?.[0]?._idPayDetails }
+      );
       setUsers(usersRes?.data ?? null);
       setTeams(leaderTeams ?? null);
       setTournament(myTournaments.data?.[0] ?? null);
+      setPayDetails(detailsRes.data??null)
       if (myTournaments.data[0]?.teamSpace == 1)
         setValue("playersMembers", [user._id]);
     })();
@@ -98,6 +104,7 @@ function useInscription({ _idTournament }: { _idTournament: string }) {
     users,
     watch,
     tournament,
+    payDetails,
     handleSubmit: handleSubmit(onSubmit as any),
     fields: {
       _idTeam: register("_idTeam", { required: "El equipo es obligatorio" }),

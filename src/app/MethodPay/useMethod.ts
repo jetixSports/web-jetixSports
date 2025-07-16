@@ -3,19 +3,8 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useFetch from '../hooks/useFetch'; 
+import { PaymentDetails } from '../(auth)/dashboard/dashboard.types';
 
-type PaymentDetails = {
-  _id: string;
-  _idUser: string;
-  typePay: string;
-  details: {
-    email: string;
-    bankNumber: string;
-    identity: string;
-    mobileCode: string;
-    phoneNumber: string;
-  };
-};
 
 export default function useMethod() {
   const { data: session } = useSession();

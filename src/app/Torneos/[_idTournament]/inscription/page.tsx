@@ -12,22 +12,17 @@ import Inputs from '@/src/app/components/UX/Inputs/Inputs';
 import { CancelOutlined } from '@mui/icons-material';
 import useMethodOne from '@/src/app/MethodPay/useMethodOne';
 import useCurrency from '@/src/app/Currency/useCurrency';
+import PaymentMetod from '@/src/app/hooks/usePaymentMethod';
+import usePaymentMethod from '@/src/app/hooks/usePaymentMethod';
 
 function App({ params }: { params: { _idTournament: string } }) {
-  const { handleSubmit, tournament, status,fields,teams,watch ,users} = useInscription({ _idTournament: params._idTournament })
+  const { handleSubmit, tournament, status,fields,teams,watch ,users,payDetails} = useInscription({ _idTournament: params._idTournament })
  const {handleSubmitPay, fieldss, errors, isloading} = usePay({ _idTournament: params._idTournament })
   const [persons,setPerson]=useState<string[]>([])
   const [showModalCreate, setShowModalCreate] = useState(false)
-  const { method, setMethodId} = useMethodOne(tournament?._idReferee);
   const metodId = tournament?._idReferee
   const {currencies, loading, error} = useCurrency()
-  const [paymentType, setPaymentType] = useState('creditCard');
-  const handlePaymentTypeChange = (event: {
-      target: { value: SetStateAction<string> };
-      }) => {
-      setPaymentType(event.target.value);
-  };
-  
+  const payMethodsHook=usePaymentMethod({payments:payDetails})
   const handleChange = (event: SelectChangeEvent<string[]>) => {
     const {
       target: { value },
@@ -128,89 +123,14 @@ function App({ params }: { params: { _idTournament: string } }) {
               Precio de Inscripcio:
              </Typography>
              <Typography sx={{ fontSize:'14px'  }}>
-              <strong>{amout}</strong>
-              {method?.typePay}
+              <strong>${amout}</strong>
              </Typography>
            </Box>
           </Box>
            <Divider flexItem sx={{borderColor:'white'}} />
         <Box  sx={{marginBottom:'15px'}}>
 
-          <Select
-            sx={{
-              width: "100%",
-              paddingX: "10px",
-              marginY: "5px",
-              backgroundColor: "#20105B",
-              borderRadius: "10px",
-              color: "white",
-              height: 36,
-              marginBottom:3,
-            }} {...fields.methodPay}
-                        
-          >
-              {method?.typePay === 'mobile_payments' && (
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, color:'white' , marginTop:'10px'}}>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
-                    <Typography variant="body1">
-                      Banco:
-                    </Typography>
-                    <Typography variant="body1" sx={{ fontStyle:'italic' }}>
-                      {method?.details?.mobileCode}
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
-                    <Typography variant="body1" >
-                      Telefono:
-                    </Typography>
-                    <Typography variant="body1" sx={{ fontStyle:'italic' }}>
-                      {method?.details?.phoneNumber}
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
-                    <Typography variant="body1">
-                      Cedula:
-                    </Typography>
-                    <Typography variant="body1" sx={{ fontStyle:'italic' }}>
-                      {method?.details?.identity}
-                    </Typography>
-                  </Box>
-                </Box>
-              )}
-              {method?.typePay === 'bank_transfer' && (
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, color:'white' , marginTop:'10px'}}>       
-                  <Box sx={{ display: 'flex', gap: 1 }}>
-                    <Typography variant="body1">
-                    Numero de Cuenta:
-                    </Typography>
-                    <Typography variant="body1" sx={{ fontStyle:'italic' }}>
-                    {method?.details?.bankNumber}
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
-                    <Typography variant="body1">
-                      Cedula:
-                    </Typography>
-                    <Typography variant="body1" sx={{ fontStyle:'italic' }}>
-                      {method?.details?.identity}
-                    </Typography>
-                  </Box>
-                </Box>
-              )}
-              {method?.typePay === 'binance' && (
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, color:'white' , marginTop:'10px'}}>       
-                  <Box sx={{ display: 'flex', gap: 1 }}>
-                    <Typography variant="body1">
-                      Correo Electronico:
-                    </Typography>
-                    <Typography variant="body1" sx={{ fontStyle:'italic' }}>
-                      {method?.details?.email}
-                    </Typography>
-                  </Box>
-                </Box>
-              )}
-              
-          </Select>
+         {payMethodsHook?.ReactNode}
         </Box>
           <Divider flexItem sx={{borderColor:'white'}} />
         <Box sx={{ width: "100%", gap: 2,marginY:"20px", display: 'flex', flexDirection: "column" }}>

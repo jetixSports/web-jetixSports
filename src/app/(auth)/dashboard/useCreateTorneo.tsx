@@ -63,7 +63,7 @@ const fields = {
         const newValue = key == "file" ? value[0] : value
         formData.append(key, newValue)
       })
-      formData.append("_idPayments[0]",paymentsDetails)     
+      formData.append("_idPayDetails[0]",paymentsDetails)     
       formData.append("_idReferee", user?._id ?? "")
       const creatTorneo = await post(process.env.NEXT_PUBLIC_HOST_SERVICE + '/tournaments/', formData, true)
       setStatus(true)
