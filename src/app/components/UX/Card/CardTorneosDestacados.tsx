@@ -35,7 +35,7 @@ export default function CardTorneosDestacados() {
           gap: 4
         }}>
 
-          {TorneoDes.map((torneo, i) => i>3?'':(
+          {TorneoDes.map((torneo, i) => i > 3 ? '' : (
             <Box
               key={i}
               sx={{
@@ -48,7 +48,7 @@ export default function CardTorneosDestacados() {
               <Card
                 sx={{
                   height: '100%',
-                  maxHeight:"500px",
+                  maxHeight: "500px",
                   display: 'flex',
                   backgroundColor: '#2f105b',
                   flexDirection: 'column',
@@ -59,14 +59,17 @@ export default function CardTorneosDestacados() {
                   }
                 }}
               >
-                <Image
-                  src={process.env.NEXT_PUBLIC_HOST_SERVICE + "/images/tournaments/" +torneo._idImg}
-                  height={80}
-                  width={128}
-                  alt={"fondo"}
-                  className={"w-full h-full"}
-                  unoptimized={true}
-                ></Image>
+                <Box sx={{ maxHeight: "47%" }}>
+                  <Image
+                    src={process.env.NEXT_PUBLIC_HOST_SERVICE + "/images/tournaments/" + torneo._idImg}
+                    height={80}
+                    width={128}
+                    alt={"fondo"}
+                    className={"w-full h-full"}
+                    unoptimized={true}
+                  ></Image>
+                </Box>
+
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography gutterBottom variant="h5" component="div" sx={{ color: "white" }}>
                     {torneo.name}
@@ -90,7 +93,7 @@ export default function CardTorneosDestacados() {
 
                   <LinearProgress
                     variant="determinate"
-                    value={(torneo.teams.length==0?0:(torneo.teams.length / torneo.quotas)) * 100}
+                    value={(torneo.teams.length == 0 ? 0 : (torneo.teams.length / torneo.quotas)) * 100}
                     sx={{ height: 8, borderRadius: 4, mb: 1, backgroundColor: '#fff' }}
                   />
                 </CardContent>

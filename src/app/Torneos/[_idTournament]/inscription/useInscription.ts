@@ -1,5 +1,9 @@
 "use client";
-import { PaymentDetails, Teams, Tournaments } from "@/src/app/(auth)/dashboard/dashboard.types";
+import {
+  PaymentDetails,
+  Teams,
+  Tournaments,
+} from "@/src/app/(auth)/dashboard/dashboard.types";
 import useFetch from "@/src/app/hooks/useFetch";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -25,6 +29,7 @@ function useInscription({ _idTournament }: { _idTournament: string }) {
     formState: { errors },
     watch,
     setValue,
+    getValues,
   } = useForm();
 
   useEffect(() => {
@@ -54,7 +59,7 @@ function useInscription({ _idTournament }: { _idTournament: string }) {
       setUsers(usersRes?.data ?? null);
       setTeams(leaderTeams ?? null);
       setTournament(myTournaments.data?.[0] ?? null);
-      setPayDetails(detailsRes.data??null)
+      setPayDetails(detailsRes.data ?? null);
       if (myTournaments.data[0]?.teamSpace == 1)
         setValue("playersMembers", [user._id]);
     })();
@@ -105,15 +110,16 @@ function useInscription({ _idTournament }: { _idTournament: string }) {
     watch,
     tournament,
     payDetails,
+    getValues,
     handleSubmit: handleSubmit(onSubmit as any),
     fields: {
       _idTeam: register("_idTeam", { required: "El equipo es obligatorio" }),
       playersMembers: register("playersMembers", {
         required: "Los miembros son obligatorios",
       }),
-      methodPay: register("methodPay", { 
+      methodPay: register("methodPay", {
         required: "El metodo de pago es obligatorio",
-      })
+      }),
     },
     errors,
     status,

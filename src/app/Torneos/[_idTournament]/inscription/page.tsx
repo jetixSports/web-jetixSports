@@ -14,14 +14,43 @@ import useMethodOne from '@/src/app/MethodPay/useMethodOne';
 import useCurrency from '@/src/app/Currency/useCurrency';
 import PaymentMetod from '@/src/app/hooks/usePaymentMethod';
 import usePaymentMethod from '@/src/app/hooks/usePaymentMethod';
+import toast from 'react-hot-toast';
+import useFetch from '@/src/app/hooks/useFetch';
+import { useSession } from 'next-auth/react';
 
 function App({ params }: { params: { _idTournament: string } }) {
-  const { handleSubmit, tournament, status,fields,teams,watch ,users,payDetails} = useInscription({ _idTournament: params._idTournament })
- const {handleSubmitPay, fieldss, errors, isloading} = usePay({ _idTournament: params._idTournament })
-  const [persons,setPerson]=useState<string[]>([])
+  const { post } = useFetch()
+  const { data: session, status: sessionStatus } = useSession();
+  const user = session?.user;
+  const { handleSubmit, tournament, status, fields, teams, watch, users, payDetails, getValues } = useInscription({ _idTournament: params._idTournament })
+  const { handleSubmitPay, fieldss, errors, isloading } = usePay({
+    _idTournament: params._idTournament, async inscribeCallback() {
+      try {
+        const { _idTeam,
+          playersMembers, } = getValues()
+        const loadingToast = toast.loading("Inscribiendo..");
+        const res = await post(
+          process.env.NEXT_PUBLIC_HOST_SERVICE + "/tournaments/inscribe/",
+          {
+            _idTeam,
+            playersMembers: Array.isArray(playersMembers)
+              ? playersMembers
+              : [playersMembers],
+            _idTournament: params._idTournament,
+            _idUser: user?._id,
+          }
+        );
+        return res
+      } catch (error: any) {
+        return { statusCode: 500, message: error.message }
+      }
+
+    },
+  })
+  const [persons, setPerson] = useState<string[]>([])
   const [showModalCreate, setShowModalCreate] = useState(false)
-  const {currencies, loading, error} = useCurrency()
-  const payMethodsHook=usePaymentMethod({payments:payDetails})
+  const { currencies, loading, error } = useCurrency()
+  const payMethodsHook = usePaymentMethod({ payments: payDetails })
   const handleChange = (event: SelectChangeEvent<string[]>) => {
     const {
       target: { value },
@@ -29,10 +58,10 @@ function App({ params }: { params: { _idTournament: string } }) {
     setPerson(typeof value === 'string' ? value.split(',') : value);
 
   };
-  
+
 
   let amout = tournament?.amount
-  if(amout == null){
+  if (amout == null) {
     amout = 0;
   }
   return (
@@ -80,7 +109,7 @@ function App({ params }: { params: { _idTournament: string } }) {
             borderRadius: "10px",
             color: "white",
             height: 36,
-            marginBottom:3,
+            marginBottom: 3,
           }}
           multiple
           value={persons}
@@ -100,134 +129,139 @@ function App({ params }: { params: { _idTournament: string } }) {
           })}
         </Select>
 
-          <Divider flexItem sx={{borderColor:'white'}} />
-          <Box sx={{color:'white', border:'1px',marginBottom:3, marginTop:'15px', display:'flex', flexDirection:'column',}}>
-            <Typography sx={{marginTop:'8px'}}>Monto a Pagar</Typography>
+        <Divider flexItem sx={{ borderColor: 'white' }} />
+        <Box sx={{ color: 'white', border: '1px', marginBottom: 3, marginTop: '15px', display: 'flex', flexDirection: 'column', }}>
+          <Typography sx={{ marginTop: '8px' }}>Monto a Pagar</Typography>
 
-            <Box sx={{display:'flex',justifyContent:'space-between', width:'100%'}}>
-              <Typography sx={{marginTop:'8px'}}><strong>Total:</strong></Typography>
-              <Typography>$<strong>{persons.length * amout}</strong></Typography>
-            </Box>
-
-            <Box sx={{display:'flex',justifyContent:'space-between', width:'100%'}}>
-              <Typography sx={{ fontSize:'14px' }}>
-              Numero de jugador
-              </Typography>
-              <Typography><strong>{persons.length}</strong></Typography>
-            </Box>
-
-           <Box sx={{display:'flex',justifyContent:'space-between', width:'100%'}}>
-             <Typography sx={{ fontSize:'14px'  }}>
-              Precio de Inscripción:
-             </Typography>
-             <Typography sx={{ fontSize:'14px'  }}>
-              <strong>${amout}</strong>
-             </Typography>
-           </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+            <Typography sx={{ marginTop: '8px' }}><strong>Total:</strong></Typography>
+            <Typography>$<strong>{persons.length * amout}</strong></Typography>
           </Box>
-           <Divider flexItem sx={{borderColor:'white'}} />
-        <Box  sx={{marginBottom:'15px'}}>
 
-        {payMethodsHook?.ReactNode}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+            <Typography sx={{ fontSize: '14px' }}>
+              Numero de jugador
+            </Typography>
+            <Typography><strong>{persons.length}</strong></Typography>
+          </Box>
+
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+            <Typography sx={{ fontSize: '14px' }}>
+              Precio de Inscripción:
+            </Typography>
+            <Typography sx={{ fontSize: '14px' }}>
+              <strong>${amout}</strong>
+            </Typography>
+          </Box>
         </Box>
-          <Divider flexItem sx={{borderColor:'white'}} />
-        <Box sx={{ width: "100%", gap: 2,marginY:"20px", display: 'flex', flexDirection: "column" }}>
-          
+        <Divider flexItem sx={{ borderColor: 'white' }} />
+        <Box sx={{ marginBottom: '15px' }}>
+
+          {payMethodsHook?.ReactNode}
+        </Box>
+        <Divider flexItem sx={{ borderColor: 'white' }} />
+        <Box sx={{ width: "100%", gap: 2, marginY: "20px", display: 'flex', flexDirection: "column" }}>
+
           {isloading ? (
-              <Buttons disabled={!status} type="submit" sx={{ marginTop: "5px" }} variant="contained">Inscribirse</Buttons>
-          ):(
+            <Buttons disabled={!status} type="submit" sx={{ marginTop: "5px" }} variant="contained">Inscribirse</Buttons>
+          ) : (
             <Buttons onClick={() => setShowModalCreate(true)} sx={{ color: "white" }}>Subir Pago</Buttons>
           )}
 
         </Box>
       </Form>
 
-         {showModalCreate && <Box onClick={() => { setShowModalCreate(false)
-            }} sx={{ zIndex: 10, position: "fixed", top: 0, left: 0, width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex",
-              justifyContent: "center", alignItems: "flex-start", overflow: "hidden"
-            }}>
-          
-             <Box sx={{
-               marginTop: 15, maxHeight: "80vh", display: "flex", flexDirection: "column",
-                borderRadius: "10px", position: "relative", overflow: "hidden"
-                }} onClick={(e) => e.stopPropagation()}>
-                <Box sx={{flex: 1, overflowY: "auto", '&::-webkit-scrollbar': { width: '6px', },
-                  '&::-webkit-scrollbar-thumb': {
-                  backgroundColor: 'white', borderRadius: '3px'}
-                 }}>
-                  <Box sx={{ position: "relative", width: "100%", display: 'flex', justifyContent: "end" }}>
-                    <Box sx={{ position: "absolute", marginY: 4, marginX:4 }}>
-                      <CancelOutlined onClick={() => {
-                        setShowModalCreate(false) }} sx={{ color: "white", cursor: "pointer" }}>
-                      </CancelOutlined>
-                    </Box>
-                  </Box>
-                  <Box>
-                    
-                    <Form handleSubmit={handleSubmitPay}>
-                      <Typography sx={{ color: "white" }}>Numero del referencia del Pago</Typography>
-                      <Inputs 
-                        placeholder='Ultimos 6 numeros'
-                        {...fieldss.transactionCode}
-                        error={!!errors?.transactionCode}
-                        helperText={errors?.transactionCode?.message + ""}/>
+      {showModalCreate && <Box onClick={() => {
+        setShowModalCreate(false)
+      }} sx={{
+        zIndex: 10, position: "fixed", top: 0, left: 0, width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex",
+        justifyContent: "center", alignItems: "flex-start", overflow: "hidden"
+      }}>
 
-                      <Typography sx={{ color: "white" }}>Monto pagado</Typography>
-                      <Inputs 
-                        placeholder='Ej. 523.23'
-                        type='number' 
-                        {...fieldss.amount}
-                        error={!!errors?.amount}
-                        helperText={errors?.amount?.message + ""}/>
-
-                      <Typography sx={{ color: "white" }}>Selecione la divisa del pago</Typography>
-                      <Select
-                        sx={{
-                          width: "100%",
-                          paddingX: "10px",
-                          marginY: "5px",
-                          backgroundColor: "#20105B",
-                          borderRadius: "10px",
-                          color: "white",
-                          height: 36,
-                          marginBottom:3,
-                        }} {...fieldss.currency}
-                        error={!!errors?.currency}
-                          >
-                            {currencies.map((currency,i)=>(
-                              <MenuItem key={i}  value={currency.name}>
-                                {currency.name}
-                              </MenuItem>
-                            ))}                          
-                      </Select>
-
-                      <Typography sx={{ color: "white" }}>Tasa de Cambio</Typography>
-                      <Inputs 
-                        placeholder='Ej. 100.23'
-                        type='number' 
-                        {...fieldss.rateExchange}
-                        error={!!errors?.rateExchange}
-                        helperText={errors?.rateExchange?.message + ""}/>
-
-                      <Typography sx={{ color: "white" }}>Captura del pago</Typography>
-                      <Inputs 
-                        type='file' 
-                        {...fieldss._idImg}
-                        error={!!errors?._idImg}
-                        helperText={errors?._idImg?.message + ""}/>
-                      
-                      <Alert  sx={{marginTop:'15px'}} severity="warning" icon={<WarningRoundedIcon />}>
-                        Tu inscripcion se procesara una vez el organizador haya verificado el Pago.
-                      </Alert>
-                      <Buttons disabled={!status} type="submit" sx={{ marginTop: "15px", width:'100%' }} variant="contained">Enviar Pago</Buttons>
-                    </Form>
-                  </Box>
-                </Box>
+        <Box sx={{
+          marginTop: 15, maxHeight: "80vh", display: "flex", flexDirection: "column",
+          borderRadius: "10px", position: "relative", overflow: "hidden"
+        }} onClick={(e) => e.stopPropagation()}>
+          <Box sx={{
+            flex: 1, overflowY: "auto", '&::-webkit-scrollbar': { width: '6px', },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: 'white', borderRadius: '3px'
+            }
+          }}>
+            <Box sx={{ position: "relative", width: "100%", display: 'flex', justifyContent: "end" }}>
+              <Box sx={{ position: "absolute", marginY: 4, marginX: 4 }}>
+                <CancelOutlined onClick={() => {
+                  setShowModalCreate(false)
+                }} sx={{ color: "white", cursor: "pointer" }}>
+                </CancelOutlined>
               </Box>
-        </Box>}
+            </Box>
+            <Box>
 
-      </Box>
-    
+              <Form handleSubmit={handleSubmitPay}>
+                <Typography sx={{ color: "white" }}>Numero del referencia del Pago</Typography>
+                <Inputs
+                  placeholder='Ultimos 6 numeros'
+                  {...fieldss.transactionCode}
+                  error={!!errors?.transactionCode}
+                  helperText={errors?.transactionCode?.message + ""} />
+
+                <Typography sx={{ color: "white" }}>Monto pagado</Typography>
+                <Inputs
+                  placeholder='Ej. 523.23'
+                  type='number'
+                  {...fieldss.amount}
+                  error={!!errors?.amount}
+                  helperText={errors?.amount?.message + ""} />
+
+                <Typography sx={{ color: "white" }}>Selecione la divisa del pago</Typography>
+                <Select
+                  sx={{
+                    width: "100%",
+                    paddingX: "10px",
+                    marginY: "5px",
+                    backgroundColor: "#20105B",
+                    borderRadius: "10px",
+                    color: "white",
+                    height: 36,
+                    marginBottom: 3,
+                  }} {...fieldss.currency}
+                  error={!!errors?.currency}
+                >
+                  {currencies.map((currency, i) => (
+                    <MenuItem key={i} value={currency.name}>
+                      {currency.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+
+                <Typography sx={{ color: "white" }}>Tasa de Cambio</Typography>
+                <Inputs
+                  placeholder='Ej. 100.23'
+                  type='number'
+                  {...fieldss.rateExchange}
+                  error={!!errors?.rateExchange}
+                  helperText={errors?.rateExchange?.message + ""} />
+
+                <Typography sx={{ color: "white" }}>Captura del pago</Typography>
+                <Inputs
+                  type='file'
+                  {...fieldss._idImg}
+                  error={!!errors?._idImg}
+                  helperText={errors?._idImg?.message + ""} />
+
+                <Alert sx={{ marginTop: '15px' }} severity="warning" icon={<WarningRoundedIcon />}>
+                  Tu inscripcion se procesara una vez el organizador haya verificado el Pago.
+                </Alert>
+                <Buttons disabled={!status} type="submit" sx={{ marginTop: "15px", width: '100%' }} variant="contained">Enviar Pago</Buttons>
+              </Form>
+            </Box>
+          </Box>
+        </Box>
+      </Box>}
+
+    </Box>
+
   )
 }
 
