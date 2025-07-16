@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { Payment, Team, User } from "./paymentsType";
 import { Tournaments } from "@/src/app/(auth)/dashboard/dashboard.types";
+import { useRouter } from "next/navigation";
 
 export default function usePayments({
   tournamentId,
@@ -26,7 +27,7 @@ export default function usePayments({
   const { post } = useFetch();
   const { data: session } = useSession();
   const user = session?.user;
-
+  const router = useRouter()
   const [payments, setPayments] = useState<Payment[]>([]);
   const [teams, setTeams] = useState<Team[]>([]);
   const [users, setUsers] = useState<User[]>([]);
@@ -43,7 +44,11 @@ export default function usePayments({
         `${process.env.NEXT_PUBLIC_HOST_SERVICE}/tournaments/filter`,
         { _id: tournamentId }
       );
-
+      if (tournamentRes?.data[0]?._idReferee != user?._id) {
+        toast.error("No eres el organizador de este torneo")
+        router.back()
+        return
+      }
       const paymentIds: string[] = tournamentRes.data[0]?._idPayments || [];
 
       if (paymentIds.length === 0) {
