@@ -12,6 +12,7 @@ import {
   Button
 } from "@mui/material";
 import { Payment, Team, User } from "./paymentsType";
+import { Tournaments } from "@/src/app/(auth)/dashboard/dashboard.types";
 
 export default function usePayments({
   tournamentId,
@@ -32,18 +33,19 @@ export default function usePayments({
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState<{ status?: string }>({});
   const [pagination, setPagination] = useState(1);
-
+  const [tournament, setTournament] = useState<Tournaments | null>()
   const fetchPayments = async () => {
     if (!user) return;
     setLoading(true);
 
     try {
       const tournamentRes = await post(
-        `${process.env.NEXT_PUBLIC_HOST_SERVICE}/tournaments`,
+        `${process.env.NEXT_PUBLIC_HOST_SERVICE}/tournaments/filter`,
         { _id: tournamentId }
       );
 
-      const paymentIds: string[] = tournamentRes.data?._idPayments || [];
+      const paymentIds: string[] = tournamentRes.data[0]?._idPayments || [];
+
       if (paymentIds.length === 0) {
         setPayments([]);
         return;
@@ -58,14 +60,14 @@ export default function usePayments({
       }
 
       const paymentsRes = await post(
-        `${process.env.NEXT_PUBLIC_HOST_SERVICE}/payments-history`,
+        `${process.env.NEXT_PUBLIC_HOST_SERVICE}/payments-history/findIds`,
         queryParams
       );
 
       const paymentsData: Payment[] = paymentsRes.data ?? [];
 
       const userIds = [...new Set(paymentsData.map(p => p._idUser))];
-      const teamIds = [...new Set(paymentsData.map(p => p._idTeam))];
+      const teamIds = [...new Set(tournamentRes?.data[0]?.teams.map((p: { _idTeam: string }) => p._idTeam))];
 
       const [usersRes, teamsRes] = await Promise.all([
         post(`${process.env.NEXT_PUBLIC_HOST_SERVICE}/users/getNames`, {
@@ -75,7 +77,7 @@ export default function usePayments({
           _id: teamIds,
         }),
       ]);
-
+      setTournament(tournamentRes?.data?.[0] ?? null)
       setUsers(usersRes.data ?? []);
       setTeams(teamsRes.data ?? []);
       setPayments(paymentsData);
@@ -124,6 +126,7 @@ export default function usePayments({
 
   return {
     payments,
+    tournament,
     users,
     teams,
     loading,

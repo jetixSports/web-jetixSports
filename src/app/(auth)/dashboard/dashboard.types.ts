@@ -16,7 +16,7 @@ interface Tournaments {
   _idImg: string;
   typeSport: string;
   _idUsers: string[];
-  _idPayDetails:string[]
+  _idPayDetails: string[];
   quotas: number;
   amount: number;
   teamSpace: number;
@@ -32,6 +32,7 @@ interface TourTeams {
   status: string;
   playersMembers: string[];
   _idLeader: string;
+  _idPayments?: string;
 }
 interface Rounds {
   nRound: string;
@@ -61,4 +62,11 @@ type PaymentDetails = {
     phoneNumber: string;
   };
 };
-export type { Teams, Tournaments, Dashboard, Rounds, TourTeams,PaymentDetails };
+export type {
+  Teams,
+  Tournaments,
+  Dashboard,
+  Rounds,
+  TourTeams,
+  PaymentDetails,
+};

@@ -6,8 +6,9 @@ import {
 } from '@mui/material';
 import { CheckOutlined, CancelOutlined, Visibility } from '@mui/icons-material';
 import Buttons from '@/src/app/components/UX/Buttons/Buttons';
-import usePayments from './usePayments'; 
+import usePayments from './usePayments';
 import Background from '@/src/app/components/UX/Background/Background';
+import Image from 'next/image';
 
 const statusMap = {
   pending: 'Pendiente',
@@ -15,45 +16,78 @@ const statusMap = {
   denied: 'Rechazado'
 };
 
-export default function Payments({ _idTournament }: { _idTournament: string }) {
+export default function Payments({ params: { _idTournament } }: { params: { _idTournament: string } }) {
   const [paymentDialogData, setPaymentDialogData] = useState<{
     accepted: boolean, _idPayment: string, teamName: string
   } | null>(null);
-
-  const { 
-    payments, 
-    teams, 
-    loading, 
-    setFilter, 
-    ReactDialog 
-  } = usePayments({ 
-    tournamentId: _idTournament, 
-    dialogData: paymentDialogData, 
-    setDialogData: setPaymentDialogData 
+  const [imgShow, setImgShow] = useState<string | null>(null)
+  const {
+    payments,
+    teams,
+    loading,
+    setFilter,
+    ReactDialog,
+    tournament
+  } = usePayments({
+    tournamentId: _idTournament,
+    dialogData: paymentDialogData,
+    setDialogData: setPaymentDialogData
   });
 
-  
+
   const [localFilter, setLocalFilter] = useState({ status: 'Todos' });
 
   const handleFilterChange = () => {
-    const appliedFilter = localFilter.status === 'Todos' 
-      ? {} 
+    const appliedFilter = localFilter.status === 'Todos'
+      ? {}
       : { status: localFilter.status };
-    
+
     setFilter(appliedFilter);
   };
 
   return (
-    <Box sx={{ 
-      width: "100%", 
-      display: 'flex', 
-      alignItems: "center", 
-      flexDirection: "column", 
-      color: "white", 
-      minHeight: "90vh", 
-      backgroundColor: "#00003D", 
-      paddingTop: 15 
+    <Box sx={{
+      width: "100%",
+      display: 'flex',
+      alignItems: "center",
+      flexDirection: "column",
+      color: "white",
+      minHeight: "90vh",
+      backgroundColor: "#00003D",
+      paddingTop: 15
     }}>
+      {imgShow && <Box onClick={() => {
+        setImgShow(null)
+      }} sx={{ zIndex: 10, paddingTop: 5, top: 0, left: 0, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
+        <Box sx={{ marginY: 5 }} onClick={(e) => e.stopPropagation()}>
+          <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end" }}>
+            <Box sx={{ position: "absolute", margin: 4, }}><CancelOutlined onClick={() => {
+              setImgShow(null)
+            }} sx={{ color: "white", cursor: "pointer" }}></CancelOutlined> </Box>
+          </Box>
+          <Box sx={{
+            maxWidth: "380px",
+            minWidth: "210px",
+            maxHeight: "550px",
+            marginX: { xs: 1, sm: 2 },
+            marginY: { xs: 1, sm: 2 },
+            paddingX: { xs: 4, sm: 5 },
+            paddingY: { xs: 2, sm: 3 },
+            backgroundColor: "#00003D",
+            border: "solid white 1px",
+            borderRadius: "14px",
+          }}>
+            <Image
+              src={process.env.NEXT_PUBLIC_HOST_SERVICE + "/images/pay/" + imgShow}
+              height={80}
+              width={128}
+              alt={"fondo"}
+              className={"w-full h-full"}
+              unoptimized={true}
+            ></Image>
+          </Box>
+        </Box>
+      </Box>}
       <Background sx={{ backgroundColor: '#00003d' }} />
       {ReactDialog}
 
@@ -63,7 +97,7 @@ export default function Payments({ _idTournament }: { _idTournament: string }) {
             <Typography variant="h6" sx={{ p: 2, color: "white" }}>
               Gestión de Pagos
             </Typography>
-            
+
             <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', p: 1 }}>
               <Typography sx={{ color: "white" }}>Filtrar por Estado:</Typography>
               <Select
@@ -82,10 +116,10 @@ export default function Payments({ _idTournament }: { _idTournament: string }) {
                   <MenuItem key={key} value={key}>{value}</MenuItem>
                 ))}
               </Select>
-              
-              <Buttons 
+
+              <Buttons
                 onClick={handleFilterChange}
-                sx={{ 
+                sx={{
                   color: "white",
                   height: 36,
                   px: 3
@@ -116,7 +150,8 @@ export default function Payments({ _idTournament }: { _idTournament: string }) {
               <TableBody>
                 {payments.length > 0 ? (
                   payments.map((payment) => {
-                    const team = teams.find(t => t._id === payment._idTeam);
+                    const teamTour = tournament?.teams?.find(t => payment._id == t._idPayments)
+                    const team = teams.find(t => t._id === teamTour?._idTeam);
                     const teamName = team?.name || 'Desconocido';
 
                     return (
@@ -133,20 +168,20 @@ export default function Payments({ _idTournament }: { _idTournament: string }) {
                           {payment.status === 'pending' && (
                             <>
                               <IconButton
-                                onClick={() => setPaymentDialogData({ 
-                                  _idPayment: payment._id, 
-                                  accepted: true, 
-                                  teamName 
+                                onClick={() => setPaymentDialogData({
+                                  _idPayment: payment._id,
+                                  accepted: true,
+                                  teamName
                                 })}
                                 color="success"
                               >
                                 <CheckOutlined />
                               </IconButton>
                               <IconButton
-                                onClick={() => setPaymentDialogData({ 
-                                  _idPayment: payment._id, 
-                                  accepted: false, 
-                                  teamName 
+                                onClick={() => setPaymentDialogData({
+                                  _idPayment: payment._id,
+                                  accepted: false,
+                                  teamName
                                 })}
                                 color="error"
                               >
@@ -156,7 +191,7 @@ export default function Payments({ _idTournament }: { _idTournament: string }) {
                           )}
                           {payment._idImg && (
                             <IconButton
-                              onClick={() => window.open(payment._idImg, '_blank')}
+                              onClick={() => setImgShow(payment._idImg ?? null)}
                               color="info"
                             >
                               <Visibility />
