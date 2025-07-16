@@ -1,11 +1,11 @@
-"use client"
-import useFetch from '@/src/app/hooks/useFetch';
-import { SelectChangeEvent } from '@mui/material';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
+"use client";
+import useFetch from "@/src/app/hooks/useFetch";
+import { SelectChangeEvent } from "@mui/material";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 interface FormData {
   name: String;
@@ -13,10 +13,9 @@ interface FormData {
   shortname: String;
 }
 
-function useCurrencyAdd() {
-
+function useCurrencyAdd({ callback }: { callback?: () => any }) {
   const router = useRouter();
-  const {data: session} =useSession();
+  const { data: session } = useSession();
   const user = session?.user;
   const { post } = useFetch();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,68 +27,68 @@ function useCurrencyAdd() {
     watch,
   } = useForm<FormData>({
     defaultValues: {
-      name: '',
-      code: '',
-      shortname: '',
-      }
-    });
-
-
+      name: "",
+      code: "",
+      shortname: "",
+    },
+  });
 
   const handleSubmitCurrency = async (data: FormData) => {
     if (isSubmitting || !user?._id) return;
     setIsSubmitting(true);
 
-    const loadingToast = toast.loading('Guardando Divisa...');
+    const loadingToast = toast.loading("Guardando Divisa...");
 
     try {
-
       const currency = {
         name: data.name,
         code: data.code,
         shortname: data.shortname,
       };
-      
+
       const response = await post(
         `${process.env.NEXT_PUBLIC_HOST_SERVICE}/currency`,
-            currency
+        currency
       );
 
       toast.dismiss(loadingToast);
       setIsSubmitting(false);
 
-      if (!response || (response.statusCode !== 200 && response.statusCode !== 201)) {
-        toast.error(response?.message || 'Error al guardar divisa', {
+      if (
+        !response ||
+        (response.statusCode !== 200 && response.statusCode !== 201)
+      ) {
+        toast.error(response?.message || "Error al guardar divisa", {
           duration: 4000,
-          position: 'top-center',
+          position: "top-center",
         });
         return;
       }
 
-      toast.success('¡Divisa guardada exitosamente!');
+      toast.success("¡Divisa guardada exitosamente!");
       reset();
-      router.refresh();
+      if (callback) callback();
     } catch (error) {
-      console.error('Error en petición: ', error);
+      console.error("Error en petición: ", error);
       toast.dismiss(loadingToast);
       setIsSubmitting(false);
-      toast.error('Error al procesar la solicitud');
+      toast.error("Error al procesar la solicitud");
     }
   };
 
   return {
-    handleSubmitCurrency: handleSubmit(handleSubmitCurrency), 
+    handleSubmitCurrency: handleSubmit(handleSubmitCurrency),
     register,
     errors,
     fields: {
-      name: register('name', {
-        required: 'El nombre es obligatorio',
+      name: register("name", {
+        required: "El nombre es obligatorio",
       }),
-      code: register('code', {
-        required: 'El simbolo es obligatorio',
+      code: register("code", {
+        required: "El simbolo es obligatorio",
       }),
-      shortname: register('shortname', {
-        required: 'El abreviatura es obligatorio',
+      shortname: register("shortname", {
+        required: "El abreviatura es obligatorio",
       }),
     },
     isSubmittingCurrency: isSubmitting,
