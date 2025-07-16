@@ -48,7 +48,9 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
       hookIdTour.getData()
     },
   })
-
+  const { data: session } = useSession();
+  const user = session?.user;
+  const { tournament, matchs, teams } = hookIdTour
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
   };
@@ -79,19 +81,19 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
       <Box sx={{ maxWidth: 900, width: "90%", marginBottom: 3 }}>
         <Box>
           <Typography variant="h4" gutterBottom color="white">
-          {hookIdTour.tournament?.name}
+            {hookIdTour.tournament?.name}
           </Typography>
-          
+
         </Box>
         <Typography variant="h6" gutterBottom color="white">
           {hookIdTour.tournament?.description}
         </Typography>
-        <Box sx={{display:'flex', justifyContent:'space-between'}}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', marginBottom: 2 }}>
-              <Buttons href={`${_idTournament}/inscription`} sx={{ color: "white" }}>Inscribirse</Buttons>
+            <Buttons href={`${_idTournament}/inscription`} sx={{ color: "white" }}>Inscribirse</Buttons>
           </Box>
-          <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', marginBottom: 2 , justifyContent:'flex-end'}}>
-            <Buttons href={`${_idTournament}/payments`} sx={{ color: "white", p:1 }}>Gestion de pago de inscripción</Buttons>
+          <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', marginBottom: 2, justifyContent: 'flex-end' }}>
+            {tournament?._idReferee == user?._id && <Buttons href={`${_idTournament}/payments`} sx={{ color: "white", p: 1 }}>Gestion de pago de inscripción</Buttons>}
           </Box>
         </Box>
         <Paper sx={{ mb: 3, backgroundColor: '#2f105b', boxShadow: '0px 5px 5px ', }}>
