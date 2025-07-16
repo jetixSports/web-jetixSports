@@ -109,7 +109,6 @@ export default function usePayments({
           _idUser: user?._id,
           _idPayment,
         },
-        true
       );
 
       if (!response.ok && response.statusCode !== 200) {
