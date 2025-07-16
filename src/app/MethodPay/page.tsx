@@ -479,7 +479,7 @@ export default function TablaMetodosPago() {
 
       {showModalDelete && <Box onClick={() => { setShowModalDelete(false); 
          }} sx={{ zIndex: 10, paddingTop: 5, top: 0, left: 0, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center"}}>
-         <Box sx={{ marginTop:30,backgroundColor:'#00003d',height:'200px', display:'flex', justifyContent:'center', flexDirection:'column' }} onClick={(e) => e.stopPropagation()}>
+         <Box sx={{ marginTop:20,backgroundColor:'#00003d',height:'200px', display:'flex', justifyContent:'center', flexDirection:'column' }} onClick={(e) => e.stopPropagation()}>
            <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end", backgroundColor:'#00003d', marginBottom:'10px' }}>
               <Box sx={{ position: "absolute", margin: 3 }}>
                 <CancelOutlined onClick={() => {

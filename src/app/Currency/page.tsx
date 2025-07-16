@@ -1,8 +1,10 @@
 'use client'
-import React, { useState } from 'react'
-import {Box, Pagination, Stack, Table, TableBody, TableContainer, TableRow, Button, Typography, TableCell, TableHead, IconButton, Paper} from '@mui/material'
+import React, { use, useState } from 'react'
+import {Box, Pagination, Stack, Table, TableBody, TableContainer, TableRow, Button, Typography, TableCell, TableHead, IconButton, Paper, Alert} from '@mui/material'
 import DeleteIcon from "@mui/icons-material/Delete";
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import toast from 'react-hot-toast';
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 
 import { useSession } from 'next-auth/react'
 import useCurrencyAdd from './useCurrencyAdd';
@@ -12,11 +14,34 @@ import Form from '../components/UX/Form/Form';
 import Inputs from '../components/UX/Inputs/Inputs';
 import Buttons from '../components/UX/Buttons/Buttons';
 import Background from '../components/UX/Background/Background';
+import useFetch from '../hooks/useFetch';
 
 export default function Currency() {
+    const fetchHook = useFetch()
+    const [status, setStatus] = useState(true)
     const [showModalCurrencyAdd, setShowModalCurrencyAdd] = useState(false);
+    const [showModalDelete, setShowModalDelete] = useState(false);
+    const [deleteData, setDeleteData] = useState<string | null>(null);
+    
     const {handleSubmitCurrency, fields,errors, isSubmittingCurrency} = useCurrencyAdd()
+    const CurrencyHook = useCurrency()
     const {currencies, loading, error} = useCurrency()
+
+    React.useEffect(() => {
+    if (isSubmittingCurrency) {
+      setShowModalCurrencyAdd(false);
+    }
+  }, [isSubmittingCurrency]);
+
+    const handleDeleteClick = (CurrencyId: string) => {
+      setDeleteData(CurrencyId);
+      setShowModalDelete(true);
+    };
+  
+    const closeModal = () => {
+      setShowModalDelete(false);
+      setDeleteData(null);
+    };
 
   return (
     <Box sx={{  width: "100%",  display: 'flex',  alignItems: "center",  flexDirection: "column",  minHeight: "84.1vh", backgroundColor: "#00003D",  paddingTop: 15}}>
@@ -36,6 +61,7 @@ export default function Currency() {
                           <TableCell sx={{ color: "white" }}><strong>Divisa</strong></TableCell>
                           <TableCell sx={{ color: "white" }}><strong>Abreviatura</strong></TableCell>
                           <TableCell sx={{ color: "white" }}><strong>Simbolo</strong></TableCell>
+                          <TableCell sx={{ color: "white" }}><strong>Acciones</strong></TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -53,7 +79,8 @@ export default function Currency() {
                           </TableRow>
                         ) : currencies && currencies.length > 0 ? (
                             currencies.map((currency) => (
-                                <TableRow key={currency.id} hover>
+                                <TableRow key={currency._id} hover>
+                                
                                 <TableCell sx={{ color: 'white' }}>
                                     {currency.name}
                                 </TableCell>
@@ -70,7 +97,7 @@ export default function Currency() {
                                     </IconButton>
                                 </TableCell> */}
                                 <TableCell sx={{ color: 'white' }}>
-                                    <IconButton /*onClick={() => handleDeleteClick(Currencys._id) }*/ aria-label="eliminar" color="error">
+                                    <IconButton onClick={() => handleDeleteClick(currency._id) } aria-label="eliminar" color="error">
                                     <DeleteIcon />
                                     </IconButton>
                                 </TableCell>
@@ -138,7 +165,45 @@ export default function Currency() {
                               
                           </Box>
                       </Box>
-                    </Box>}
+                </Box>}
+            
+            {showModalDelete && <Box onClick={() => { setShowModalDelete(false); 
+         }} sx={{ zIndex: 10, paddingTop: 5, top: 0, left: 0, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center"}}>
+         <Box sx={{ marginTop:20,backgroundColor:'#00003d',height:'200px', display:'flex', justifyContent:'center', flexDirection:'column' }} onClick={(e) => e.stopPropagation()}>
+           <Box  sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end", backgroundColor:'#00003d', marginBottom:'10px' }}>
+              <Box sx={{ position: "absolute", margin: 3 }}>
+                <CancelOutlined onClick={() => {
+                  setShowModalDelete(false), setDeleteData(null) }} sx={{ color: "white", cursor: "pointer" }}>
+                </CancelOutlined> 
+              </Box>
+            </Box>
+            <Box sx={{margin:'30px', width:'400px',height:'200px'}} >
+                <Alert  sx={{marginTop:'15px', fontSize:'20px'}} severity="warning" icon={<WarningRoundedIcon />}>
+                  Confirma que deseas eliminar este metodo de pago?
+                </Alert>            
+                <Box sx={{  minWidth: "290px",  display: "flex", justifyContent: "space-between", }}>
+                    <Buttons sx={{ marginTop: "15px",width:'100%', marginLeft: "auto" ,backgroundColor:'red'}} variant="contained" disabled={!status}
+                        onClick={async () => {
+                          try {
+                            const statusDelete = await fetchHook.delete(process.env.NEXT_PUBLIC_HOST_SERVICE + '/currency/' + deleteData)
+                            if (statusDelete.statusCode != 200)
+                              toast.error(statusDelete.message)
+                            CurrencyHook.currencies
+                            setStatus(true)
+                            toast.success('Divisa Eliminada')
+                            closeModal();
+                            setDeleteData(null)
+                          } catch (error) {
+                            toast.error(error + "")
+                            setStatus(true)
+                          }
+                        }}>
+                           Confirmar Eliminación
+                      </Buttons>
+                </Box>
+            </Box>
+        </Box>
+      </Box>}
     </Box>
   )
 }

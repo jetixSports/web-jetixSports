@@ -160,6 +160,7 @@ const TorneoStream: Torneo[] = [
                     boxShadow: 6 }}}
                >
                 <CardMedia
+                  //src={process.env.NEXT_PUBLIC_HOST_SERVICE + "/images/tournaments/" +torneo._idImg}
                   component="img"
                   sx={{ width: 200 }}
                   image={torneo.image}

@@ -1,22 +1,33 @@
 'use client'
-import React, { useState } from 'react'
+import React, { SetStateAction, useState } from 'react'
 import useInscription from './useInscription'
-import { Alert, Box, Dialog, DialogContent, Divider, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material'
+import { Alert, Box, Dialog, DialogContent, Divider, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, Typography } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 
 import Background from '@/src/app/components/UX/Background/Background';
 import Form from '@/src/app/components/UX/Form/Form';
 import Buttons from '@/src/app/components/UX/Buttons/Buttons';
-import PaymentMetod from '@/src/app/components/UX/Pay/PaymentMetod';
-//import PaymentForm from '@/src/app/components/UX/Pay/PaymentForm';
 import usePay from '@/src/app/Torneos/[_idTournament]/inscription/usePay';
 import Inputs from '@/src/app/components/UX/Inputs/Inputs';
 import { CancelOutlined } from '@mui/icons-material';
+import useMethodOne from '@/src/app/MethodPay/useMethodOne';
+import useCurrency from '@/src/app/Currency/useCurrency';
 
 function App({ params }: { params: { _idTournament: string } }) {
   const { handleSubmit, tournament, status,fields,teams,watch ,users} = useInscription({ _idTournament: params._idTournament })
  const {handleSubmitPay, fieldss, errors, isloading} = usePay({ _idTournament: params._idTournament })
   const [persons,setPerson]=useState<string[]>([])
+  const [showModalCreate, setShowModalCreate] = useState(false)
+  const { method, setMethodId} = useMethodOne(tournament?._idReferee);
+  const metodId = tournament?._idReferee
+  const {currencies, loading, error} = useCurrency()
+  const [paymentType, setPaymentType] = useState('creditCard');
+  const handlePaymentTypeChange = (event: {
+      target: { value: SetStateAction<string> };
+      }) => {
+      setPaymentType(event.target.value);
+  };
+  
   const handleChange = (event: SelectChangeEvent<string[]>) => {
     const {
       target: { value },
@@ -24,8 +35,14 @@ function App({ params }: { params: { _idTournament: string } }) {
     setPerson(typeof value === 'string' ? value.split(',') : value);
 
   };
-  const [showModalCreate, setShowModalCreate] = useState(false)
 
+  console.log(metodId);
+  
+
+  let amout = tournament?.amount
+  if(amout == null){
+    amout = 0;
+  }
   return (
     <Box sx={{ width: '100%', marginTop: "190px" }}>
       <Background src="/backgrounds/torneo.svg"></Background>
@@ -97,7 +114,7 @@ function App({ params }: { params: { _idTournament: string } }) {
 
             <Box sx={{display:'flex',justifyContent:'space-between', width:'100%'}}>
               <Typography sx={{marginTop:'8px'}}><strong>Total:</strong></Typography>
-              <Typography>$<strong>{persons.length * 8}</strong></Typography>
+              <Typography>$<strong>{persons.length * amout}</strong></Typography>
             </Box>
             <Box sx={{display:'flex',justifyContent:'space-between', width:'100%'}}>
               <Typography sx={{ fontSize:'14px' }}>
@@ -111,13 +128,89 @@ function App({ params }: { params: { _idTournament: string } }) {
               Precio de Inscripcio:
              </Typography>
              <Typography sx={{ fontSize:'14px'  }}>
-              <strong>$8</strong>
+              <strong>{amout}</strong>
+              {method?.typePay}
              </Typography>
            </Box>
           </Box>
            <Divider flexItem sx={{borderColor:'white'}} />
         <Box  sx={{marginBottom:'15px'}}>
-          <PaymentMetod/>
+
+          <Select
+            sx={{
+              width: "100%",
+              paddingX: "10px",
+              marginY: "5px",
+              backgroundColor: "#20105B",
+              borderRadius: "10px",
+              color: "white",
+              height: 36,
+              marginBottom:3,
+            }} {...fields.methodPay}
+                        
+          >
+              {method?.typePay === 'mobile_payments' && (
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, color:'white' , marginTop:'10px'}}>
+                  <Box sx={{ display: 'flex', gap: 1 }}>
+                    <Typography variant="body1">
+                      Banco:
+                    </Typography>
+                    <Typography variant="body1" sx={{ fontStyle:'italic' }}>
+                      {method?.details?.mobileCode}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', gap: 1 }}>
+                    <Typography variant="body1" >
+                      Telefono:
+                    </Typography>
+                    <Typography variant="body1" sx={{ fontStyle:'italic' }}>
+                      {method?.details?.phoneNumber}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', gap: 1 }}>
+                    <Typography variant="body1">
+                      Cedula:
+                    </Typography>
+                    <Typography variant="body1" sx={{ fontStyle:'italic' }}>
+                      {method?.details?.identity}
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
+              {method?.typePay === 'bank_transfer' && (
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, color:'white' , marginTop:'10px'}}>       
+                  <Box sx={{ display: 'flex', gap: 1 }}>
+                    <Typography variant="body1">
+                    Numero de Cuenta:
+                    </Typography>
+                    <Typography variant="body1" sx={{ fontStyle:'italic' }}>
+                    {method?.details?.bankNumber}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', gap: 1 }}>
+                    <Typography variant="body1">
+                      Cedula:
+                    </Typography>
+                    <Typography variant="body1" sx={{ fontStyle:'italic' }}>
+                      {method?.details?.identity}
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
+              {method?.typePay === 'binance' && (
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, color:'white' , marginTop:'10px'}}>       
+                  <Box sx={{ display: 'flex', gap: 1 }}>
+                    <Typography variant="body1">
+                      Correo Electronico:
+                    </Typography>
+                    <Typography variant="body1" sx={{ fontStyle:'italic' }}>
+                      {method?.details?.email}
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
+              
+          </Select>
         </Box>
           <Divider flexItem sx={{borderColor:'white'}} />
         <Box sx={{ width: "100%", gap: 2,marginY:"20px", display: 'flex', flexDirection: "column" }}>
@@ -183,27 +276,14 @@ function App({ params }: { params: { _idTournament: string } }) {
                         }} {...fieldss.currency}
                         error={!!errors?.currency}
                           >
-                        <MenuItem key='Dolares'  value='Dolares'>
-                          Dolares
-                        </MenuItem>
-                        <MenuItem key='Euros'  value='Euros'>
-                          Euros
-                        </MenuItem>
-                        <MenuItem key='Bolivares'  value='Bolivares'>
-                          Bolivares
-                        </MenuItem>
-                          
+                            {currencies.map((currency,i)=>(
+                              <MenuItem key={i}  value={currency.shortname}>
+                                {currency.name}
+                              </MenuItem>
+                            ))}                          
                       </Select>
 
-                      <Typography sx={{ color: "white" }}>Cargar Captura del Pago</Typography>
-                      <Inputs
-                      type="file"
-                      sx={{ width: "100%", height: 36 }}
-                      {...fieldss.file}
-                      error={!!errors?.file}
-                      helperText={errors?.file?.message + ""}
-                      />
-
+                      
                       <Alert  sx={{marginTop:'15px'}} severity="warning" icon={<WarningRoundedIcon />}>
                         Tu inscripcion se procesara una vez el organizador haya verificado el Pago.
                       </Alert>

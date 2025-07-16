@@ -35,7 +35,7 @@ export default function CardTorneosDestacados() {
           gap: 4
         }}>
 
-          {TorneoDes.map((torneo, i) => i>9?'':(
+          {TorneoDes.map((torneo, i) => i>3?'':(
             <Box
               key={i}
               sx={{
@@ -61,7 +61,7 @@ export default function CardTorneosDestacados() {
               >
                 <Image
                   src={process.env.NEXT_PUBLIC_HOST_SERVICE + "/images/tournaments/" +torneo._idImg}
-                  height={128}
+                  height={80}
                   width={128}
                   alt={"fondo"}
                   className={"w-full h-full"}

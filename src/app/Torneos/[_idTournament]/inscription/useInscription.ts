@@ -104,6 +104,9 @@ function useInscription({ _idTournament }: { _idTournament: string }) {
       playersMembers: register("playersMembers", {
         required: "Los miembros son obligatorios",
       }),
+      methodPay: register("methodPay", { 
+        required: "El metodo de pago es obligatorio",
+      })
     },
     errors,
     status,

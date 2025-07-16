@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import useFetch from "./hooks/useFetch";
 
 interface Torneo {
+
   _id: string;
   name: string;
   typeSport: string;

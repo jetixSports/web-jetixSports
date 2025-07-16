@@ -1,104 +1,14 @@
-import React from 'react';
+'use client'
+import React, { useState } from 'react';
 import {  Box,  Card,  Typography,  Button, CardMedia, CardContent, CardActions,
  Chip, LinearProgress, Container} from "@mui/material";
+import usePage from '@/src/app/usePage';
 
 
-interface Torneo {
-  id: number;
-  title: string;
-  juego: string;
-  fecha: string;
-  plataforma: string;
-  premio: string;
-  Precio: string;
-  Players: number;
-  numPlayers: number;
-  Team: number;
-  image: any;
-}
 
 export default function CardTorneos() {
-  const TorneoPro: Torneo[] = [
-    {
-      id: 1,
-      title: 'Torneo League of Legends',
-      juego: 'LoL',
-      fecha: '02/12/2025',
-      plataforma: 'Twitch',
-      premio: '300$',
-      Precio: '8$',
-      Players: 120,
-      numPlayers: 80,
-      Team: 5,
-      image: './assets/img/valorant.png'
-    },
-    {
-      id: 2,
-      title: 'Campeonato Valorant Champions',
-      juego: 'Valorant',
-      fecha: '02/12/2025',
-      plataforma: 'YouTube Gaming',
-      premio: '500$',
-      Precio: '10$',
-      Players: 100,
-      numPlayers: 75,
-      Team: 5,
-      image: './assets/img/valorant.png'
-    },
-    {
-      id: 3,
-      title: 'Batalla Fortnite Season 5',
-      juego: 'Fortnite',
-      fecha: '02/12/2025',
-      plataforma: 'Twitch',
-      premio: '450$',
-      Precio: '5$',
-      Players: 150,
-      numPlayers: 120,
-      Team: 2,
-      image: './assets/img/valorant.png'
-    },
-    {
-      id: 4,
-      title: 'CS:GO Global Offensive',
-      juego: 'CS:GO',
-      fecha: '02/12/2025',
-      plataforma: 'Facebook Gaming',
-      premio: '600$',
-      Precio: '12$',
-      Players: 80,
-      numPlayers: 65,
-      Team: 5,
-      image: './assets/img/valorant.png'
-    },
-    {
-      id: 5,
-      title: 'Dota 2 International Qualifiers',
-      juego: 'Dota 2',
-      fecha: '02/12/2025',
-      plataforma: 'Twitch',
-      premio: '750$',
-      Precio: '15$',
-      Players: 90,
-      numPlayers: 85,
-      Team: 5,
-      image: './assets/img/valorant.png'
-    },
-    {
-      id: 6,
-      title: 'Rocket League Championship',
-      juego: 'Rocket League',
-      fecha: '02/12/2025',
-      plataforma: 'YouTube Gaming',
-      premio: '350$',
-      Precio: '7$',
-      Players: 110,
-      numPlayers: 95,
-      Team: 3,
-      image: './assets/img/valorant.png'
-    }
-  ];
-
+    const { TorneoDes, loading, error } = usePage();
+    
   return (
     <Box sx={{ py: 3,width: '100%' }}>
       <Container maxWidth="lg">
@@ -108,8 +18,8 @@ export default function CardTorneos() {
           justifyContent: 'center',
           gap: 4 }}>
 
-          {TorneoPro.map((torneo) => (
-            <Box key={torneo.id} sx={{width:'100%'}}
+          {TorneoDes.map((torneo,i) => (
+            <Box key={i} sx={{width:'100%'}}
             >
               <Card sx={{ height: '120px',width:'100%', display: 'flex',backgroundColor:'#2f105b',flexDirection: 'row',
                   transition: 'transform 0.3s, box-shadow 0.3s',
@@ -118,10 +28,10 @@ export default function CardTorneos() {
                     boxShadow: 6 }}}
                >
                 <CardMedia
+                  src={process.env.NEXT_PUBLIC_HOST_SERVICE + "/images/tournaments/" +torneo._idImg}
                   component="img"
                   sx={{ width: 200 }}
-                  image={torneo.image}
-                  alt={torneo.title}
+                  alt={torneo.name}
                 />
                 <Box sx={{ flexGrow: '1', display: 'flex', flexDirection: 'row' }}>
 
@@ -129,35 +39,34 @@ export default function CardTorneos() {
                         
                         <Box sx={{ display: 'flex', flexDirection: 'column',width: '400px', justifyContent:'center' }}>
                             <Typography gutterBottom variant="h5" component="div" sx={{color:"white" }}>
-                            {torneo.title}
+                            {torneo.name}
                             </Typography>
                   
                             <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
-                                <Chip label={torneo.juego} sx={{color:"white" }} size="small" />
-                                <Chip label={torneo.plataforma} variant="outlined" sx={{color:"white" }} size="small" />
+                                <Chip label={torneo.typeSport} sx={{color:"white" }} size="small" />
                             </Box>
                         </Box>
 
                         <Box sx={{ display: 'flex', justifyContent:'center', flexDirection: 'column',width:'300px' }}>
                             
                             <Typography variant="body2" color="white" sx={{ mb: 1, marginBottom:'10px'}}>
-                                Premio: <strong>{torneo.premio}</strong> • Inscripción: <strong>{torneo.Precio}</strong>
+                                Precio de Inscripción: <strong>{torneo.amount}</strong>
                             </Typography>
                             <Typography variant="body2" sx={{ mb: 1,color:"white" }}>
-                                Fecha: {torneo.fecha}
+                                Fecha: {torneo.startDate}
                             </Typography>
                             <Typography variant="body2" sx={{ mb: 1,color:"white" }}>
-                                Jugadores: {torneo.numPlayers}/{torneo.Players} • {torneo.Team} vs {torneo.Team} 
+                                Jugadores: /{torneo.quotas} • {torneo.teamSpace} vs {torneo.teamSpace} 
                             </Typography>
                             
                     
                         </Box> 
                     </CardContent>
                     <CardActions sx={{ display: 'flex', flexDirection: 'row', marginLeft:'15px'}}>
-                        <Button href={`/Torneos/${torneo.id}`} size="small" sx={{color:'white', borderRadius:'2px', borderColor:'white'}}> 
+                        <Button href={`/Torneos/${torneo._id}`} size="small" sx={{color:'white', borderRadius:'2px', borderColor:'white'}}> 
                             Ver detalles
                         </Button>
-                        <Button href={`/Torneos/${torneo.id}/Inscripcion`} size="small" variant="contained" sx={{backgroundColor:'#77589c',color:'white'}}>
+                        <Button href={`/Torneos/${torneo._id}/inscripcion`} size="small" variant="contained" sx={{backgroundColor:'#77589c',color:'white'}}>
                             Unirse
                         </Button>
                     </CardActions>

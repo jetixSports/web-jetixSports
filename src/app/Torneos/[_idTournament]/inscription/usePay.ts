@@ -8,10 +8,12 @@ import useFetch from "@/src/app/hooks/useFetch";
 
 export default function usePay({ _idTournament }: { _idTournament: string }) {
   const { post } = useFetch();
+  const [tournament, setTournament] = useState<Tournaments | null>();
   const { data: session, status: sessionStatus } = useSession();
   const user = session?.user;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isloading, setIsloading] = useState(false)
+  const _idPayDetails = tournament?._idPayDetails
   
   const {
     register,
@@ -44,16 +46,6 @@ export default function usePay({ _idTournament }: { _idTournament: string }) {
     }),
     currency: register("currency", { 
       required: "La divisa es obligatoria" 
-    }),
-    file: register("file", { 
-      required: "La imagen del comprobante es obligatoria",
-      validate: (files) => {
-        if (!files || files.length === 0) return "Se requiere una imagen";
-        const file = files[0];
-        if (!file.type.startsWith('image/')) return "Debe ser una imagen";
-        if (file.size > 5 * 1024 * 1024) return "Máximo 5MB";
-        return true;
-      }
     })
   };
 

@@ -31,18 +31,18 @@ export default function useMethod() {
     }
 
     setLoading(true);
-    const toastId = toast.loading('Cargando métodos de pago...');
+    // const toastId = toast.loading('Cargando métodos de pago...');
 
     try {
       const res = await post(
         `${process.env.NEXT_PUBLIC_HOST_SERVICE}/payments-details/find`,{ _idUser: user?._id }
       );
-
-      if (!res || res.statusCode !== 200 || !Array.isArray(res.data)) {
+      
+      if (!res || ![200,404].includes(res.statusCode)  ) {
         throw new Error(res?.message || 'Error desconocido');
       }
 
-      setMethods(res.data);
+      setMethods(res?.data??[]);
       setError(null);
     } catch (err: any) {
       console.error('[useMethod] Error:', err);
@@ -50,7 +50,7 @@ export default function useMethod() {
       setError(err.message || 'Error al obtener métodos de pago');
     } finally {
       setLoading(false);
-      toast.dismiss(toastId);
+      // toast.dismiss(toastId);
     }
   };
 

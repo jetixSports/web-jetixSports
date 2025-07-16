@@ -15,8 +15,10 @@ interface Tournaments {
   description: string;
   _idImg: string;
   typeSport: string;
+  _idPayDetails:string;
   _idUsers: string[];
   quotas: number;
+  amount: number;
   teamSpace: number;
   startDate: Date;
   endDate: Date;
