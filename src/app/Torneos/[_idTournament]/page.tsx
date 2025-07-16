@@ -63,7 +63,7 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
 
   return (
     <Box sx={{ paddingTop: 15, display: 'flex', justifyContent: "center" }}>
-      <Background sx={{ backgroundColor: '#270E60' }}></Background>
+      <Background sx={{ backgroundColor: '#00003d' }}></Background>
       {streamData && <Box onClick={() => {
         setStreamData(null)
       }} sx={{ zIndex: 10, paddingTop: 5, top: 0, left: 0, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
@@ -86,10 +86,13 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
         <Typography variant="h6" gutterBottom color="white">
           {hookIdTour.tournament?.description}
         </Typography>
-        <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', marginBottom: 2 }}>
-
-          <Buttons href={`${_idTournament}/inscription`} sx={{ color: "white" }}>Inscribirse</Buttons>
-
+        <Box sx={{display:'flex', justifyContent:'space-between'}}>
+          <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', marginBottom: 2 }}>
+              <Buttons href={`${_idTournament}/inscription`} sx={{ color: "white" }}>Inscribirse</Buttons>
+          </Box>
+          <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', marginBottom: 2 , justifyContent:'flex-end'}}>
+            <Buttons href={`${_idTournament}/payments`} sx={{ color: "white", p:1 }}>Gestion de pago de inscripción</Buttons>
+          </Box>
         </Box>
         <Paper sx={{ mb: 3, backgroundColor: '#2f105b', boxShadow: '0px 5px 5px ', }}>
           <Tabs value={activeTab} onChange={handleTabChange} variant="fullWidth"

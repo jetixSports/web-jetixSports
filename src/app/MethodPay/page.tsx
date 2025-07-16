@@ -184,11 +184,11 @@ export default function TablaMetodosPago() {
                           </>
                         )}
                       </TableCell>
-                      <TableCell sx={{ color: 'white' }}>
+                      {/* <TableCell sx={{ color: 'white' }}>
                         <IconButton onClick={() => handleEditClick(method._id)}   aria-label="editar" color="primary">
                           <EditIcon />
                         </IconButton>
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell sx={{ color: 'white' }}>
                         <IconButton onClick={() => handleDeleteClick(method._id) } aria-label="eliminar" color="error">
                           <DeleteIcon />

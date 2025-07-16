@@ -20,7 +20,6 @@ function App({ params }: { params: { _idTournament: string } }) {
  const {handleSubmitPay, fieldss, errors, isloading} = usePay({ _idTournament: params._idTournament })
   const [persons,setPerson]=useState<string[]>([])
   const [showModalCreate, setShowModalCreate] = useState(false)
-  const metodId = tournament?._idReferee
   const {currencies, loading, error} = useCurrency()
   const payMethodsHook=usePaymentMethod({payments:payDetails})
   const handleChange = (event: SelectChangeEvent<string[]>) => {
@@ -30,8 +29,6 @@ function App({ params }: { params: { _idTournament: string } }) {
     setPerson(typeof value === 'string' ? value.split(',') : value);
 
   };
-
-  console.log(metodId);
   
 
   let amout = tournament?.amount
@@ -111,6 +108,7 @@ function App({ params }: { params: { _idTournament: string } }) {
               <Typography sx={{marginTop:'8px'}}><strong>Total:</strong></Typography>
               <Typography>$<strong>{persons.length * amout}</strong></Typography>
             </Box>
+
             <Box sx={{display:'flex',justifyContent:'space-between', width:'100%'}}>
               <Typography sx={{ fontSize:'14px' }}>
               Numero de jugador
@@ -120,7 +118,7 @@ function App({ params }: { params: { _idTournament: string } }) {
 
            <Box sx={{display:'flex',justifyContent:'space-between', width:'100%'}}>
              <Typography sx={{ fontSize:'14px'  }}>
-              Precio de Inscripcio:
+              Precio de Inscripción:
              </Typography>
              <Typography sx={{ fontSize:'14px'  }}>
               <strong>${amout}</strong>
@@ -130,7 +128,7 @@ function App({ params }: { params: { _idTournament: string } }) {
            <Divider flexItem sx={{borderColor:'white'}} />
         <Box  sx={{marginBottom:'15px'}}>
 
-         {payMethodsHook?.ReactNode}
+        {payMethodsHook?.ReactNode}
         </Box>
           <Divider flexItem sx={{borderColor:'white'}} />
         <Box sx={{ width: "100%", gap: 2,marginY:"20px", display: 'flex', flexDirection: "column" }}>
@@ -168,21 +166,21 @@ function App({ params }: { params: { _idTournament: string } }) {
                     
                     <Form handleSubmit={handleSubmitPay}>
                       <Typography sx={{ color: "white" }}>Numero del referencia del Pago</Typography>
-                      <Inputs type='number' {...fieldss.transactionCode}
+                      <Inputs 
+                        placeholder='Ultimos 6 numeros'
+                        {...fieldss.transactionCode}
                         error={!!errors?.transactionCode}
                         helperText={errors?.transactionCode?.message + ""}/>
 
                       <Typography sx={{ color: "white" }}>Monto pagado</Typography>
-                      <Inputs type='number' {...fieldss.amount}
+                      <Inputs 
+                        placeholder='Ej. 523.23'
+                        type='number' 
+                        {...fieldss.amount}
                         error={!!errors?.amount}
                         helperText={errors?.amount?.message + ""}/>
 
-                      <Typography sx={{ color: "white" }}>Tasa de Cambio</Typography>
-                      <Inputs type='number' {...fieldss.rateExchange}
-                        error={!!errors?.rateExchange}
-                        helperText={errors?.rateExchange?.message + ""}/>
-
-                      <Typography sx={{ color: "white" }}>Divisa</Typography>
+                      <Typography sx={{ color: "white" }}>Selecione la divisa del pago</Typography>
                       <Select
                         sx={{
                           width: "100%",
@@ -197,12 +195,26 @@ function App({ params }: { params: { _idTournament: string } }) {
                         error={!!errors?.currency}
                           >
                             {currencies.map((currency,i)=>(
-                              <MenuItem key={i}  value={currency.shortname}>
+                              <MenuItem key={i}  value={currency.name}>
                                 {currency.name}
                               </MenuItem>
                             ))}                          
                       </Select>
 
+                      <Typography sx={{ color: "white" }}>Tasa de Cambio</Typography>
+                      <Inputs 
+                        placeholder='Ej. 100.23'
+                        type='number' 
+                        {...fieldss.rateExchange}
+                        error={!!errors?.rateExchange}
+                        helperText={errors?.rateExchange?.message + ""}/>
+
+                      <Typography sx={{ color: "white" }}>Captura del pago</Typography>
+                      <Inputs 
+                        type='file' 
+                        {...fieldss._idImg}
+                        error={!!errors?._idImg}
+                        helperText={errors?._idImg?.message + ""}/>
                       
                       <Alert  sx={{marginTop:'15px'}} severity="warning" icon={<WarningRoundedIcon />}>
                         Tu inscripcion se procesara una vez el organizador haya verificado el Pago.
