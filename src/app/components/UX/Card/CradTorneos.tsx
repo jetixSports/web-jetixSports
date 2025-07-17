@@ -1,14 +1,30 @@
 'use client'
 import React, { useMemo, useState } from 'react';
 import {  Box,  Card,  Typography,  Button, CardMedia, CardContent, CardActions,
- Chip, LinearProgress, Container} from "@mui/material";
+ Chip, LinearProgress, Container,
+ CircularProgress,
+ Alert} from "@mui/material";
 import usePage from '@/src/app/usePage';
 
 
 
 export default function CardTorneos() {
     const { TorneoDes, loading, error } = usePage();  
-
+  if (loading) {
+      return (
+        <Box display="flex" justifyContent="center" my={4}>
+          <CircularProgress />
+        </Box>
+      );
+    }
+  
+    if (error) {
+      return (
+        <Box my={4}>
+          <Alert severity="error">{error}</Alert>
+        </Box>
+      );
+    }
   return (
     <Box sx={{ py: 3,width: '100%' }}>
       <Container maxWidth="lg">

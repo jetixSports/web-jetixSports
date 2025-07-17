@@ -1,11 +1,46 @@
-import React from 'react';
-import { Box,Typography } from '@mui/material';
+'use client'
+import React, { useState } from 'react';
+import { Autocomplete, Box,TextField,Typography } from '@mui/material';
 
 import BoxHeader from '../components/UX/Box/Box';
 import Background from '../components/UX/Background/Background';
 import CardStream from '../components/UX/Card/CardStream';
+import useStream from './useStream';
+import usePage from '../usePage';
+
+interface Torneo {
+  _id: string;
+  name: string;
+  typeSport: string;
+  status:string;
+  quotas: number;
+  teamSpace:number;
+  amount: string;
+  startDate: string;
+  _idImg: string;
+  teams:any[]
+}
+
+interface Stream {
+  torneoId: string;
+  URL: string;
+}
+
+type StreamMap = {
+  [key: string]: Stream | undefined;
+};
 
 export default function Streaming() {
+  
+  const {TorneoDes} = usePage()
+  const {stream} = useStream()
+  const [Search, SetSearch] = useState(false)
+  const [selectedTournament, setSelectedTournament] = useState<Torneo | null>(null);
+      const options : Torneo[] = TorneoDes?.map(torneo => ({
+          ...torneo,
+          label: torneo.name || 'Nombre no disponible'
+      })) || [];
+
   return (
     <Box>
         <BoxHeader>
@@ -19,6 +54,40 @@ export default function Streaming() {
                 </Box>
             </Box>
         </BoxHeader>
+        {/* <Box sx={{display:'flex',alignItems:'center', width:'600px', justifyContent:'flex-end'}}> 
+          <Box sx={{width:'70%'}}>
+            <Autocomplete
+              clearOnEscape
+              options={options}
+              sx={{p: 0, marginY: "5px", backgroundColor: "#20105B",  borderRadius: "10px", height: 55,
+              color: "white", // Color del texto en el input (no suficiente por sí solo)
+                "& .MuiInputBase-root": {
+                  color: "white", // Color del texto ingresado
+                },
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "none", 
+                },
+                "& .MuiInputLabel-root": {
+                  color: "white", // Color del label ("Buscar torneos...")
+                },
+                "& .MuiAutocomplete-popupIndicator": {
+                  color: "white", // Color del ícono de desplegar
+                },
+                "& .MuiAutocomplete-clearIndicator": {
+                  color: "white", // Color del ícono de limpiar
+                }}}
+                renderInput={(params) => <TextField  {...params} label="Buscar torneos por nombre..." />}
+                onChange={(event, newValue) => {
+                  setSelectedTournament(newValue);
+                  SetSearch(true)
+                }}
+                isOptionEqualToValue={(option, value) => option._id === value._id}
+             />
+          </Box>
+        <Box>
+
+        </Box>
+        </Box> */}
         <Box>
         <CardStream/>
         </Box>
