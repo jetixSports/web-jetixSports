@@ -25,119 +25,36 @@ const TorneoStream: Torneo[] = [
     status: "Activo",
     quotas: 16,
     teamSpace: 4,
-    amount: "$5000",
+    amount: "$5",
     startDate: "2023-08-15",
-    image: './assets/lol.png',
-    url: './assets/img/valorant.png'
+    image: './assets/img/futbol.png',
+    url: ''
   },
   {
     id: 2,
-    name: "Torneo Relámpago de Vóley",
-    typeSport: "Vóley",
+    name: "Torneo de league of legends",
+    typeSport: "League of Legends",
     status: "Próximamente",
     quotas: 8,
     teamSpace: 6,
-    amount: "$1200",
+    amount: "$8",
     startDate: "2023-09-01",
-    image:'./assets/lol.png',
-    url: './assets/img/valorant.png'
+    image:'./assets/img/lol.png',
+    url: ''
   },
   {
     id: 3,
-    name: "Liga de Baloncesto Ciudad",
-    typeSport: "Baloncesto",
+    name: "Liga de Voleibol",
+    typeSport: "Voleibol",
     status: "Finalizado",
     quotas: 12,
     teamSpace: 5,
-    amount: "$3000",
+    amount: "$3",
     startDate: "2023-05-10",
-    image:'./assets/lol.png',
-    url: './assets/img/valorant.png'
+    image:'./assets/img/lol.png',
+    url: ''
   },
-  {
-    id: 4,
-    name: "Tenis Masters",
-    typeSport: "Tenis",
-    status: "Activo",
-    quotas: 32,
-    teamSpace: 1,
-    amount: "$2500",
-    startDate: "2023-07-20",
-    image:'./assets/lol.png',
-    url: './assets/img/valorant.png'
-  },
-  {
-    id: 5,
-    name: "Torneo de Pádel Amateur",
-    typeSport: "Pádel",
-    status: "Próximamente",
-    quotas: 24,
-    teamSpace: 2,
-    amount: "$800",
-    startDate: "2023-10-05",
-    image: './assets/lol.png',
-    url: './assets/img/valorant.png'
-  },
-  {
-    id: 6,
-    name: "Campeonato de Natación",
-    typeSport: "Natación",
-    status: "Activo",
-    quotas: 50,
-    teamSpace: 1,
-    amount: "$1500",
-    startDate: "2023-08-01",
-    image: './assets/lol.png',
-    url: './assets/img/valorant.png'
-  },
-  {
-    id: 7,
-    name: "Liga de Béisbol Primavera",
-    typeSport: "Béisbol",
-    status: "Finalizado",
-    quotas: 10,
-    teamSpace: 9,
-    amount: "$4000",
-    startDate: "2023-04-15",
-    image:'./assets/lol.png',
-    url: './assets/img/valorant.png'
-  },
-  {
-    id: 8,
-    name: "Torneo de Ajedrez Abierto",
-    typeSport: "Ajedrez",
-    status: "Activo",
-    quotas: 100,
-    teamSpace: 1,
-    amount: "Gratis",
-    startDate: "2023-08-20",
-    image:'./assets/lol.png',
-    url: './assets/img/valorant.png'
-  },
-  {
-    id: 9,
-    name: "Copa de Rugby Universitario",
-    typeSport: "Rugby",
-    status: "Próximamente",
-    quotas: 8,
-    teamSpace: 15,
-    amount: "$3500",
-    startDate: "2023-11-10",
-    image:'./assets/lol.png',
-    url: './assets/img/valorant.png'
-  },
-  {
-    id: 10,
-    name: "Torneo de Golf Benéfico",
-    typeSport: "Golf",
-    status: "Activo",
-    quotas: 40,
-    teamSpace: 1,
-    amount: "$2000",
-    startDate: "2023-09-15",
-    image:'./assets/lol.png',
-    url: './assets/img/valorant.png'
-  }
+
 ];
   const Players = TorneoStream.length
 
@@ -161,6 +78,7 @@ const TorneoStream: Torneo[] = [
                >
                 <CardMedia
                   //src={process.env.NEXT_PUBLIC_HOST_SERVICE + "/images/tournaments/" +torneo._idImg}
+                  src={torneo.image}
                   component="img"
                   sx={{ width: 200 }}
                   image={torneo.image}

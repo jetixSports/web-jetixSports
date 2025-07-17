@@ -93,7 +93,7 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
             <Buttons href={`${_idTournament}/inscription`} sx={{ color: "white" }}>Inscribirse</Buttons>
           </Box>
           <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', marginBottom: 2, justifyContent: 'flex-end' }}>
-            {tournament?._idReferee == user?._id && <Buttons href={`${_idTournament}/payments`} sx={{ color: "white", p: 1 }}>Gestion de pago de inscripción</Buttons>}
+            {tournament?._idReferee == user?._id && <Buttons href={`${_idTournament}/payments`} sx={{ color: "white", p: 1 }}>Gestion de pagos</Buttons>}
           </Box>
         </Box>
         <Paper sx={{ mb: 3, backgroundColor: '#2f105b', boxShadow: '0px 5px 5px ', }}>

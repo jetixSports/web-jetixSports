@@ -53,7 +53,7 @@ export default function CardTorneos() {
                                 Precio de Inscripción: <strong>{torneo.amount}</strong>
                             </Typography>
                             <Typography variant="body2" sx={{ mb: 1,color:"white" }}>
-                                Fecha: {torneo.startDate}
+                                Fecha: {new Date(torneo.startDate).toLocaleString()}
                             </Typography>
                             <Typography variant="body2" sx={{ mb: 1,color:"white" }}>
                                 Jugadores: /{torneo.quotas} • {torneo.teamSpace} vs {torneo.teamSpace} 
@@ -66,7 +66,7 @@ export default function CardTorneos() {
                         <Button href={`/Torneos/${torneo._id}`} size="small" sx={{color:'white', borderRadius:'2px', borderColor:'white'}}> 
                             Ver detalles
                         </Button>
-                        <Button href={`/Torneos/${torneo._id}/inscripcion`} size="small" variant="contained" sx={{backgroundColor:'#77589c',color:'white'}}>
+                        <Button href={`/Torneos/${torneo._id}/inscription`} size="small" variant="contained" sx={{backgroundColor:'#77589c',color:'white'}}>
                             Unirse
                         </Button>
                     </CardActions>

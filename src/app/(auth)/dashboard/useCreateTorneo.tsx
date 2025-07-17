@@ -23,6 +23,9 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
     { value: 'FIFA', label: 'FIFA' },
     { value: 'Pokemon', label: 'Pokemon' },
     { value: 'Caida', label: 'Caida' },
+    { value: 'Fútbol ', label: 'Fútbol ' },
+    { value: 'Voleibol', label: 'Voleibol' },
+    { value: 'Béisbol', label: 'Béisbol' },
   ]
   const [paymentType, setPaymentType] = useState('');
   const [selectedMethod, setSelectedMethod] = useState('');

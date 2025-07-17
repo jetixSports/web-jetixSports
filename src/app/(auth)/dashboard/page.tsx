@@ -210,7 +210,7 @@ const SectionTournaments = ({ dashboardHook, type, user }: { dashboardHook: Dash
             }}>
 
                 <Box sx={{
-                    marginTop: 15, maxHeight: "75vh", display: "flex", flexDirection: "column",
+                    marginTop: 15, maxHeight: "80vh", display: "flex", flexDirection: "column",
                     borderRadius: "10px", position: "relative", overflow: "hidden"
                 }} onClick={(e) => e.stopPropagation()}>
                     <Box sx={{

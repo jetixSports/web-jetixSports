@@ -35,7 +35,7 @@ export default function CardTorneosDestacados() {
           gap: 4
         }}>
 
-          {TorneoDes.map((torneo, i) => i > 3 ? '' : (
+          {TorneoDes.map((torneo, i) => i > 2 ? '' : (
             <Box
               key={i}
               sx={{
