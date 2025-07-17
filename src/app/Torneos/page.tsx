@@ -125,7 +125,7 @@ export default function Torneos() {
                                 "& .MuiAutocomplete-clearIndicator": {
                                 color: "white", // Color del ícono de limpiar
                                 }}}
-                        renderInput={(params) => <TextField  {...params} label="Bucar torneos por nombre..." />}
+                        renderInput={(params) => <TextField  {...params} label="Buscar torneos por nombre..." />}
                         onChange={(event, newValue) => {
                             setSelectedTournament(newValue);
                             SetSearch(true)
