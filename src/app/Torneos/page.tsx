@@ -106,11 +106,26 @@ export default function Torneos() {
                <Box sx={{display:'flex',alignItems:'center', width:'600px', justifyContent:'flex-end'}}> 
                     <Box sx={{width:'70%'}}>
                     <Autocomplete
-                        color="white"
                         clearOnEscape
                         options={options}
-                        sx={{p: 0, marginY: "5px", backgroundColor: "#20105B",  borderRadius: "10px", height: 55}}
-                        renderInput={(params) => <TextField sx={{ color: "white",}} {...params} label="Bucar torneos por nombre..." />}
+                        sx={{p: 0, marginY: "5px", backgroundColor: "#20105B",  borderRadius: "10px", height: 55,
+                            color: "white", // Color del texto en el input (no suficiente por sí solo)
+                                "& .MuiInputBase-root": {
+                                color: "white", // Color del texto ingresado
+                                },
+                                "& .MuiOutlinedInput-notchedOutline": {
+                                borderColor: "none", 
+                                },
+                                "& .MuiInputLabel-root": {
+                                color: "white", // Color del label ("Buscar torneos...")
+                                },
+                                "& .MuiAutocomplete-popupIndicator": {
+                                color: "white", // Color del ícono de desplegar
+                                },
+                                "& .MuiAutocomplete-clearIndicator": {
+                                color: "white", // Color del ícono de limpiar
+                                }}}
+                        renderInput={(params) => <TextField  {...params} label="Bucar torneos por nombre..." />}
                         onChange={(event, newValue) => {
                             setSelectedTournament(newValue);
                             SetSearch(true)
