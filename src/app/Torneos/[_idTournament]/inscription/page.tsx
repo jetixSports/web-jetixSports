@@ -1,8 +1,9 @@
 'use client'
 import React, { SetStateAction, useState } from 'react'
 import useInscription from './useInscription'
-import { Alert, Box, Dialog, DialogContent, Divider, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, Typography } from '@mui/material'
+import { Alert, Box, Dialog, DialogContent, Divider, FormControl, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, Tooltip, Typography } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import Background from '@/src/app/components/UX/Background/Background';
 import Form from '@/src/app/components/UX/Form/Form';
@@ -17,6 +18,7 @@ import usePaymentMethod from '@/src/app/hooks/usePaymentMethod';
 import toast from 'react-hot-toast';
 import useFetch from '@/src/app/hooks/useFetch';
 import { useSession } from 'next-auth/react';
+import Torneos from '../../page';
 
 function App({ params }: { params: { _idTournament: string } }) {
   const { post } = useFetch()
@@ -67,9 +69,26 @@ function App({ params }: { params: { _idTournament: string } }) {
   return (
     <Box sx={{ width: '100%', marginTop: "190px" }}>
       <Background src="/backgrounds/torneo.svg"></Background>
-
-      <Form styles={{ Box: { marginX: 'auto', marginY: 10 }, form: { width: '100%' } }}
+      
+      <Form styles={{ Box: { marginX: 'auto', marginY: 10}, form: { width: '100%' } }}
         handleSubmit={handleSubmit}>
+          <Box sx={{width:'100%'}}>
+            <Tooltip title="Volver a Torneo">
+              <IconButton 
+                  href={`/Torneos/${tournament?._id}`}
+                  color="secondary"
+                  aria-label="Volver a Torneo"
+                  sx={{
+                    '&:hover': {
+                      backgroundColor: 'rgba(0, 0, 0, 0.04)'
+                    }
+                  }}
+                >
+                  <ArrowBackIcon />
+                  <Typography>Volver a Torneo</Typography>
+              </IconButton>
+            </Tooltip>
+        </Box>
         <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", textAlign: "center", fontSize: 24 }}>
           Inscribirse
         </Typography>
@@ -135,7 +154,7 @@ function App({ params }: { params: { _idTournament: string } }) {
 
           <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
             <Typography sx={{ marginTop: '8px' }}><strong>Total:</strong></Typography>
-            <Typography>$<strong>{persons.length * amout}</strong></Typography>
+            <Typography>$<strong>{amout}</strong></Typography>
           </Box>
 
           <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>

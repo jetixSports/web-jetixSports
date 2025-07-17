@@ -2,9 +2,12 @@
 import React, { useState } from 'react';
 import {
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
-  Paper, IconButton, Typography, Box, Select, MenuItem, CircularProgress
+  Paper, IconButton, Typography, Box, Select, MenuItem, CircularProgress,
+  Tooltip
 } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CheckOutlined, CancelOutlined, Visibility } from '@mui/icons-material';
+
 import Buttons from '@/src/app/components/UX/Buttons/Buttons';
 import usePayments from './usePayments';
 import Background from '@/src/app/components/UX/Background/Background';
@@ -92,6 +95,22 @@ export default function Payments({ params: { _idTournament } }: { params: { _idT
       {ReactDialog}
 
       <Box sx={{ width: "90%", maxWidth: 1000, marginBottom: 4 }}>
+         <Box sx={{width:'100%'}}>
+            <Tooltip title="Volver a Torneo">
+              <IconButton 
+                href={`/Torneos/${tournament?._id}`}
+                color="secondary"
+                aria-label="Volver a Torneo"
+                sx={{
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.04)'
+                    }
+                }}>
+                  <ArrowBackIcon />
+                  <Typography>Volver a Torneo</Typography>
+              </IconButton>
+            </Tooltip>
+         </Box>
         <TableContainer component={Paper} sx={{ backgroundColor: "#20105b" }}>
           <Box sx={{ display: 'flex', margin: 1, flexDirection: 'column' }}>
             <Typography variant="h6" sx={{ p: 2, color: "white" }}>

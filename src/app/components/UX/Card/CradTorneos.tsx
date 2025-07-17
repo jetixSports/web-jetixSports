@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {  Box,  Card,  Typography,  Button, CardMedia, CardContent, CardActions,
  Chip, LinearProgress, Container} from "@mui/material";
 import usePage from '@/src/app/usePage';
@@ -7,8 +7,8 @@ import usePage from '@/src/app/usePage';
 
 
 export default function CardTorneos() {
-    const { TorneoDes, loading, error } = usePage();
-    
+    const { TorneoDes, loading, error } = usePage();  
+
   return (
     <Box sx={{ py: 3,width: '100%' }}>
       <Container maxWidth="lg">
@@ -21,7 +21,9 @@ export default function CardTorneos() {
           {TorneoDes.map((torneo,i) => (
             <Box key={i} sx={{width:'100%'}}
             >
-              <Card sx={{ height: '120px',width:'100%', display: 'flex',backgroundColor:'#2f105b',flexDirection: 'row',
+            {i > 2 ? (
+              <Box>
+                  <Card sx={{ height: '120px',width:'100%', display: 'flex',backgroundColor:'#2f105b',flexDirection: 'row',
                   transition: 'transform 0.3s, box-shadow 0.3s',
                   '&:hover': {
                     transform: 'translateY(-5px)',
@@ -72,6 +74,10 @@ export default function CardTorneos() {
                     </CardActions>
                 </Box>
               </Card>
+              </Box>
+            ):(
+              <Box></Box>
+            )}
             </Box>
           ))}
         </Box>

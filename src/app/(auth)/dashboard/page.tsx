@@ -238,6 +238,7 @@ const SectionTournaments = ({ dashboardHook, type, user }: { dashboardHook: Dash
                     {dashboardHook?.[type === "registered" ? 'registeredTour' : 'myTournaments']?.map((tournament, i) => (
                         <Grid sx={{ width: 207, padding: 0 }} key={i} onClick={() => router.push('/Torneos/' + tournament._id)} >
                             <Card sx={{ padding: 0 }}>
+                              <CardActionArea>
                                 <Box sx={{ width: '100%', height: 100 }}>
                                     <Image
                                         src={process.env.NEXT_PUBLIC_HOST_SERVICE + "/images/tournaments/" + tournament._idImg}
@@ -271,6 +272,7 @@ const SectionTournaments = ({ dashboardHook, type, user }: { dashboardHook: Dash
                                         </Typography>
                                     )}
                                 </Box>
+                              </CardActionArea>
                             </Card>
                         </Grid>
                     ))}

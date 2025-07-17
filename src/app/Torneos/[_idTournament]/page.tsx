@@ -14,8 +14,11 @@ import {
   Grid,
   Chip,
   Divider,
-  Paper
+  Paper,
+  Tooltip
 } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 import { ExpandMore, ExpandLess, SportsEsports, People, LiveTv, CancelOutlined } from '@mui/icons-material';
 import Background from '../../components/UX/Background/Background';
 import useIdTournament from './useIdTournament';
@@ -79,6 +82,23 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
         </Box>
       </Box>}
       <Box sx={{ maxWidth: 900, width: "90%", marginBottom: 3 }}>
+        <Box sx={{width:'100%'}}>
+          <Tooltip title="Volver a Mi Pagina">
+                <IconButton 
+                  href={`/dashboard`}
+                  color="secondary"
+                  aria-label="Volver a Mi Pagina"
+                  sx={{
+                    '&:hover': {
+                      backgroundColor: 'rgba(0, 0, 0, 0.04)'
+                    }
+                  }}
+                >
+                  <ArrowBackIcon />
+                  <Typography>Volver a Mi Pagina</Typography>
+                </IconButton>
+              </Tooltip>
+        </Box>
         <Box>
           <Typography variant="h4" gutterBottom color="white">
             {hookIdTour.tournament?.name}
@@ -226,7 +246,7 @@ function RoundsSection({ expandedRounds, toggleRound, hookTour, setStreamData }:
                         {match.status != "finished" && <Box sx={{ display: "flex", marginTop: 2 }}>
                           {userMatch && <Buttons onClick={() => {
                             if (userMatch?._idStream && userMatch?._idStream != "") {
-                              return router.push("/Stream/" + userMatch?._idStream)
+                              return window.open(userMatch?._idStream, '_blank') 
                             }
                             setStreamData({ _idTournament: tournament?._id, _idUser: user?._id ?? "", type: "match", _idMatch: match._id, _idTeam: userMatch._idTeam })
                           }} sx={{ color: "white", }}>
