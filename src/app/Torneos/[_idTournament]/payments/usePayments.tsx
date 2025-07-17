@@ -115,8 +115,9 @@ export default function usePayments({
           _idPayment,
         },
       );
-
-      if (!response.ok && response.statusCode !== 200) {
+      console.log(response);
+      
+      if (response.statusCode !== 200) {
         throw new Error(response.message || "Error al procesar el pago");
       }
 

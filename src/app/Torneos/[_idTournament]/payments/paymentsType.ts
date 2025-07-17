@@ -8,7 +8,7 @@ type Payment = {
   amount: number;
   rateExchange: number;
   currency: string;
-  status: "pending" | "accepted" | "denied";
+  status: "pending" | "accept" | "denied";
   _idImg?: string;
   creationDate?: string;
 };

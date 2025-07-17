@@ -12,7 +12,7 @@ import Image from 'next/image';
 
 const statusMap = {
   pending: 'Pendiente',
-  accepted: 'Aceptado',
+  accept: 'Aceptado',
   denied: 'Rechazado'
 };
 
