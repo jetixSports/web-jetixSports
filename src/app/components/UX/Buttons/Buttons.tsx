@@ -3,13 +3,13 @@ import React from "react";
 
 export default function Buttons({ sx, ...allProps }: ButtonProps) {
   const styles: SxProps<Theme>  = {
-    backgroundColor: "#6A00FF",
+    backgroundColor: "#6730b4ff",
     borderRadius: "10px",
     height: 36,
     fontSize:'16px',
     transition: 'transform 0.3s, box-shadow 0.3s',
     '&:hover': {
-      backgroundColor: "#6A00FF",
+      backgroundColor: "#3e147a",
       color:'white'},
     ...sx,
   };

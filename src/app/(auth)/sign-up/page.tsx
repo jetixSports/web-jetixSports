@@ -15,14 +15,10 @@ export default function App() {
   const [acceptTerms, setAcceptTerms] = useState(false)
   const { handleSubmit, fields, errors, status } = useSignUp(acceptTerms)
   return (
-    <Box sx={{ width: '100%', display: "flex", justifyContent: "center", marginTop: "160px", marginBottom: '80px' }}>
-      <Background src="./backgrounds/login.svg" />
+    <Box sx={{ width: '100%', display: "flex", alignContent:'space-between',backgroundColor:'#070735' }}>
 
-      <Box>
+      <Box sx={{display:"flex",justifyContent:'center', width:'50%',marginTop:15, marginBottom:10, marginLeft:10}} >
         <Form styles={{ form: { width: '100%' } }} handleSubmit={handleSubmit}>
-          <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", textAlign: "center", fontSize: 24 }}>
-            Registro
-          </Typography>
           <Box sx={{ width: "100%", gap: 2, display: 'flex', flexDirection: "column" }}>
 
             <Inputs sx={{ width: "100%", height: 36 }} placeholder="   Nombre" {...fields.name}
@@ -64,7 +60,18 @@ export default function App() {
           </Box>
         </Form>
       </Box>
+      <Box sx={{display:'flex',flexDirection:'column',justifyContent:'center', alignItems:'center', width:'50%',marginBottom:20, marginRight:20}}>
+        <Typography sx={{fontSize:'60px',color:'white', transform:'rotate(-10deg)'}}>
+          Prueba #2B
+        </Typography>
+        <Typography sx={{fontSize:'30px', fontWeight:'bold',color:'white', transform:'rotate(-10deg)'}}>
+          Prueba #4A
+        </Typography>
+        <Typography sx={{fontSize:'20px',color:'white', transform:'rotate(-10deg)'}}>
+          Prueba #5B
+        </Typography>
+      </Box>
     </Box>
 
   );
-}
+}0

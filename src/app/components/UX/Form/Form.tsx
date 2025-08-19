@@ -11,9 +11,10 @@ function Form({ styles, children,handleSubmit }: FormParams) {
       marginY: { xs: 1, sm: 2 },
       paddingX: { xs: 4, sm: 5},
       paddingY: { xs: 2, sm: 3},
-      backgroundColor: "#00003D",
-      border: "solid white 1px",
+      backgroundColor: "#070735",
+      border: "solid #562ab9 1px",
       borderRadius: "14px",
+      boxShadow: '10px 10px rgb(96 45 191)',
       ...styles?.Box,
     },
     form:{

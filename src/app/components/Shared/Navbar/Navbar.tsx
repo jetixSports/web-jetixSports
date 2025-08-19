@@ -44,13 +44,14 @@ export default function NavBar() {
       sx={{
         alignContent: "center",
         width: "90%",
-        backgroundColor: '#440079',
+        backgroundColor: '#602dbfab',
+        backdropFilter:'blur(4px)',
         margin: "0 5%",
         padding: "0px",
         height: "65px",
         borderRadius: "50px",
         display: "flex",
-        boxShadow: '0px 10px 30px rgb(117, 0, 163)',
+        boxShadow: '0px 10px 30px rgba(126, 50, 156, 1)',
         top: "15px",
         zIndex: "100",
       }}
@@ -136,10 +137,10 @@ export default function NavBar() {
                     <LiveTvIcon sx={{ mr: 1 }} />
                     Stream Activos
                   </MenuItem>
-                  <MenuItem onClick={handleMenuClose} href='/Contactos'>
+                  {/* <MenuItem onClick={handleMenuClose} href='/Contactos'>
                     <CallIcon sx={{ mr: 1 }} />
                     Contactos
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem onClick={handleMenuClose} href='/login'>
                     Iniciar sesión
                   </MenuItem>
@@ -164,20 +165,20 @@ export default function NavBar() {
               <Button
                 color="inherit"
                 startIcon={<LiveTvIcon />}
-                sx={{ textTransform: 'none', textWrap: 'nowrap', marginLeft: { lg: 4 } }}
+                sx={{ textTransform: 'none', textWrap: 'nowrap',marginRight: "auto", marginLeft: { lg: 4 } }}
                 href='/Stream'
               >
                 Streams
               </Button>
 
-              <Button
+              {/* <Button
                 color="inherit"
                 startIcon={<CallIcon />}
                 sx={{ textTransform: 'none', marginRight: "auto", marginLeft: { lg: 4 } }}
                 href='/Contactos'
               >
                 Contactos
-              </Button>
+              </Button> */}
               <Button
                 color="inherit"
                 sx={{ textTransform: 'none' }}
@@ -249,10 +250,10 @@ export default function NavBar() {
                     <LiveTvIcon sx={{ mr: 1 }} />
                     Stream Activos
                   </MenuItem>
-                  <MenuItem onClick={handleMenuClose} href='/Contactos'>
+                  {/* <MenuItem onClick={handleMenuClose} href='/Contactos'>
                     <CallIcon sx={{ mr: 1 }} />
                     Contactos
-                  </MenuItem>
+                  </MenuItem> */}
                   {user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/admin/usersList'>
                     <GroupIcon sx={{ mr: 1 }}/>
                     Lista de Usuarios
@@ -295,20 +296,20 @@ export default function NavBar() {
               <Button
                 color="inherit"
                 startIcon={<LiveTvIcon />}
-                sx={{ textTransform: 'none', textWrap: 'nowrap', marginLeft: { lg: 4 } }}
+                sx={{ textTransform: 'none', textWrap: 'nowrap',marginRight: "auto", marginLeft: { lg: 4 } }}
                 href='/Stream'
               >
                 Streams
               </Button>
 
-              <Button
+              {/* <Button
                 color="inherit"
                 startIcon={<CallIcon />}
                 sx={{ textTransform: 'none', marginRight: "auto", marginLeft: { lg: 4 } }}
                 href='/Contactos'
               >
                 Contactos
-              </Button>
+              </Button> */}
               <Box
                 onClick={handleMenuOpen}
                 sx={{ display: 'flex', cursor: 'pointer' }}
