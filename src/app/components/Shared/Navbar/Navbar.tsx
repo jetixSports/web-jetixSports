@@ -51,7 +51,7 @@ export default function NavBar() {
         height: "65px",
         borderRadius: "50px",
         display: "flex",
-        boxShadow: '0px 10px 30px rgba(126, 50, 156, 1)',
+        boxShadow: '0px 10px 30px rgb(96 45 191 / 42%)',
         top: "15px",
         zIndex: "100",
       }}
