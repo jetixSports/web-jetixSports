@@ -13,18 +13,14 @@ export default function Footer() {
         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 3, height: "70px" }}>
 
           <Box sx={{ width: "fitContent", height: "70px", display: 'flex', alignContent: "center", justifyContent: "Center" }}>
-            <Box sx={{ height: '60px', width: '75px' }}>
-              <Image
-                height={40}
-                width={80}
-                src="/assets/logos/backTransparent.png"
-                alt="logo"
-                className='w-full h-full'
-              />
-            </Box>
-
+           
             <Typography variant="h6" fontWeight="bold" sx={{ textWrap: 'nowrap', marginY: 'auto' }}>
-              JETIX SPORT
+               <Image
+                  src="/assets/logos/name.png"
+                  alt="logo"
+                  height={40}
+                  width={150}
+                />
             </Typography>
           </Box >
 

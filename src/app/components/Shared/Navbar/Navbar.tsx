@@ -58,14 +58,14 @@ export default function NavBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ transition: 'all 0.3s ease' }}>
           <Box sx={{ display: "flex", flexDirection: "row", alignContent: "center" }}>
-            <Box sx={{ width: "60px", height: "64px", margin:'3px 5px 0 0', justifyContent:'center',alignContent:'center'}}>
+            {/* <Box sx={{ width: "60px", height: "64px", margin:'3px 5px 0 0', justifyContent:'center',alignContent:'center'}}>
               <Image
-                src="/assets/logos/backTransparent.png"
+                src="/assets/logos/etiz.png"
                 alt="logo"
                 height={50}
                 width={70}
               />
-            </Box>
+            </Box> */}
             <Box sx={{ alignContent: "center", height:'65px', margin:'0 0 0 5px' }}>
               <Typography variant="h6" noWrap component="a" href="/"
                 sx={{
@@ -75,7 +75,12 @@ export default function NavBar() {
                   color: 'inherit',
                   textDecoration: 'none',
                 }}>
-                JETIX SPORT
+                  <Image
+                src="/assets/logos/name.png"
+                alt="logo"
+                height={40}
+                width={170}
+              />
               </Typography>
             </Box>
           </Box>
