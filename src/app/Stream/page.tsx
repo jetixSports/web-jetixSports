@@ -45,7 +45,7 @@ export default function Streaming() {
     <Box>
         <BoxHeader>
             <Box sx={{marginBottom:'60px'}}>
-                <Background sx={{backgroundColor:"#00003d"}} src="./backgrounds/torneo.svg"></Background>
+                <Background sx={{backgroundColor:" #04082a"}} src="./backgrounds/torneo.svg"></Background>
                 <Box sx={{color:'white', margin:'220px 0  0 100px'}}>
                     <Typography variant="h4" sx={{fontWeight: 'bold',marginBottom:'10px'}}>
                     ¡Para los espectadores, ¡vive la emoción en vivo!</Typography>

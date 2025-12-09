@@ -68,7 +68,7 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
 
   return (
     <Box sx={{ paddingTop: 15, display: 'flex', justifyContent: "center" }}>
-      <Background sx={{ backgroundColor: '#00003d' }}></Background>
+      <Background sx={{ backgroundColor: ' #04082a' }}></Background>
       {streamData && <Box onClick={() => {
         setStreamData(null)
       }} sx={{ zIndex: 10, paddingTop: 5, top: 0, left: 0, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>

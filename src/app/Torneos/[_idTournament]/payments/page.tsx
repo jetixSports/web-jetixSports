@@ -56,7 +56,7 @@ export default function Payments({ params: { _idTournament } }: { params: { _idT
       flexDirection: "column",
       color: "white",
       minHeight: "90vh",
-      backgroundColor: "#00003D",
+      backgroundColor: " #04082a",
       paddingTop: 15
     }}>
       {imgShow && <Box onClick={() => {
@@ -76,7 +76,7 @@ export default function Payments({ params: { _idTournament } }: { params: { _idT
             marginY: { xs: 1, sm: 2 },
             paddingX: { xs: 4, sm: 5 },
             paddingY: { xs: 2, sm: 3 },
-            backgroundColor: "#00003D",
+            backgroundColor: " #04082a",
             border: "solid white 1px",
             borderRadius: "14px",
           }}>
@@ -91,7 +91,7 @@ export default function Payments({ params: { _idTournament } }: { params: { _idT
           </Box>
         </Box>
       </Box>}
-      <Background sx={{ backgroundColor: '#00003d' }} />
+      <Background sx={{ backgroundColor: ' #04082a' }} />
       {ReactDialog}
 
       <Box sx={{ width: "90%", maxWidth: 1000, marginBottom: 4 }}>
@@ -111,7 +111,7 @@ export default function Payments({ params: { _idTournament } }: { params: { _idT
               </IconButton>
             </Tooltip>
          </Box>
-        <TableContainer component={Paper} sx={{ backgroundColor: "#20105b" }}>
+        <TableContainer component={Paper} sx={{ backgroundColor: " #04082a" }}>
           <Box sx={{ display: 'flex', margin: 1, flexDirection: 'column' }}>
             <Typography variant="h6" sx={{ p: 2, color: "white" }}>
               Gestión de Pagos
@@ -123,7 +123,7 @@ export default function Payments({ params: { _idTournament } }: { params: { _idT
                 value={localFilter.status}
                 onChange={(e) => setLocalFilter({ status: e.target.value })}
                 sx={{
-                  backgroundColor: "#070744",
+                  backgroundColor: "#0e0e35ff",
                   borderRadius: "10px",
                   color: "white",
                   minWidth: 120,

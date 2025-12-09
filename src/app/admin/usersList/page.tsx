@@ -39,10 +39,10 @@ export default function UserList() {
     ["email", "Correo"], ["username", "Nombre de usuario"]
   ]
   return (
-    <Box sx={{  width: "100%",  display: 'flex',  alignItems: "center",  flexDirection: "column",  minHeight: "60vh", backgroundColor: "#00003D",  paddingTop: 15}}>
-      <Background sx={{backgroundColor:'#00003d'}}></Background>
+    <Box sx={{  width: "100%",  display: 'flex',  alignItems: "center",  flexDirection: "column",  minHeight: "60vh", backgroundColor: "#04082a",  paddingTop: 10}}>
+      <Background sx={{backgroundColor:'#04082a'}}></Background>
       {deleteData && <Box onClick={() => setDeleteData(null)}
-        sx={{ zIndex: 10, paddingY: 5, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
+        sx={{ zIndex: 10, paddingY: 5, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", justifyContent: "center" }}>
         <Box>
           <Box sx={{
             maxWidth: "380px",
@@ -50,17 +50,19 @@ export default function UserList() {
             margin: 10,
             paddingX: { xs: 4, sm: 5 },
             paddingY: { xs: 2, sm: 3 },
-            backgroundColor: "#2f105b",
-            border: "solid white 1px",
+            backgroundColor: "#00003d",
+            border: "solid #432686ff 1px",
             borderRadius: "14px",
           }} onClick={(e) => e.stopPropagation()}>
             <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", textAlign: "center", fontSize: 24 }}>
               ¿Estás Seguro?
             </Typography>
-            <Typography sx={{ color: "white", textAlign: "center", marginY: 4 }}>Vas a eliminar a "{deleteData.firstName} {deleteData.lastName}"</Typography>
+            <Typography sx={{ color: "white", textAlign: "center", marginY: 2}}>Vas a eliminar a "{deleteData.firstName} {deleteData.lastName}"</Typography>
             <Box sx={{ minWidth: "290px", display: "flex", justifyContent: "space-between" }}>
               <Buttons onClick={() => setDeleteData(null)} sx={{ marginTop: "5px", }} variant="contained">Cancelar</Buttons>
-              <Buttons sx={{ marginTop: "5px", marginLeft: "auto" }} variant="contained" disabled={!status}
+              <Buttons sx={{ marginTop: "5px", marginLeft: "auto", backgroundColor:'#c44040ff', '&:hover': {
+                  backgroundColor: "#943131ff",
+                  color:'white'},}} variant="contained" disabled={!status}
                 onClick={async () => {
                   try {
                     const statusDelete = await fetchHook.delete(process.env.NEXT_PUBLIC_HOST_SERVICE + '/users/' + deleteData._id)
@@ -82,18 +84,18 @@ export default function UserList() {
       {showModalEdit && <Box onClick={() => {
         usersHook.findUsers()
         setShowModalEdit(false)
-      }} sx={{ zIndex: 10, paddingY: 5, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
-        <Box sx={{ marginTop: 10 }} onClick={(e) => e.stopPropagation()}>
+      }} sx={{ zIndex: 10, paddingY:5 ,position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", justifyContent: "center"  }}>
+        <Box sx={{ marginTop: 2 }} onClick={(e) => e.stopPropagation()}>
           <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end" }}>
-            <Box sx={{ position: "absolute", margin: 4 }}><CancelOutlined onClick={() => {
+            <Box sx={{ position: "absolute", margin: 4}}><CancelOutlined onClick={() => {
               usersHook.findUsers()
               setShowModalEdit(false)
-            }} sx={{ color: "white", cursor: "pointer" }}></CancelOutlined> </Box>
+            }} sx={{ color: "white", cursor: "pointer"}}></CancelOutlined> </Box>
           </Box>
           {updateHook.reactForm}
         </Box>
       </Box>}
-      <Box sx={{width: "80%",  maxWidth: 900, marginBottom: 4 }}>
+      <Box sx={{width: "80%",  maxWidth: 900,marginTop:10, justifyContent:'center' }}>
         <TableContainer component={Paper} sx={{ maxWidth: 900, color: "white",  backgroundColor: "#20105b" }}>
           <Box sx={{ display: 'flex', margin: 1, flexDirection: 'column' }}>
             <Typography variant="h6" sx={{ p: 2 }}>Lista de Usuarios</Typography>

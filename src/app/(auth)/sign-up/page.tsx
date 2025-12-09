@@ -1,6 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { Box, Typography, Link } from "@mui/material";
+import { Box, Typography, Link, List, ListItem, ListItemText, ListItemAvatar, Avatar } from "@mui/material";
+import '@fontsource/bebas-neue';
+import '@fontsource/inter';
+import '@fontsource/nunito';
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
+import CheckIcon from '@mui/icons-material/Check';
 
 import Form from "../../components/UX/Form/Form";
 import Inputs from "../../components/UX/Inputs/Inputs";
@@ -14,10 +19,12 @@ import { useSession } from "next-auth/react";
 export default function App() {
   const [acceptTerms, setAcceptTerms] = useState(false)
   const { handleSubmit, fields, errors, status } = useSignUp(acceptTerms)
+  
   return (
-    <Box sx={{ width: '100%', display: "flex", alignContent:'space-between',backgroundColor:'#070735' }}>
+    <Box sx={{ width: '100%', display: "flex", alignContent:'space-between', backgroundColor:'#04082a'
+    }}>
 
-      <Box sx={{display:"flex",justifyContent:'center', width:'50%',marginTop:15, marginBottom:10, marginLeft:10}} >
+      <Box sx={{display:"flex",justifyContent:'center', width:'50%',marginTop:15, marginBottom:10, marginLeft:'10%'}} >
         <Form styles={{ form: { width: '100%' } }} handleSubmit={handleSubmit}>
           <Box sx={{ width: "100%", gap: 2, display: 'flex', flexDirection: "column" }}>
 
@@ -60,16 +67,52 @@ export default function App() {
           </Box>
         </Form>
       </Box>
-      <Box sx={{display:'flex',flexDirection:'column',justifyContent:'center', alignItems:'center', width:'50%',marginBottom:20, marginRight:20}}>
-        <Typography sx={{fontSize:'60px',color:'white', transform:'rotate(-10deg)'}}>
-          Prueba #2B
+
+      <Box sx={{display:'flex',flexDirection:'column',justifyContent:'center', alignItems:'center', width:'50%',marginBottom:4, marginRight:'12%', marginLeft:'7%'}}>
+        <Typography variant="h1" sx={{fontSize:'60px',fontFamily:"Bebas Neue",color:'white'}}>
+          ¡Únete a la acción!
         </Typography>
-        <Typography sx={{fontSize:'30px', fontWeight:'bold',color:'white', transform:'rotate(-10deg)'}}>
-          Prueba #4A
+        <Typography sx={{fontSize:'16px',fontFamily:"Nunito",color:'white', textAlign:'justify'}}>
+          Registrate y comienza a competir en los torneos que más te gustan.  Al crear tu cuenta podras:
         </Typography>
-        <Typography sx={{fontSize:'20px',color:'white', transform:'rotate(-10deg)'}}>
-          Prueba #5B
-        </Typography>
+            <List>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar sx={{backgroundColor:'#9c27b0'}}>
+                    <CheckIcon sx={{color:'white'}} />
+                  </Avatar>
+                </ListItemAvatar>
+                  <ListItemText>
+                    <Typography  sx={{fontSize:'16px',fontFamily:"Nunito",color:'white'}}>
+                      Inscribirte en torneos de tus videojuegos favoritos, tanto online como presenciales.
+                    </Typography>
+                  </ListItemText>              
+                </ListItem>
+               <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <CheckIcon color="secondary" />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText>
+                  <Typography  sx={{fontSize:'16px',fontFamily:"Nunito",color:'white'}}>
+                    Formar equipos y conquista la victoria.
+                  </Typography>
+                </ListItemText>
+              </ListItem>
+               <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <CheckIcon color="secondary"/>
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText>
+                  <Typography  sx={{fontSize:'16px',fontFamily:"Nunito",color:'white'}}>
+                    Acceder a los streaming para ver torneos de interes.
+                  </Typography>
+                </ListItemText>
+               </ListItem>
+            </List>
       </Box>
     </Box>
 

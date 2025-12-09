@@ -38,13 +38,13 @@ const DashboardView = () => {
     const user = session?.user;
     return (
         <Box sx={{ paddingTop: 15, display: 'flex', justifyContent: "center" }}>
-            <Background sx={{ backgroundColor: '#00003d' }}></Background>
+            <Background sx={{ backgroundColor: ' #04082a' }}></Background>
             <Box sx={{ maxWidth: 900, width: "90%", }}>
                 <Typography variant="h4" gutterBottom color="white">
                     Mi Pagina
                 </Typography>
 
-                <Paper sx={{ mb: 3, backgroundColor: '#2f105b', boxShadow: '0px 5px 5px ', }}>
+                <Paper sx={{ mb: 3, backgroundColor: '#281f5aff', boxShadow: '0px 5px 5px ', }}>
                     <Tabs
                         value={activeTab}
                         onChange={handleTabChange}

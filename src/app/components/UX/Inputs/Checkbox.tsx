@@ -8,7 +8,7 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 export default function ColorCheckboxes({ checked, onChange }: { checked: boolean, onChange: (e: any) => any }) {
   return (
     <div>
-      <Checkbox {...label} checked={checked} onChange={onChange} sx={{color:"white"}} />
+      <Checkbox {...label} checked={checked} onChange={onChange} color="secondary" />
 
     </div>
   );

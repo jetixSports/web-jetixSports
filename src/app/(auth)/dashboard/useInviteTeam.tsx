@@ -60,7 +60,7 @@ function useInviteTeam({ callback, teamId }: { callback?: () => any, teamId: str
           keepMounted
           sx={{
             '& .MuiDialog-paper': {
-              backgroundColor: "#20105B",
+              backgroundColor: "#00003d",
             }
           }}
           onClose={() => setOpen(false)}
@@ -107,7 +107,7 @@ function useInviteTeam({ callback, teamId }: { callback?: () => any, teamId: str
               <Select sx={{
                 paddingX: "10px",
                 marginY: "5px",
-                backgroundColor: "#20105B",
+                backgroundColor: " #04082a",
                 borderRadius: "10px",
                 color: "white",
                 height: 36,

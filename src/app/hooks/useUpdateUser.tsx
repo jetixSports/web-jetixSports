@@ -44,7 +44,7 @@ function useUpdateUser({ defaultValues,callback ,sendRole}: { defaultValues?: Up
         user,
         setUser,
         setIdUser,
-        reactForm: <Form handleSubmit={handleSubmit(onSubmit)} >
+        reactForm: <Form handleSubmit={handleSubmit(onSubmit)}>
             <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", textAlign: "center", fontSize: 24 }}>
                 Editar Usuario
             </Typography>

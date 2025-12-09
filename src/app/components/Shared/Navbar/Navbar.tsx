@@ -18,7 +18,6 @@ import UserIcon from '../../UX/UserIcon/UserIcon';
 import { Logout, Mail, Person } from '@mui/icons-material';
 import useFetch from '@/src/app/hooks/useFetch';
 
-
 export default function NavBar() {
   const { get } = useFetch()
   const router = useRouter()
@@ -103,7 +102,7 @@ export default function NavBar() {
                     textTransform: 'none',
                     borderColor: 'white',
                     '&:hover': {
-                      backgroundColor: '#6A00FF',
+                      backgroundColor: '#5116a3ff',
                       color: "white"
                     }
                   }}
@@ -141,6 +140,7 @@ export default function NavBar() {
                     <CallIcon sx={{ mr: 1 }} />
                     Contactos
                   </MenuItem> */}
+                  <Divider />
                   <MenuItem onClick={handleMenuClose} href='/login'>
                     Iniciar sesión
                   </MenuItem>
@@ -198,7 +198,7 @@ export default function NavBar() {
                   textWrap: 'nowrap',
                   height: 'fit-content',
                   '&:hover': {
-                    backgroundColor: '#6A00FF',
+                    backgroundColor: '#7036c2ff',
                     color: "white"
                   }
                 }}
@@ -229,6 +229,7 @@ export default function NavBar() {
                   keepMounted
                   open={Boolean(anchorEl)}
                   onClose={handleMenuClose}
+                  
                 >
                   <MenuItem >
                     {user.firstName} {user.lastName}
@@ -242,6 +243,7 @@ export default function NavBar() {
                     <Mail sx={{ mr: 1 }} />
                     Invitaciones
                   </MenuItem>
+                  <Divider />
                   <MenuItem onClick={handleMenuClose} href='/Torneos'>
                     <SportsEsportsIcon sx={{ mr: 1 }} />
                     Torneos
@@ -270,6 +272,7 @@ export default function NavBar() {
                     <ArticleIcon sx={{ mr: 1 }}/>
                     Mi Página
                   </MenuItem>
+                  <Divider />
                   <MenuItem onClick={async () => {
                     const data = await get(process.env.NEXT_PUBLIC_HOST_SERVICE + '/auth/logout')
                     await signOut()
@@ -335,6 +338,7 @@ export default function NavBar() {
                   <Mail sx={{ mr: 1 }} />
                   Invitaciones
                 </MenuItem>
+                <Divider />
                 {user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/admin/usersList'>
                     <GroupIcon sx={{ mr: 1 }}/>
                     Lista de Usuarios
@@ -351,6 +355,7 @@ export default function NavBar() {
                     <ArticleIcon sx={{ mr: 1 }}/>
                     Mi Página
                   </MenuItem>
+                  <Divider />
                 <MenuItem onClick={async () => {
                   const data = await get(process.env.NEXT_PUBLIC_HOST_SERVICE + '/auth/logout')
                   await signOut()

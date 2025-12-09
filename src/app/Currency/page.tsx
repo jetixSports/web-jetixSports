@@ -44,8 +44,8 @@ export default function Currency() {
   };
 
   return (
-    <Box sx={{ width: "100%", display: 'flex', alignItems: "center", flexDirection: "column", minHeight: "84.1vh", backgroundColor: "#00003D", paddingTop: 15 }}>
-      <Background sx={{ backgroundColor: '#00003d' }} />
+    <Box sx={{ width: "100%", display: 'flex', alignItems: "center", flexDirection: "column", minHeight: "84.1vh", backgroundColor: "#04082a", paddingTop: 15 }}>
+      <Background sx={{ backgroundColor: '#04082a' }} />
       <Box sx={{ width: "80%", maxWidth: 900, marginBottom: 2, display: 'flex', justifyContent: 'space-between' }}>
         <Button onClick={() => setShowModalCurrencyAdd(true)} variant="contained" color="success" startIcon={<MonetizationOnIcon />} sx={{ mb: 2 }}>
           Agregar Divisa
@@ -119,7 +119,7 @@ export default function Currency() {
         setShowModalCurrencyAdd(false);
       }} sx={{ zIndex: 10, paddingTop: 5, top: 0, left: 0, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
         <Box sx={{ marginTop: 15, height: '200px', display: 'flex', justifyContent: 'center', flexDirection: 'column' }} onClick={(e) => e.stopPropagation()}>
-          <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end", backgroundColor: '#00003d', marginBottom: '10px' }}>
+          <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end", backgroundColor: '#04082a', marginBottom: '10px' }}>
             <Box sx={{ position: "absolute", margin: 10 }}>
               <CancelOutlined onClick={() => {
                 setShowModalCurrencyAdd(false)
@@ -172,8 +172,8 @@ export default function Currency() {
       {showModalDelete && <Box onClick={() => {
         setShowModalDelete(false);
       }} sx={{ zIndex: 10, paddingTop: 5, top: 0, left: 0, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
-        <Box sx={{ marginTop: 20, backgroundColor: '#00003d', height: '200px', display: 'flex', justifyContent: 'center', flexDirection: 'column' }} onClick={(e) => e.stopPropagation()}>
-          <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end", backgroundColor: '#00003d', marginBottom: '10px' }}>
+        <Box sx={{ marginTop: 20, backgroundColor: '#04082a', height: '200px', display: 'flex', justifyContent: 'center', flexDirection: 'column' }} onClick={(e) => e.stopPropagation()}>
+          <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end", backgroundColor: '#04082a', marginBottom: '10px' }}>
             <Box sx={{ position: "absolute", margin: 3 }}>
               <CancelOutlined onClick={() => {
                 setShowModalDelete(false), setDeleteData(null)

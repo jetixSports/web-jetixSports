@@ -130,7 +130,7 @@ export default function TablaMetodosPago() {
     setMethodIdToDelete(null);
   };
   return (
-    <Box sx={{ width: "100%", display: 'flex', alignItems: "center", flexDirection: "column", minHeight: "84.1vh", backgroundColor: "#00003D", paddingTop: 15 }}>
+    <Box sx={{ width: "100%", display: 'flex', alignItems: "center", flexDirection: "column", minHeight: "84.1vh", backgroundColor: "#04082a", paddingTop: 15 }}>
       <Box sx={{ width: "80%", maxWidth: 900, marginBottom: 2 }}>
         <Button onClick={() => setShowModalAdd(true)} variant="contained" color="success" startIcon={<AddCircleIcon />} sx={{ mb: 2 }}>
           Agregar Método de Pago
@@ -138,7 +138,7 @@ export default function TablaMetodosPago() {
       </Box>
 
       <Box sx={{ width: "80%", maxWidth: 900, marginBottom: 4 }}>
-        <TableContainer component={Paper} sx={{ backgroundColor: "#20105b" }}>
+        <TableContainer component={Paper} sx={{ backgroundColor: "#00003d" }}>
           <Typography variant="h6" sx={{ p: 2, color: "white" }}>Métodos de Pago</Typography>
           <Table aria-label="Tabla de métodos de pago">
             <TableHead>

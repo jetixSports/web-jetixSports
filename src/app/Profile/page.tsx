@@ -57,7 +57,7 @@ export default function Profile() {
                     {updateHook.reactForm}
                 </Box>
             </Box>}
-            <Background sx={{backgroundColor:'#00003d'}}></Background>
+            <Background sx={{backgroundColor:' #04082a'}}></Background>
             <Box >
 
                 <Box sx={{ paddingY: 15, display: 'flex', justifyContent: 'center' }}>

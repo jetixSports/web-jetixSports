@@ -15,35 +15,40 @@ export default function App() {
   const { handleSubmit, fields, errors,status } = useLogin()
   
   return (
-    <Box sx={{ width: '100%', marginTop:"190px" }}>
-      <Background src="./backgrounds/login.svg"></Background>
-      
-      <Form styles={{ Box: { marginX: 'auto', marginY: 10 }, form: { width: '100%' } }} 
-      handleSubmit={handleSubmit}>
-        <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", textAlign: "center", fontSize: 24 }}>
-          Inicio de Sesion
-        </Typography>
-        <Box sx={{ width: "100%", gap: 2, display: 'flex', flexDirection: "column" }}>
-          <Inputs
-            type="email"
-            sx={{ width: "100%", height: 36 }}
-            placeholder="   Correo Electronico"
-            {...fields.email}
-            error={!!errors?.email}
-            helperText={errors?.email?.message+""}
-          ></Inputs>
-          <PasswordInputs type="password" sx={{ width: "100%", }} placeholder="   Constraseña" {...fields.password}
-           error={!!errors?.password}
-            helperText={errors?.password?.message+""}></PasswordInputs>
-          <Buttons disabled={!status} type="submit" sx={{ marginTop: "5px" }} variant="contained">Iniciar Sesion</Buttons>
-        </Box>
-        <Box sx={{ width: "100%", display: 'flex', justifyContent: 'center', gap: 2, marginY: 1 }}>
-          <Typography sx={{ marginY: '5px', color: "white", textAlign: "center", fontSize: 16 }}>
-            ¿No tienes cuenta?
+    <Box sx={{ width: '100%', display: "flex", alignContent:'center',backgroundColor:'#04082a', 
+      }}>
+
+      <Box sx={{display:"flex",justifyContent:'center', width:'100%',marginTop:15, marginBottom:10, marginRight:10}} >
+        
+        <Form styles={{ Box: { marginX: 'auto', marginY: 10 }, form: { width: '100%' } }} 
+        handleSubmit={handleSubmit}>
+          <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", textAlign: "center", fontSize: 24 }}>
+            Inicio de Sesion
           </Typography>
-          <Buttons sx={{ backgroundColor: 'transparent' }} LinkComponent={"a"} href="/sign-up">Registrate</Buttons>
-        </Box>
-      </Form>
+          <Box sx={{ width: "100%", gap: 2, display: 'flex', flexDirection: "column" }}>
+            <Inputs
+              type="email"
+              sx={{ width: "100%", height: 36 }}
+              placeholder="   Correo Electronico"
+              {...fields.email}
+              error={!!errors?.email}
+              helperText={errors?.email?.message+""}
+            ></Inputs>
+            <PasswordInputs type="password" sx={{ width: "100%", }} placeholder="   Constraseña" {...fields.password}
+            error={!!errors?.password}
+              helperText={errors?.password?.message+""}></PasswordInputs>
+            <Buttons disabled={!status} type="submit" sx={{ marginTop: "5px" }} variant="contained">Iniciar Sesion</Buttons>
+          </Box>
+          <Box sx={{ width: "100%", display: 'flex', justifyContent: 'center', gap: 2, marginY: 1 }}>
+            <Typography sx={{ marginY: '5px', color: "white", textAlign: "center", fontSize: 16 }}>
+              ¿No tienes cuenta?
+            </Typography>
+            <Buttons sx={{ backgroundColor: 'transparent' }} LinkComponent={"a"} href="/sign-up">Registrate</Buttons>
+          </Box>
+        </Form>
+      </Box>
+
     </Box>
+
   );
 }

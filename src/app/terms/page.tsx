@@ -3,20 +3,20 @@ import { Box, Typography } from '@mui/material';
 
 const Page = () => {
   return (
-   <Box sx={{margin:0, backgroundColor: '#00003d', width:'100%',height:'auto'}}>
+   <Box sx={{margin:0, backgroundColor: ' #04082a', width:'100%',height:'auto', marginTop:10}}>
       <Box
       sx={{
         maxWidth: 800,
         margin: '0 auto',
         padding: 4,
-        backgroundColor: '#00003d',
+        backgroundColor: ' #04082a',
         color:'white',
         minHeight: '100vh'
       }}
     >
       <Box sx={{ textAlign: 'center', marginBottom: 4 }}>
         <Typography variant="h3" component="h1" gutterBottom color="primary">
-          JETIX eSPORTS
+          JETIX SPORTS
         </Typography>
         <Typography variant="h4" component="h2" gutterBottom>
           Términos y Condiciones
@@ -62,7 +62,7 @@ const Page = () => {
           </Typography>
         </Box>
         
-        <Box sx={{ backgroundColor: '#e3f2fd', color:"#00003d" ,padding: 2, borderRadius: 1 }}>
+        <Box sx={{ backgroundColor: '#e3f2fd', color:" #04082a" ,padding: 2, borderRadius: 1 }}>
           <Typography variant="h6" gutterBottom>
             Ejemplo:
           </Typography>
@@ -141,7 +141,7 @@ const Page = () => {
         </Typography>
       </Box>
 
-      <Box sx={{ marginTop: 6, padding: 3, backgroundColor: '#f0f0f0', borderRadius: 1, color:"#00003d"  }}>
+      <Box sx={{ marginTop: 6, padding: 3, backgroundColor: '#f0f0f0', borderRadius: 1, color:" #04082a"  }}>
         <Typography variant="body2" paragraph>
           <strong>Fecha de entrada en vigor:</strong> 14/06/2025
         </Typography>

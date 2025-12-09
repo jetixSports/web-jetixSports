@@ -17,7 +17,7 @@ export default function Home() {
     <Box>
 
       <BoxHeader>
-        <Background sx={{backgroundColor:"#00003d"}} src="./backgrounds/torneo.svg"></Background>
+        <Background sx={{backgroundColor:"#04082a"}} src="./backgrounds/torneo.svg"></Background>
         <Box sx={{color:'white', margin:'220px 0  0 100px'}}>
 
           <Typography variant="h4" sx={{fontWeight: 'bold',marginBottom:'10px'}}>
@@ -29,7 +29,7 @@ export default function Home() {
           
           
           {!user && <Box sx={{marginTop:'20px'}}>
-            <Buttons sx={{color:'#00003d',backgroundColor:'white', p:'20px'}} href="/sign-up">Registrate</Buttons>
+            <Buttons sx={{color:' #04082a',backgroundColor:'white', p:'20px'}} href="/sign-up">Registrate</Buttons>
           </Box>}
         </Box>
         <Box>
@@ -44,13 +44,13 @@ export default function Home() {
 
 
 
-      <Box sx={{height:'600px',backgroundColor:'#00003d', padding:'20px',alignContent:'center'}}>
+      <Box sx={{height:'600px',backgroundColor:' #04082a', padding:'20px',alignContent:'center'}}>
         <Box sx={{p:'30px', display:'flex',height:'50px'}}>
           <Typography variant="h4" sx={{fontWeight: 'bold',color: 'white',marginLeft:'100px'}}>
             Descubre Nuestros Servicios
           </Typography>
         </Box>        
-        <Box  sx={{height:'400px', backgroundColor:'#00003d', display:'flex', flexDirection:'colunm', justifyContent:'center'}}>
+        <Box  sx={{height:'400px', backgroundColor:' #04082a', display:'flex', flexDirection:'colunm', justifyContent:'center'}}>
 
           <Box sx={{width:'600px', alignContent:'center'}}>
             <Typography variant="h6" sx={{color: 'white',marginLeft:'100px'}}>
@@ -102,7 +102,7 @@ export default function Home() {
         </Box>
       </Box>
 
-      <Box sx={{height:'300px',width:'91%', backgroundColor:'#00003d', padding:'20px 60px',display:'flex',justifyContent:'center', flexDirection:'column', textAlign:'center'}}>
+      <Box sx={{height:'300px',width:'91%', backgroundColor:' #04082a', padding:'20px 60px',display:'flex',justifyContent:'center', flexDirection:'column', textAlign:'center'}}>
         <Typography variant="h4" sx={{fontWeight: 'bold',color: 'white'}}>
             Quieres Organizar un Torneo?
         </Typography>
@@ -110,7 +110,7 @@ export default function Home() {
           Contacta con nuestro equipo para obtener un cuenta de Organizador
           </Typography>
         <Box sx={{display:'flex', justifyContent:'center', marginTop:'15px'}}>
-          <Buttons href='/Contactos' sx={{backgroundColor:'#ffffff',color:'#00003d', padding:'20px'}}>Haz click aqui</Buttons>
+          <Buttons href='/Contactos' sx={{backgroundColor:'#ffffff',color:' #04082a', padding:'20px'}}>Haz click aqui</Buttons>
         </Box>  
       </Box>
 

@@ -31,7 +31,7 @@ export default function Invitations() {
         denied: 'Rechazada'
     }
     return (
-        <Box sx={{ width: "100%",  display: 'flex',  alignItems: "center",  flexDirection: "column",  minHeight: "90vh", backgroundColor: "#00003D",  paddingTop: 15}}>
+        <Box sx={{ width: "100%",  display: 'flex',  alignItems: "center",  flexDirection: "column",  minHeight: "90vh", backgroundColor: "#04082a",  paddingTop: 15}}>
             <Background src="/backgrounds/login.svg"></Background>
             {invitationsHook.ReactDialog}
             <Box sx={{width: "80%",  maxWidth: 600, marginBottom: 4 }}>
