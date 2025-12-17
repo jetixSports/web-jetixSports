@@ -171,38 +171,34 @@ export default function Currency() {
 
       {showModalDelete && <Box onClick={() => {
         setShowModalDelete(false);
-      }} sx={{ zIndex: 10, paddingTop: 5, top: 0, left: 0, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
-        <Box sx={{ marginTop: 20, backgroundColor: '#04082a', height: '200px', display: 'flex', justifyContent: 'center', flexDirection: 'column' }} onClick={(e) => e.stopPropagation()}>
-          <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end", backgroundColor: '#04082a', marginBottom: '10px' }}>
-            <Box sx={{ position: "absolute", margin: 3 }}>
-              <CancelOutlined onClick={() => {
-                setShowModalDelete(false), setDeleteData(null)
-              }} sx={{ color: "white", cursor: "pointer" }}>
-              </CancelOutlined>
-            </Box>
-          </Box>
+      }} sx={{ zIndex: 10, paddingTop: 5, top: 0, left: 0, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", justifyContent: "center" }}>
+        <Box sx={{ marginTop: 20, backgroundColor: "#00003d", border: "solid #432686ff 1px", borderRadius: "14px", height: '200px' }} onClick={(e) => e.stopPropagation()}>
           <Box sx={{ margin: '30px', width: '400px', height: '200px' }} >
-            <Alert sx={{ marginTop: '15px', fontSize: '20px' }} severity="warning" icon={<WarningRoundedIcon />}>
-              Confirma que deseas eliminar este metodo de pago?
-            </Alert>
-            <Box sx={{ minWidth: "290px", display: "flex", justifyContent: "space-between", }}>
-              <Buttons sx={{ marginTop: "15px", width: '100%', marginLeft: "auto", backgroundColor: 'red' }} variant="contained" disabled={!status}
+            <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", textAlign: "center", fontSize: 24 }}>
+              ¿Estás Seguro?
+            </Typography>
+            <Typography sx={{ color: "white", textAlign: "center", marginY: 2}}>Vas a eliminar a permanentemente esta divisa</Typography>
+            <Box sx={{ minWidth: "290px", display: "flex", justifyContent: "space-between" }}>
+              <Buttons onClick={() => { setShowModalDelete(false), setDeleteData(null)}} sx={{ marginTop: "5px", }} variant="contained">Cancelar</Buttons>
+              <Buttons sx={{ marginTop: "5px", marginLeft: "auto", backgroundColor:'#c44040ff', '&:hover': {
+                  backgroundColor: "#943131ff",
+                  color:'white'},}} variant="contained" disabled={!status}
                 onClick={async () => {
                   try {
                     const statusDelete = await fetchHook.delete(process.env.NEXT_PUBLIC_HOST_SERVICE + '/currency/' + deleteData)
                     if (statusDelete.statusCode != 200)
                       toast.error(statusDelete.message)
-                    CurrencyHook.currencies
-                    setStatus(true)
-                    toast.success('Divisa Eliminada')
-                    closeModal();
-                    setDeleteData(null)
+                      CurrencyHook.currencies
+                      setStatus(true)
+                      toast.success('Divisa Eliminada')
+                      closeModal();
+                      setDeleteData(null)
                   } catch (error) {
                     toast.error(error + "")
                     setStatus(true)
                   }
                 }}>
-                Confirmar Eliminación
+                Confirmar
               </Buttons>
             </Box>
           </Box>

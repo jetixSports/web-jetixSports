@@ -54,27 +54,28 @@ function useInviteTeam({ callback, teamId }: { callback?: () => any, teamId: str
   useEffect(() => { findUsers() }, [pagination, filter])
   return {
     reactForm: (
-      <Form styles={{ Box: { maxHeight: "70vh", maxWidth: "none" } }} handleSubmit={() => { }}>
+      <Form styles={{ Box: { maxHeight: "70vh", width: "500px" } }} handleSubmit={() => { }}>
         <Dialog
           open={open}
           keepMounted
           sx={{
             '& .MuiDialog-paper': {
-              backgroundColor: "#00003d",
+              backgroundColor: "#00003d", border: "solid #432686ff 1px", borderRadius: "14px", padding:2
             }
           }}
           onClose={() => setOpen(false)}
           aria-describedby="alert-dialog-slide-description"
         >
-          <DialogTitle sx={{ textAlign: "center", color: "white" }}>{"¿Estás Seguro?"}</DialogTitle>
+          <DialogTitle  sx={{ fontWeight: 'bold', color: "white", textAlign: "center", fontSize: 24 }}>{"¿Estás Seguro?"}</DialogTitle>
           <DialogContent>
             <DialogContentText sx={{ color: "white" }} id="alert-dialog-slide-description">
               ¿Estás seguro de invitar a "{userId?.firstName} {userId?.lastName}" a tu equipo?
             </DialogContentText>
           </DialogContent>
-          <DialogActions>
-            <Button sx={{ color: "white" }} onClick={() => setOpen(false)}>Cancelar</Button>
-            <Button sx={{ color: "white" }} onClick={async () => {
+          <DialogActions sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Buttons sx={{ color:"white", backgroundColor:'#c44040ff', '&:hover': { backgroundColor: "#943131ff", color:'white'}}}
+             onClick={() => setOpen(false)}>Cancelar</Buttons>
+            <Buttons sx={{ color: "white" }} onClick={async () => {
               try {
                 const invitation = await post(process.env.NEXT_PUBLIC_HOST_SERVICE + '/invitations', 
                   {
@@ -95,11 +96,12 @@ function useInviteTeam({ callback, teamId }: { callback?: () => any, teamId: str
                 setStatus(true)
               }
               
-            }}>Aceptar</Button>
+            }}>Aceptar</Buttons>
           </DialogActions>
         </Dialog>
         <Box sx={{
           position: "relative",
+          
         }}>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography variant="h5" color="white"> Usuarios</Typography>

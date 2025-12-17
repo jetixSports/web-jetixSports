@@ -248,6 +248,10 @@ export default function NavBar() {
                     <Mail sx={{ mr: 1 }} />
                     Invitaciones
                   </MenuItem>
+                  {user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/admin/usersList'>
+                    <GroupIcon sx={{ mr: 1 }}/>
+                    Lista de Usuarios
+                  </MenuItem>}
                   <Divider />
                   <MenuItem onClick={handleMenuClose} href='/Torneos'>
                     <SportsEsportsIcon sx={{ mr: 1 }} />
@@ -261,10 +265,6 @@ export default function NavBar() {
                     <CallIcon sx={{ mr: 1 }} />
                     Contactos
                   </MenuItem> */}
-                  {user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/admin/usersList'>
-                    <GroupIcon sx={{ mr: 1 }}/>
-                    Lista de Usuarios
-                  </MenuItem>}
                   {user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/Currency'>
                     <MonetizationOnIcon sx={{ mr: 1 }}/>
                     Divisa
@@ -343,7 +343,7 @@ export default function NavBar() {
                   <Mail sx={{ mr: 1 }} />
                   Invitaciones
                 </MenuItem>
-                <Divider />
+                
                 {user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/admin/usersList'>
                     <GroupIcon sx={{ mr: 1 }}/>
                     Lista de Usuarios

@@ -133,7 +133,7 @@ export default function UserList() {
                 <TableCell sx={{ color: "white", }}><strong>Nombre</strong></TableCell>
                 <TableCell sx={{ color: "white", }}><strong>Email</strong></TableCell>
                 <TableCell sx={{ color: "white", }}><strong>username</strong></TableCell>
-                <TableCell sx={{ color: "white", }}><strong>Rol</strong></TableCell>
+                <TableCell sx={{ color: "white", }}><strong>Cuenta</strong></TableCell>
                 <TableCell sx={{ color: "white", }}><strong>Acciones</strong></TableCell>
               </TableRow>
             </TableHead>
@@ -144,10 +144,13 @@ export default function UserList() {
                   hover
                   sx={{ '&:last-child td': { borderBottom: 0 } }}
                 >
-                  <TableCell sx={{ color: "white", }}>{user.firstName} {user.lastName}</TableCell>
-                  <TableCell sx={{ color: "white", }}>{user.email}</TableCell>
-                  <TableCell sx={{ color: "white", }}>{user.username}</TableCell>
-                  <TableCell sx={{ color: "white", }}>{user.role}</TableCell>
+                  <TableCell sx={{ color: "white" }}>{user.firstName} {user.lastName}</TableCell>
+                  <TableCell sx={{ color: "white" }}>{user.email}</TableCell>
+                  <TableCell sx={{ color: "white" }}>{user.username}</TableCell>
+                  <TableCell sx={{ color: "white" }}>
+                    {user.role == "admin" ? "Administrador" :
+                    user.role == "organizer" ? "Organizador" : "Regular"}
+                  </TableCell>
                   <TableCell sx={{ color: "white", }}>
                     <IconButton onClick={() => {
                       updateHook.setIdUser(user._id)

@@ -9,9 +9,7 @@ import {
     Paper,
     Grid,
     Card,
-    CardContent,
     CardActionArea,
-    Avatar,
     Chip,
 } from "@mui/material";
 import useDashboard from "./useDashboard";
@@ -44,7 +42,7 @@ const DashboardView = () => {
                     Mi Pagina
                 </Typography>
 
-                <Paper sx={{ mb: 3, backgroundColor: '#281f5aff', boxShadow: '0px 5px 5px ', }}>
+                <Paper sx={{ mb: 3, backgroundColor: "#20105b", boxShadow: '0px 5px 5px ', }}>
                     <Tabs
                         value={activeTab}
                         onChange={handleTabChange}

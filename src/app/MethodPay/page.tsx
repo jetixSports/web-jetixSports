@@ -138,7 +138,7 @@ export default function TablaMetodosPago() {
       </Box>
 
       <Box sx={{ width: "80%", maxWidth: 900, marginBottom: 4 }}>
-        <TableContainer component={Paper} sx={{ backgroundColor: "#00003d" }}>
+        <TableContainer component={Paper} sx={{ backgroundColor:"#20105b"  }}>
           <Typography variant="h6" sx={{ p: 2, color: "white" }}>Métodos de Pago</Typography>
           <Table aria-label="Tabla de métodos de pago">
             <TableHead>

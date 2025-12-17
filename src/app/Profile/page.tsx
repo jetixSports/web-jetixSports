@@ -28,7 +28,7 @@ export default function Profile() {
     } else if (rolUser=== 'organizer') {
       rol = 'Organizador';
     } else {
-      rol = 'Usuario';
+      rol = 'Regular';
     }
     
     return (

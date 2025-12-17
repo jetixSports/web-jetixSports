@@ -118,7 +118,7 @@ function useUpdateUser({ defaultValues,callback ,sendRole}: { defaultValues?: Up
                     setUser(newObj)
                 }}>
                 <MenuItem value={"admin"}>Administrador</MenuItem>
-                <MenuItem value={"user"}>Usuario</MenuItem>
+                <MenuItem value={"user"}>Regular</MenuItem>
                 <MenuItem value={"organizer"}>Organizador</MenuItem>
             </Select></>}
             <Box sx={{ minWidth: "290px", display: "flex", justifyContent: "space-between" }}>
