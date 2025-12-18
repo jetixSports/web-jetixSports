@@ -492,22 +492,16 @@ export default function TablaMetodosPago() {
       {showModalDelete && <Box onClick={() => {
         setShowModalDelete(false);
       }} sx={{ zIndex: 10, paddingTop: 5, top: 0, left: 0, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
-        <Box sx={{ marginTop: 20, backgroundColor: '#00003d', height: '200px', display: 'flex', justifyContent: 'center', flexDirection: 'column' }} onClick={(e) => e.stopPropagation()}>
-          <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end", backgroundColor: '#00003d', marginBottom: '10px' }}>
-            <Box sx={{ position: "absolute", margin: 3 }}>
-              <CancelOutlined onClick={() => {
-                setShowModalDelete(false)
-              }} sx={{ color: "white", cursor: "pointer" }}>
-              </CancelOutlined>
-            </Box>
-          </Box>
+        <Box sx={{ marginTop: 20, backgroundColor: "#00003d", border: "solid #432686ff 1px", borderRadius: "14px", height: '200px', display: 'flex', justifyContent: 'center', flexDirection: 'column' }} onClick={(e) => e.stopPropagation()}>
           <Box sx={{ margin: '30px', width: '400px', height: '200px' }} >
-            <Alert sx={{ marginTop: '15px', fontSize: '20px' }} severity="warning" icon={<WarningRoundedIcon />}>
-              Confirma que deseas eliminar este metodo de pago?
-            </Alert>
+            <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", textAlign: "center", fontSize: 24 }}>
+              ¿Estás Seguro?
+            </Typography>
+            <Typography sx={{ color: "white", textAlign: "center", marginY: 2}}>Vas a eliminar permanentemente este metodo de pago </Typography>
             <Box sx={{ minWidth: "290px", display: "flex", justifyContent: "space-between", }}>
-              <Buttons type="submit" onClick={handleDeleteMethodh} sx={{ marginTop: "15px", width: '100%', marginLeft: "auto", backgroundColor: 'red' }} variant="contained" >
-                Confirmar Eliminación
+              <Buttons onClick={() => { setShowModalDelete(false)}} sx={{ marginTop: "5px", }} variant="contained">Cancelar</Buttons>
+              <Buttons type="submit" onClick={handleDeleteMethodh} sx={{ marginTop: "5px", marginLeft: "auto", backgroundColor:'#c44040ff', '&:hover': { backgroundColor: "#943131ff", color:'white'} }} variant="contained" >
+                Confirmar
               </Buttons>
             </Box>
           </Box>

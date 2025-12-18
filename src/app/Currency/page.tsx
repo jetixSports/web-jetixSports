@@ -177,7 +177,7 @@ export default function Currency() {
             <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", textAlign: "center", fontSize: 24 }}>
               ¿Estás Seguro?
             </Typography>
-            <Typography sx={{ color: "white", textAlign: "center", marginY: 2}}>Vas a eliminar a permanentemente esta divisa</Typography>
+            <Typography sx={{ color: "white", textAlign: "center", marginY: 2}}>Vas a eliminar permanentemente esta divisa</Typography>
             <Box sx={{ minWidth: "290px", display: "flex", justifyContent: "space-between" }}>
               <Buttons onClick={() => { setShowModalDelete(false), setDeleteData(null)}} sx={{ marginTop: "5px", }} variant="contained">Cancelar</Buttons>
               <Buttons sx={{ marginTop: "5px", marginLeft: "auto", backgroundColor:'#c44040ff', '&:hover': {

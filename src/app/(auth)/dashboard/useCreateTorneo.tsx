@@ -8,6 +8,7 @@ import useFetch from "../../hooks/useFetch";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
 import Form from "../../components/UX/Form/Form";
+import FormLarge from "../../components/UX/Form/Formlarge"; 
 import useMethod from "../../MethodPay/useMethod";
 
 function useCreateTorneo({ callback }: { callback?: () => any }) {
@@ -87,7 +88,7 @@ const fields = {
     reset,
     reactForm: (
 
-      <Form handleSubmit={handleSubmit(onSubmit as any)}>
+      <FormLarge handleSubmit={handleSubmit(onSubmit as any)}>
         <Typography
           sx={{
             marginY: 1,
@@ -326,7 +327,7 @@ const fields = {
             Crear
           </Buttons>
         </Box>
-      </Form>
+      </FormLarge>
 
     ),
   };

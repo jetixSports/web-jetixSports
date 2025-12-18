@@ -10,10 +10,10 @@ function FormLarge({ styles, children, handleSubmit }: FormParams) {
         sm: "80%",    
         md: "70%",    
         lg: "80%",    
-        xl: "800px"   
+        xl: "900px"   
       },
-      maxWidth: "800px",
-      minWidth: "300px",  
+      maxWidth: "900px",
+      minWidth: "400px",  
       marginX: "auto",   
       marginTop:{ xs: 3, sm: 5 },
       marginBottom: { xs: 2, sm: 2 },
