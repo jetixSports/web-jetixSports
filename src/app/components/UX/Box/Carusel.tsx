@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography} from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import { styled } from '@mui/material/styles';
 
@@ -24,7 +24,7 @@ const GameCarusel = () => {
     {
       id: 4,
       title: 'League of Legends',
-      image: './assets/img/LOL.png',
+      image: './assets/img/lol.png',
     },
     {
       id: 5,
@@ -45,7 +45,7 @@ const GameCarusel = () => {
 
   const TournamentItem = styled(Box)({
     position: 'relative',
-    borderRadius:3,
+    borderRadius: 3,
     overflow: 'hidden',
     height: 250,
     margin: '0 8px 30px',
@@ -73,7 +73,7 @@ const GameCarusel = () => {
   });
 
   return (
-    <Box sx={{ my: 4 }}>      
+    <Box sx={{ my: 4 }}>
       <Carousel
         animation="fade"
         navButtonsAlwaysVisible
