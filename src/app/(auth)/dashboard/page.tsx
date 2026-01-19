@@ -186,7 +186,7 @@ const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard, user:
     )
 }
 
-// Componente para la sección de Equipos
+// Componente para la sección de torneos
 const SectionTournaments = ({ dashboardHook, type, user }: { dashboardHook: Dashboard, type: string, user: any }) => {
     const router = useRouter()
     const [showModalCreate, setShowModalCreate] = useState(false)

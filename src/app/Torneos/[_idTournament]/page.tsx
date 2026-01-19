@@ -105,7 +105,7 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
           </Typography>
 
         </Box>
-        <Typography variant="h6" gutterBottom color="white">
+        <Typography variant="h6" gutterBottom color="white" sx={{whiteSpace: 'pre-line'}}>
           {hookIdTour.tournament?.description}
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>

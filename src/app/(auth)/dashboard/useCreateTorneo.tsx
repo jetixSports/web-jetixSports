@@ -3,16 +3,18 @@ import { Box, Typography, MenuItem, Select, Stack, InputLabel } from "@mui/mater
 import { useForm } from "react-hook-form";
 import Inputs from "../../components/UX/Inputs/Inputs";
 import Buttons from "../../components/UX/Buttons/Buttons";
+import { useRouter } from "next/navigation";
 import { SetStateAction, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
-import Form from "../../components/UX/Form/Form";
+
 import FormLarge from "../../components/UX/Form/Formlarge"; 
 import useMethod from "../../MethodPay/useMethod";
 
 function useCreateTorneo({ callback }: { callback?: () => any }) {
   const { post } = useFetch()
+    const router = useRouter()
   const { register, handleSubmit, formState: { errors }, reset } = useForm()
   const [status, setStatus] = useState(true)
   const { data: session, } = useSession();
@@ -27,6 +29,7 @@ function useCreateTorneo({ callback }: { callback?: () => any }) {
     { value: 'Fútbol ', label: 'Fútbol ' },
     { value: 'Voleibol', label: 'Voleibol' },
     { value: 'Béisbol', label: 'Béisbol' },
+    { value: 'Genshin Impact', label: 'Genshin Impact'}
   ]
   const [paymentType, setPaymentType] = useState('');
   const [selectedMethod, setSelectedMethod] = useState('');
@@ -67,13 +70,19 @@ const fields = {
         const newValue = key == "file" ? value[0] : value
         formData.append(key, newValue)
       })
-      formData.append("_idPayDetails[0]",paymentsDetails)     
-      formData.append("_idReferee", user?._id ?? "")
+
+      formData.append("_idPayDetails[0]",paymentsDetails) ;   
+      formData.append("_idReferee", user?._id ?? "");
+
       const creatTorneo = await post(process.env.NEXT_PUBLIC_HOST_SERVICE + '/tournaments/', formData, true)
+
       setStatus(true)
       if (creatTorneo.statusCode != 200)
         return toast.error(creatTorneo.message)
       toast.success(creatTorneo.message)
+      setTimeout(()=>{
+        router.push('/Torneos');
+    },500)
       if (callback)
         callback()
     } catch (error) {
@@ -182,7 +191,7 @@ const fields = {
             />
           </Box>
         </Box>
-            <Stack spacing={{ xs: 3, sm: 2 }} useFlexGap>
+            <Stack spacing={{ xs: 1, sm: 1 }} sx={{gap:'5px'}}>
               <InputLabel id="payment-type-label" sx={{ color: 'white' }}>
                 Tipo de Método de Pago
               </InputLabel>
@@ -273,7 +282,7 @@ const fields = {
                         )}
                         {method.typePay === 'binance' && (
                           <>
-                            <Typography><strong>Emil: </strong>{method.details.email}</Typography> 
+                            <Typography><strong>Email: </strong>{method.details.email}</Typography> 
                           </>
                         )}
                       </Box>
@@ -320,6 +329,7 @@ const fields = {
           }}
         >
           <Buttons
+            disabled={!status}
             type="submit"
             sx={{ marginTop: "5px", marginLeft: "auto" }}
             variant="contained"

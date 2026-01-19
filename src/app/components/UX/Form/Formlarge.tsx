@@ -6,9 +6,9 @@ function FormLarge({ styles, children, handleSubmit }: FormParams) {
   const FormStyles: { Box: SxProps, form: SxProps } = {
     Box: {
       width: {
-        xs: "90%",   
-        sm: "80%",    
-        md: "70%",    
+        xs: "60%",   
+        sm: "70%",    
+        md: "75%",    
         lg: "80%",    
         xl: "900px"   
       },
