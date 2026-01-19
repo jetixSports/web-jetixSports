@@ -186,6 +186,7 @@ const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard, user:
     )
 }
 
+// Componente para la sección de Equipos
 const SectionTournaments = ({ dashboardHook, type, user }: { dashboardHook: Dashboard, type: string, user: any }) => {
     const router = useRouter()
     const [showModalCreate, setShowModalCreate] = useState(false)
@@ -199,39 +200,8 @@ const SectionTournaments = ({ dashboardHook, type, user }: { dashboardHook: Dash
 
     return (
         <>
-            {showModalCreate && <Box onClick={() => {
-                setShowModalCreate(false),
-                    createTorneoHook.reset()
-            }} sx={{
-                zIndex: 10, position: "fixed", top: 0, left: 0, width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex",
-                justifyContent: "center", alignItems: "flex-start", overflow: "hidden"
-            }}>
-
-                <Box sx={{
-                    marginTop: 15, maxHeight: "80vh", display: "flex", flexDirection: "column",
-                    borderRadius: "10px", position: "relative", overflow: "hidden"
-                }} onClick={(e) => e.stopPropagation()}>
-                    <Box sx={{
-                        flex: 1, overflowY: "auto", '&::-webkit-scrollbar': { width: '6px', },
-                        '&::-webkit-scrollbar-thumb': {
-                            backgroundColor: 'white', borderRadius: '3px',
-                        }
-                    }}>
-                        <Box sx={{ position: "relative", width: "100%", display: 'flex', justifyContent: "end" }}>
-                            <Box sx={{ position: "absolute", marginY: 4, marginX: 4 }}>
-                                <CancelOutlined onClick={() => {
-                                    setShowModalCreate(false)
-                                    createTorneoHook.reset()
-                                }} sx={{ color: "white", cursor: "pointer" }}>
-                                </CancelOutlined>
-                            </Box>
-                        </Box>
-                        {createTorneoHook.reactForm}
-                    </Box>
-                </Box>
-            </Box>}
             <Box>
-                {["admin", "organizer"].includes(user?.role ?? "") && <Buttons onClick={() => setShowModalCreate(true)} sx={{ color: "white" }}>Crear Torneo</Buttons>}
+                {["admin", "organizer"].includes(user?.role ?? "") && <Buttons href="/createTournaments" sx={{ color: "white" }}>Crear Torneo</Buttons>}
                 <Grid container spacing={3} sx={{ marginY: 2 }}>
                     {dashboardHook?.[type === "registered" ? 'registeredTour' : 'myTournaments']?.map((tournament, i) => (
                         <Grid sx={{ width: 207, padding: 0 }} key={i} onClick={() => router.push('/Torneos/' + tournament._id)} >

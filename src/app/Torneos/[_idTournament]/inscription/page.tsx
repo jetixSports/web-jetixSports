@@ -124,7 +124,7 @@ function App({ params }: { params: { _idTournament: string } }) {
             width: "100%",
             paddingX: "10px",
             marginY: "5px",
-            backgroundColor: "#20105B",
+            backgroundColor: "rgb(32 34 103)",
             borderRadius: "10px",
             color: "white",
             height: 36,

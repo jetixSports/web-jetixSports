@@ -8,9 +8,9 @@ import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <Box component="footer" sx={{ backgroundColor: '#060620', color: 'White', py: 3, }}>
+    <Box component="footer" sx={{ backgroundColor: '#060620', color: 'White', py: 3}}>
       <Container maxWidth="lg">
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 3, height: "70px" }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 3, height: "auto" }}>
 
           <Box sx={{ width: "fitContent", height: "70px", display: 'flex', alignContent: "center", justifyContent: "Center" }}>
            
@@ -36,7 +36,7 @@ export default function Footer() {
 
             <IconButton aria-label="Twitter" sx={{
               color: 'white',
-              '&:hover': { color: '#ffffffff', backgroundColor: 'rgba(29, 161, 242, 0.1)' }
+              '&:hover': { color: '#ffffffff', backgroundColor: 'rgba(3, 9, 14, 1)' }
             }}
               onClick={() => { window.open('https://x.com/JetixSport', '_blank') }}
             >

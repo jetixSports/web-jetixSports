@@ -21,10 +21,9 @@ export default function App() {
 
   return (
     <Box sx={{
-      width: '100%', display: "flex", alignContent: 'space-between', backgroundColor: '#04082a'
-    }}>
+      width: '100%', display: "flex", flexDirection: {xs: 'column', md: 'row'}, alignItems:{xs:'center'}, backgroundColor: '#04082a'}}>
 
-      <Box sx={{ display: "flex", justifyContent: 'center', width: '50%', marginTop: 15, marginBottom: 10, marginLeft: '10%' }} >
+      <Box sx={{ display: "flex", justifyContent: 'center', width: '50%', marginTop: 15,  marginLeft: {xs:'none',md:'10%'} }} >
         <Form styles={{ form: { width: '100%' } }} handleSubmit={handleSubmit}>
           <Box sx={{ width: "100%", gap: 2, display: 'flex', flexDirection: "column" }}>
 
@@ -68,51 +67,54 @@ export default function App() {
         </Form>
       </Box>
 
-      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '50%', marginBottom: 4, marginRight: '12%', marginLeft: '7%' }}>
-        <Typography variant="h1" sx={{ fontSize: '60px', fontFamily: "Bebas Neue", color: 'white' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '50%',marginRight: '12%', marginLeft: '7%' }}>
+        <Box sx={{display: { xs: 'none', md: 'block' }}}>
+          <Typography sx={{fontSize:'40px',fontFamily: "Nunito", color: 'white',
+          }}>
           ¡Únete a la acción!
-        </Typography>
-        <Typography sx={{ fontSize: '16px', fontFamily: "Nunito", color: 'white', textAlign: 'justify' }}>
+          </Typography>
+          <Typography variant="body1" sx={{ fontFamily: "Nunito", color: 'white', textAlign: 'justify' }}>
           Registrate y comienza a competir en los torneos que más te gustan.  Al crear tu cuenta podras:
-        </Typography>
-        <List>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar sx={{ backgroundColor: '#9c27b0' }}>
-                <CheckIcon sx={{ color: 'white' }} />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText>
-              <Typography sx={{ fontSize: '16px', fontFamily: "Nunito", color: 'white' }}>
-                Inscribirte en torneos de tus videojuegos favoritos, tanto online como presenciales.
-              </Typography>
-            </ListItemText>
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <CheckIcon color="secondary" />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText>
-              <Typography sx={{ fontSize: '16px', fontFamily: "Nunito", color: 'white' }}>
-                Formar equipos y conquista la victoria.
-              </Typography>
-            </ListItemText>
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <CheckIcon color="secondary" />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText>
-              <Typography sx={{ fontSize: '16px', fontFamily: "Nunito", color: 'white' }}>
-                Acceder a los streaming para ver torneos de interes.
-              </Typography>
-            </ListItemText>
-          </ListItem>
-        </List>
+          </Typography>
+          <List>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar sx={{ backgroundColor: '#9c27b0' }}>
+                  <CheckIcon sx={{ color: 'white' }} />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText>
+                <Typography variant="body1" sx={{ fontFamily: "Nunito", color: 'white'}}>
+                  Inscribirte en torneos de tus videojuegos favoritos, tanto online como presenciales.
+                </Typography>
+              </ListItemText>
+            </ListItem>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar sx={{ backgroundColor: '#9c27b0' }}>
+                  <CheckIcon  sx={{ color: 'white' }} />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText>
+                <Typography variant="body1" sx={{fontFamily: "Nunito", color: 'white' }}>
+                  Formar equipos y conquista la victoria.
+                </Typography>
+              </ListItemText>
+            </ListItem>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar sx={{ backgroundColor: '#9c27b0' }}>
+                  <CheckIcon  sx={{ color: 'white' }} />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText>
+                <Typography sx={{ fontSize: '16px', fontFamily: "Nunito", color: 'white' }}>
+                  Acceder a los streaming para ver torneos de interes.
+                </Typography>
+              </ListItemText>
+            </ListItem>
+          </List>
+        </Box>
       </Box>
     </Box>
 

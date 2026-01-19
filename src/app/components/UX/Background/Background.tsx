@@ -18,9 +18,12 @@ function Background({ sx, src,alt,imgClassName,imgHeight,imgWidth }: BackgroundP
     <Box sx={styles}>
       {src && (
         <Image
+          fill={true}
           src={src}
-          height={imgHeight??512}
-          width={imgWidth??512}
+          style={{
+            objectFit: "cover", 
+            objectPosition: "center",
+          }}
           alt={alt??"fondo"}
           className={imgClassName??"w-full h-full"}
         ></Image>

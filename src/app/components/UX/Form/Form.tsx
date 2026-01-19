@@ -10,7 +10,7 @@ function Form({ styles, children,handleSubmit }: FormParams) {
       marginY: { xs: 1, sm: 2 },
       paddingX: { xs: 4, sm: 5},
       paddingY: { xs: 2, sm: 3},
-      backgroundColor: "#070735",
+      backgroundColor: "#070735ff",
       border: "solid #432686ff 1px",
       borderRadius: "14px",
       ...styles?.Box,

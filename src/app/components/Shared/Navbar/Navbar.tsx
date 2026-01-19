@@ -79,7 +79,7 @@ export default function NavBar() {
                 src="/assets/logos/name.png"
                 alt="logo"
                 height={40}
-                width={170}
+                width={150}
               />
               </Typography>
             </Box>

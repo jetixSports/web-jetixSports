@@ -40,7 +40,7 @@ export default function UserList() {
   ]
   return (
     <Box sx={{  width: "100%",  display: 'flex',  alignItems: "center",  flexDirection: "column",  minHeight: "60vh", backgroundColor: "#04082a",  paddingTop: 10}}>
-      <Background sx={{backgroundColor:'#04082a'}}></Background>
+      <Background sx={{backgroundColor:'#050929ff'}}></Background>
       {deleteData && <Box onClick={() => setDeleteData(null)}
         sx={{ zIndex: 10, paddingY: 5, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", justifyContent: "center" }}>
         <Box>

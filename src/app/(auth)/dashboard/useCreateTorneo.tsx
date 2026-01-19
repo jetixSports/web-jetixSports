@@ -136,8 +136,8 @@ const fields = {
         <Typography sx={{ color: "white" }}>Detalles del torneo</Typography>
         <Inputs
           multiline
-          rows={3}
-          sx={{ width: "100%", height: 80, }}
+          rows={8}
+          sx={{ width: "100%", height: 200, }}
           {...fields.description}
           error={!!errors?.description}
           helperText={errors?.description?.message + ""}

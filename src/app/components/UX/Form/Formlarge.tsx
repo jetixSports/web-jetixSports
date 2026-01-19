@@ -19,8 +19,9 @@ function FormLarge({ styles, children, handleSubmit }: FormParams) {
       marginBottom: { xs: 2, sm: 2 },
       paddingX: { xs: 5, sm: 6 },
       paddingY: { xs: 3, sm: 4 },
-      backgroundColor: "#00003D",
-      border: "none",
+      backgroundColor: "#070735ff",
+      border: "solid #432686ff 1px",
+      borderRadius: "14px",
       ...styles?.Box,
     },
     form: {

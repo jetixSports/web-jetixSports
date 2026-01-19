@@ -22,7 +22,7 @@ function useInviteTeam({ callback, teamId }: { callback?: () => any, teamId: str
   const [filter, setFilter] = useState<string[] | []>([])
   const [userId, setUserId] = useState<UsersInList | null>()
   const selectValue = [
-    ["firstName", "Nombre"], ["lastName", "Apellido"],
+    ["firstName", "Nombre"],
     ["email", "Correo"], ["username", "Nombre de usuario"]
   ]
   useEffect(() => {
