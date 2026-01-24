@@ -67,9 +67,7 @@ function App({ params }: { params: { _idTournament: string } }) {
     amout = 0;
   }
   return (
-    <Box sx={{ width: '100%', marginTop: "190px" }}>
-      <Background src="/backgrounds/torneo.svg"></Background>
-      
+    <Box sx={{ width: '100%', marginTop: "190px", backgroundColor:'#04082a' }}> 
       <Form styles={{ Box: { marginX: 'auto', marginY: 10}, form: { width: '100%' } }}
         handleSubmit={handleSubmit}>
           <Box sx={{width:'100%'}}>

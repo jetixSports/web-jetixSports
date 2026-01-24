@@ -13,13 +13,16 @@ import {
   Collapse,
   Grid,
   Chip,
-  Divider,
   Paper,
-  Tooltip
+  Tooltip,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-import { ExpandMore, ExpandLess, SportsEsports, People, LiveTv, CancelOutlined } from '@mui/icons-material';
+import { ExpandMore, ExpandLess, SportsEsports, People, LiveTv, CancelOutlined, ExpandCircleDown } from '@mui/icons-material';
 import Background from '../../components/UX/Background/Background';
 import useIdTournament from './useIdTournament';
 import { Teams, Tournaments } from '../../(auth)/dashboard/dashboard.types';
@@ -97,7 +100,7 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
                   <ArrowBackIcon />
                   <Typography>Volver a Mi Pagina</Typography>
                 </IconButton>
-              </Tooltip>
+           </Tooltip>
         </Box>
         <Box>
           <Typography variant="h4" gutterBottom color="white">
@@ -105,10 +108,7 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
           </Typography>
 
         </Box>
-        <Typography variant="h6" gutterBottom color="white" sx={{whiteSpace: 'pre-line'}}>
-          {hookIdTour.tournament?.description}
-        </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop:'10px' }}>
           <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', marginBottom: 2 }}>
             <Buttons href={`${_idTournament}/inscription`} sx={{ color: "white" }}>Inscribirse</Buttons>
           </Box>
@@ -116,6 +116,18 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
             {tournament?._idReferee == user?._id && <Buttons href={`${_idTournament}/payments`} sx={{ color: "white", p: 1 }}>Gestion de pagos</Buttons>}
           </Box>
         </Box>
+
+        <Accordion sx={{backgroundColor:'#2f105b', color:'white', borderRadius:'4px', marginBottom:'10px'}}>
+          <AccordionSummary expandIcon={<ExpandCircleDown sx={{color:'white'}}/>}>
+            <Typography component="span">Detalles</Typography>
+          </AccordionSummary>
+          <AccordionDetails sx={{backgroundColor:'#04082a', marginTop:'10px', p:'20px 30px 20px'}}>
+            <Typography variant="body1" gutterBottom color="white" sx={{whiteSpace: 'pre-line'}}>
+            {hookIdTour.tournament?.description}
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+        
         <Paper sx={{ mb: 3, backgroundColor: '#2f105b', boxShadow: '0px 5px 5px ', }}>
           <Tabs value={activeTab} onChange={handleTabChange} variant="fullWidth"
             sx={{

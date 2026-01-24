@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { Invitation } from "./invitations.types";
 import { Teams } from "../dashboard/dashboard.types";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import Buttons from "../../components/UX/Buttons/Buttons";
 
 export default function useInvitations({dialogData,setDialogData,}:{setDialogData:(e:null)=>any,dialogData:{accepted:boolean,_idInvitation:string,teamName:string}|null}) {
     const { post } = useFetch()
@@ -80,8 +81,8 @@ export default function useInvitations({dialogData,setDialogData,}:{setDialogDat
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
-                    <Button sx={{ color: "white" }} onClick={() => setDialogData(null)}>Cancelar</Button>
-                    <Button sx={{ color: "white" }} onClick={async () => {
+                    <Buttons sx={{ color: "white", backgroundColor:'#c44040ff', '&:hover': { backgroundColor: "#943131ff", color:'white'}}} onClick={() => setDialogData(null)}>Cancelar</Buttons>
+                    <Buttons sx={{ color: "white" }} onClick={async () => {
                       try {
                         const srcInvitation=dialogData?.accepted?"/invitations/accept":"/invitations/deny"
                         const invitation = await post(process.env.NEXT_PUBLIC_HOST_SERVICE + srcInvitation, 
@@ -100,7 +101,7 @@ export default function useInvitations({dialogData,setDialogData,}:{setDialogDat
                         setStatus(true)
                       }
                       
-                    }}>Aceptar</Button>
+                    }}>Aceptar</Buttons>
                   </DialogActions>
                 </Dialog>
     }

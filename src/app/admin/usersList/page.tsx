@@ -58,7 +58,7 @@ export default function UserList() {
               ¿Estás Seguro?
             </Typography>
             <Typography sx={{ color: "white", textAlign: "center", marginY: 2}}>Vas a eliminar a "{deleteData.firstName} {deleteData.lastName}"</Typography>
-            <Box sx={{ minWidth: "290px", display: "flex", justifyContent: "space-between" }}>
+            <Box sx={{ minWidth: "290px", display: "flex"}}>
               <Buttons onClick={() => setDeleteData(null)} sx={{ marginTop: "5px", }} variant="contained">Cancelar</Buttons>
               <Buttons sx={{ marginTop: "5px", marginLeft: "auto", backgroundColor:'#c44040ff', '&:hover': {
                   backgroundColor: "#943131ff",

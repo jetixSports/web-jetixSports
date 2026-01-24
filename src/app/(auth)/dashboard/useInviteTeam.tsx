@@ -148,7 +148,7 @@ function useInviteTeam({ callback, teamId }: { callback?: () => any, teamId: str
                 </TableRow>
               </TableHead>
               <TableBody>
-                {users?.map((user, i) => (
+                {users?.filter(user => user._id !== myUser?._id)?.map((user, i) => (
                   <TableRow
                     key={i}
                     hover

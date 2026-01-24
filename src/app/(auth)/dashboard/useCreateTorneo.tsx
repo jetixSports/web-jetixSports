@@ -165,7 +165,7 @@ const fields = {
 
           <Box sx={{ width: '98%', display: 'flex', flexDirection: "column" }}>
             <Typography sx={{ marginY: 1, color: "white", marginLeft: '6%' }}>
-              Cuota de jugadores
+              Cuota de Equipos
             </Typography>
             <Inputs
               type="number"

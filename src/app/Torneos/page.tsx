@@ -76,7 +76,7 @@ export default function Torneos() {
                 </Box>
             </Box>}
             <BoxHeader>
-                <Background sx={{ backgroundColor: "#00003D" }} src="./backgrounds/torneo.svg"></Background>
+                <Background sx={{ backgroundColor: "#04082a" }} src="./backgrounds/torneo.svg"></Background>
                 <Box sx={{ color: 'white', margin: '220px 0  0 100px' }}>
 
                     <Typography variant="h4" sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
@@ -92,7 +92,7 @@ export default function Torneos() {
                 </Box>
             </BoxHeader>
 
-            <Box sx={{ padding: '40px', background: '#00003d' }}>
+            <Box sx={{ padding: '40px', background: '#04082a' }}>
                 <CardTorneosDestacados />
             </Box>
 

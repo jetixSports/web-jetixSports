@@ -146,11 +146,11 @@ const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard, user:
                 <Buttons onClick={() => setShowModalCreate(true)} sx={{ color: "white" }}>Crear Equipo</Buttons>
                 <Grid container spacing={3} sx={{ marginY: 2 }}>
                     {dashboardHook.teams?.map((team, index) => (
-                        <Grid sx={{ width: 207, height: "100%", boxShadow: "0px 1px 4px " }}
+                        <Grid sx={{ width: 207, backgroundColor: "#440079", height: "100%", boxShadow: "0px 1px 4px ",borderRadius:'10px' }}
                             key={index}
                         >
-                            <Card>
-                                <CardActionArea>
+                            <Card >
+                                <CardActionArea sx={{ padding:'0 0 0 0', backgroundColor: "#440079" }}>
                                     <Box sx={{ width: '100%', height: 100 }}>
                                         <Image
                                             src={process.env.NEXT_PUBLIC_HOST_SERVICE + "/images/tournaments/" + team._idImg}
@@ -161,7 +161,7 @@ const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard, user:
                                             unoptimized={true}
                                         ></Image>
                                     </Box>
-                                    <Box sx={{ padding: 1, backgroundColor: "#440079" }}  >
+                                    <Box sx={{ padding: 1.5}}  >
                                         <Box >
                                             <Typography variant="h6" color="white">{team.name}</Typography>
                                             <Typography color="white" >{team.description}</Typography>
