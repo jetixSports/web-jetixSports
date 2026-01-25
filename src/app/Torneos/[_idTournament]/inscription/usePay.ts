@@ -83,7 +83,6 @@ export default function usePay({
     try {
       setIsSubmitting(true);
       setIsloading(true);
-      const loadingToast = toast.loading("Registrando pago...");
       if (inscribeCallback) {
         let inscribStatus = await inscribeCallback();
         if (![200, 403].includes(inscribStatus.statusCode))

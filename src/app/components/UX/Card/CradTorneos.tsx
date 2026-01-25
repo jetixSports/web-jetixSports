@@ -75,7 +75,7 @@ export default function CardTorneos() {
                         <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', width: '300px' }}>
 
                           <Typography variant="body2" color="white" sx={{ mb: 1, marginBottom: '10px' }}>
-                            Precio de Inscripción: <strong>{torneo.amount}</strong>
+                            Precio de Inscripción: <strong>${torneo.amount}</strong>
                           </Typography>
                           <Typography variant="body2" sx={{ mb: 1, color: "white" }}>
                             Fecha: {new Date(torneo.startDate).toLocaleString()}

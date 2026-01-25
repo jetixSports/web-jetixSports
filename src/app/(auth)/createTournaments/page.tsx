@@ -12,7 +12,7 @@ export default function page() {
             },
         })
   return (
-    <Box sx={{display: "flex", flexDirection: "column", maxHeight: "80vh", margin: "auto", width: "100%", marginTop:8}}>
+    <Box sx={{display: "flex", flexDirection: "column", maxHeight: "auto", margin: "auto", width: "100%", marginTop:8}}>
       <Box sx={{width:'100%', marginLeft:{xs:'2%',sm:'8%',md:'8%',lg:'20%', xl:'25%'}, marginTop:'50px'}}>
         <Tooltip title="Volver a Mi Pagina">
           <IconButton 
@@ -30,8 +30,7 @@ export default function page() {
           </IconButton>
         </Tooltip>
       </Box>
-      <Box sx={{  flex: 1, overflowY: "auto",  '&::-webkit-scrollbar': { width: '6px',},
-        '&::-webkit-scrollbar-thumb': { backgroundColor: 'white',  borderRadius: '3px', } }}>
+      <Box sx={{height:"1250px"}}>
            {createTorneoHook.reactForm}
       </Box>
     </Box>

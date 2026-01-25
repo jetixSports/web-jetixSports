@@ -239,8 +239,8 @@ export default function NavBar() {
                   <MenuItem >
                     {user.firstName} {user.lastName}
                   </MenuItem>
-                  <Divider />
-                  <MenuItem onClick={handleMenuClose} href='/Profile'>
+                  <Divider /> 
+                  <MenuItem onClick={handleMenuClose} href='/dashboard'>
                     <Person sx={{ mr: 1 }} />
                     Tu perfil
                   </MenuItem>
@@ -273,10 +273,6 @@ export default function NavBar() {
                   <AddCardIcon sx={{ mr: 1 }}/>
                   Mis metodos de pago
                 </MenuItem>}
-                  <MenuItem onClick={handleMenuClose} href='/dashboard'>
-                    <ArticleIcon sx={{ mr: 1 }}/>
-                    Mi Página
-                  </MenuItem>
                   <Divider />
                   <MenuItem onClick={async () => {
                     const data = await get(process.env.NEXT_PUBLIC_HOST_SERVICE + '/auth/logout')
@@ -335,7 +331,7 @@ export default function NavBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
               >
-                <MenuItem onClick={handleMenuClose} href='/Profile'>
+                <MenuItem onClick={handleMenuClose} href='/dashboard'>
                   <Person sx={{ mr: 1 }} />
                   Tu perfil
                 </MenuItem>
@@ -356,10 +352,6 @@ export default function NavBar() {
                   <AddCardIcon sx={{ mr: 1 }}/>
                   Mis metodos de pago
                 </MenuItem>}
-                  <MenuItem onClick={handleMenuClose} href='/dashboard'>
-                    <ArticleIcon sx={{ mr: 1 }}/>
-                    Mi Página
-                  </MenuItem>
                   <Divider />
                 <MenuItem onClick={async () => {
                   const data = await get(process.env.NEXT_PUBLIC_HOST_SERVICE + '/auth/logout')

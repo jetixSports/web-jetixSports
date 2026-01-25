@@ -1,59 +1,47 @@
 'use client'
 import React, { useState, ReactNode, SetStateAction } from 'react';
-import { Box, InputLabel, MenuItem, Select, } from "@mui/material";
-import FormControl from '@mui/material/FormControl';
+import { Box, Chip, InputLabel, MenuItem, Select, } from "@mui/material";
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { PaymentDetails } from '@/src/app/(auth)/dashboard/dashboard.types';
+import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 
 export default function usePaymentMethod({ payments }: { payments: PaymentDetails[] | null }) {
 
   const [paymentType, setPaymentType] = useState('');
-  const handlePaymentTypeChange = (event: {
-    target: { value: SetStateAction<string> };
-  }) => {
-    setPaymentType(event.target.value);
-  };
   const onlyPay = payments?.find(i => i.typePay == paymentType) ?? null
   return ({
       ReactNode:(<Box sx={{ marginTop: '30px' }}>
 
       <Stack spacing={{ xs: 3, sm: 2 }} useFlexGap>
-        <FormControl component="fieldset" fullWidth>
-          <InputLabel id="payment-method-label" sx={{ color: 'white' }}>Método de pago</InputLabel>
-          <Select
-            labelId="payment-method-label"
-            id="payment-method-select"
-            value={paymentType}
-            label="Método de pago"
-            onChange={handlePaymentTypeChange}
-            sx={{
-              width: "100%",
-              paddingX: "10px",
-              marginY: "5px",
-              backgroundColor: "#20105B",
-              borderRadius: "10px",
-              color: "white",
-              height: 36,
-            }}
-          >
-            <MenuItem value="mobile_payment">
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Typography>Pago Móvil</Typography>
-              </Box>
-            </MenuItem>
-            <MenuItem value="bank_transfer">
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Typography>Transferencia Bancaria</Typography>
-              </Box>
-            </MenuItem>
-            <MenuItem value="binance">
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Typography>Binance</Typography>
-              </Box>
-            </MenuItem>
-          </Select>
-        </FormControl>
+  
+        <Box sx={{display:'flex', columnGap:'3px'}}>
+          <Chip 
+            onClick={() => setPaymentType('mobile_payment')}
+            icon={<PhoneAndroidIcon/>}
+            color={paymentType === 'mobile_payment' ? 'secondary' : 'secondary'}
+            variant={paymentType === 'mobile_payment' ? 'filled' : 'outlined'}
+            label='Pago Movil'
+          />
+          
+          <Chip 
+            onClick={() => setPaymentType('bank_transfer')}
+            icon={<AccountBalanceIcon/>}
+            color={paymentType === 'bank_transfer' ? 'secondary' : 'secondary'}
+            variant={paymentType === 'bank_transfer' ? 'filled' : 'outlined'}
+            label='Transferencia'
+          />
+
+          <Chip 
+            onClick={() => setPaymentType('binance')}
+            icon={<CurrencyBitcoinIcon/>}
+            color={paymentType === 'binance' ? 'secondary' : 'secondary'}
+            variant={paymentType === 'binance' ? 'filled' : 'outlined'}
+            label='Biance'
+          />
+        </Box>
         {onlyPay && paymentType === 'mobile_payment' && (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, color: 'white', marginTop: '10px' }}>
             <Box sx={{ display: 'flex', gap: 1 }}>

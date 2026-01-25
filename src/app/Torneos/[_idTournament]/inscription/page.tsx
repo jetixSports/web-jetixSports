@@ -1,7 +1,7 @@
 'use client'
 import React, { SetStateAction, useState } from 'react'
 import useInscription from './useInscription'
-import { Alert, Box, Dialog, DialogContent, Divider, FormControl, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, Tooltip, Typography } from '@mui/material'
+import { Alert, Box, Dialog, DialogContent, Divider, FormControl, IconButton, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Stack, Tooltip, Typography } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
@@ -67,32 +67,80 @@ function App({ params }: { params: { _idTournament: string } }) {
     amout = 0;
   }
   return (
-    <Box sx={{ width: '100%', marginTop: "190px", backgroundColor:'#04082a' }}> 
-      <Form styles={{ Box: { marginX: 'auto', marginY: 10}, form: { width: '100%' } }}
-        handleSubmit={handleSubmit}>
-          <Box sx={{width:'100%'}}>
-            <Tooltip title="Volver a Torneo">
-              <IconButton 
-                  href={`/Torneos/${tournament?._id}`}
-                  color="secondary"
-                  aria-label="Volver a Torneo"
-                  sx={{
-                    '&:hover': {
-                      backgroundColor: 'rgba(0, 0, 0, 0.04)'
-                    }
-                  }}
-                >
-                  <ArrowBackIcon />
-                  <Typography>Volver a Torneo</Typography>
+    <Box sx={{ width: '100%', marginTop: "120px", backgroundColor:'#04082a' }}> 
+      <Box sx={{width:'100%', marginLeft:'15%'}}>
+         <Tooltip title="Volver a Torneo">
+             <IconButton 
+                href={`/Torneos/${tournament?._id}`}
+                color="secondary"
+                aria-label="Volver a Torneo"
+                sx={{
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.04)'
+                  }
+                }}
+              >
+                <ArrowBackIcon />
+                <Typography>Volver a Torneo</Typography>
               </IconButton>
-            </Tooltip>
-        </Box>
-        <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", textAlign: "center", fontSize: 24 }}>
+           </Tooltip>
+       </Box>
+        <Typography sx={{ marginBottom:2, fontWeight: 'bold', color: "white", textAlign: "center", fontSize: 24}}>
           Inscribirse
         </Typography>
-        <Typography sx={{ marginY: 1, fontWeight: 'bold', color: "white", textAlign: "center", }}>
+        <Typography sx={{ marginBottom:2, fontWeight: 'bold', color: "white", textAlign: "center", }}>
           Torneo: {tournament?.name}
         </Typography>
+        <Box sx={{display:'flex', justifyContent:'center', columnGap:1}}>
+          <Typography sx={{ marginBottom:2, color: "white", textAlign: "center", }}>
+          Jugadores por equipo 
+          </Typography>
+          <Typography  sx={{fontWeight:'bold'}} color={persons.length === tournament?.teamSpace ? 'white' : 'red'}>
+            {persons.length}
+          </Typography>
+          <Typography sx={{fontWeight:'bold', color:"white"}}>
+            / {tournament?.teamSpace}
+          </Typography>
+        </Box>
+    <Box sx={{display:'flex', flexDirection:{xs:'column',lg:'row'}, width:'100%', justifyContent:'center', alignItems:'center'}}>
+
+      <Box sx={{width:{xs:'auto', md:'auto'},height:'auto', marginY:{sm:1}}}>
+        <Paper sx={{backgroundColor: "#070735ff", border: "solid #432686ff 1px", borderRadius: "14px", p:2}}>
+          <Box sx={{ color: 'white', border: '1px', marginBottom: 3, marginTop: '15px', display: 'flex', flexDirection: 'column', }}>
+            <Typography sx={{ marginTop: '8px' }}>Monto a Pagar</Typography>
+
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+              <Typography sx={{ marginTop: '8px' }}><strong>Total:</strong></Typography>
+              <Typography>$<strong>{amout*persons.length}</strong></Typography>
+            </Box>
+          <Divider flexItem sx={{ borderColor: 'white' }} />
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+              <Typography sx={{ fontSize: '14px' }}>
+                Numero de jugador
+              </Typography>
+              <Typography><strong>{persons.length}</strong></Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+              <Typography sx={{ fontSize: '14px' }}>
+                Precio de Inscripción:
+              </Typography>
+              <Typography sx={{ fontSize: '14px' }}>
+                <strong>${amout}</strong>
+              </Typography>
+            </Box>
+            
+            <Divider flexItem sx={{ borderColor: 'white' }} />
+            
+            <Box sx={{ marginBottom: '15px' }}>
+
+              {payMethodsHook?.ReactNode}
+            </Box>
+          </Box>
+        </Paper>
+      </Box>
+      <Form styles={{ Box: { marginX: { xs: 1, sm: 2, md:'2%' }, marginY: { xs: 2, sm: 2, md:0 }, justifyContent:'center'}, form: { width: '100%', marginTop:0 } }}
+        handleSubmit={handleSubmit}>
         {(teams?.length ?? 0) < 1 && <>
           <Typography sx={{ color: "red", textAlign: "center" }}>No posees ningun equipo que registrar</Typography>
         </>}
@@ -145,48 +193,18 @@ function App({ params }: { params: { _idTournament: string } }) {
             )
           })}
         </Select>
-
-        <Divider flexItem sx={{ borderColor: 'white' }} />
-        <Box sx={{ color: 'white', border: '1px', marginBottom: 3, marginTop: '15px', display: 'flex', flexDirection: 'column', }}>
-          <Typography sx={{ marginTop: '8px' }}>Monto a Pagar</Typography>
-
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-            <Typography sx={{ marginTop: '8px' }}><strong>Total:</strong></Typography>
-            <Typography>$<strong>{amout}</strong></Typography>
-          </Box>
-
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-            <Typography sx={{ fontSize: '14px' }}>
-              Numero de jugador
-            </Typography>
-            <Typography><strong>{persons.length}</strong></Typography>
-          </Box>
-
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-            <Typography sx={{ fontSize: '14px' }}>
-              Precio de Inscripción:
-            </Typography>
-            <Typography sx={{ fontSize: '14px' }}>
-              <strong>${amout}</strong>
-            </Typography>
-          </Box>
-        </Box>
-        <Divider flexItem sx={{ borderColor: 'white' }} />
-        <Box sx={{ marginBottom: '15px' }}>
-
-          {payMethodsHook?.ReactNode}
-        </Box>
         <Divider flexItem sx={{ borderColor: 'white' }} />
         <Box sx={{ width: "100%", gap: 2, marginY: "20px", display: 'flex', flexDirection: "column" }}>
 
           {isloading ? (
             <Buttons disabled={!status} type="submit" sx={{ marginTop: "5px" }} variant="contained">Inscribirse</Buttons>
           ) : (
-            <Buttons onClick={() => setShowModalCreate(true)} sx={{ color: "white" }}>Subir Pago</Buttons>
+            <Buttons disabled={persons.length !== tournament?.teamSpace} onClick={() => setShowModalCreate(true)} sx={{ color: "white" }}>Subir Pago</Buttons>
           )}
 
         </Box>
       </Form>
+    </Box>
 
       {showModalCreate && <Box onClick={() => {
         setShowModalCreate(false)
@@ -268,7 +286,7 @@ function App({ params }: { params: { _idTournament: string } }) {
                   helperText={errors?._idImg?.message + ""} />
 
                 <Alert sx={{ marginTop: '15px' }} severity="warning" icon={<WarningRoundedIcon />}>
-                  Tu inscripcion se procesara una vez el organizador haya verificado el Pago.
+                  Tu inscripcion se procesara una vez haya verificado el pago.
                 </Alert>
                 <Buttons disabled={!status} type="submit" sx={{ marginTop: "15px", width: '100%' }} variant="contained">Enviar Pago</Buttons>
               </Form>
@@ -276,7 +294,7 @@ function App({ params }: { params: { _idTournament: string } }) {
           </Box>
         </Box>
       </Box>}
-
+    <Box sx={{margin:3}}></Box>
     </Box>
 
   )

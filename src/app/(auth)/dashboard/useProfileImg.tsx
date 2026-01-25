@@ -1,13 +1,13 @@
 "use client"
 import React, { useState } from 'react'
-import { UpdateUser } from '../types/updateUser'
+import { UpdateUser } from '../../types/updateUser'
 import { useForm } from 'react-hook-form'
-import Form from '../components/UX/Form/Form'
-import Inputs from '../components/UX/Inputs/Inputs'
+import Form from '../../components/UX/Form/Form'
+import Inputs from '../../components/UX/Inputs/Inputs'
 import { Box, Button, MenuItem, Select, Typography } from '@mui/material'
-import Buttons from '../components/UX/Buttons/Buttons'
+import Buttons from '../../components/UX/Buttons/Buttons'
 import toast from 'react-hot-toast'
-import useFetch from '../hooks/useFetch'
+import useFetch from '../../hooks/useFetch'
 import { useSession } from 'next-auth/react'
 
 function useProfileImg() {

@@ -1,17 +1,3 @@
-/*Tener cuidado al mmodificar todos los archivos de la carpeta MethodPay, 
-ni el desarrollador del codigo sabe que hizo aqui,
-Solo sabe que medio funciona
-
-importaciones importantes.
-import useMethodAdd from "./useMethodAdd";
-import useMethod from "./useMethod";
-import useMethodEdit from "./useMethodEdit";
-import useMethodOne from "./useMethodOne";
-import useMethodDelete from "./useMethodDelete";
-
-si se da;a algo se cae todo
-*/
-
 'use client'
 import React, { SetStateAction, useEffect, useState } from "react";
 import {
