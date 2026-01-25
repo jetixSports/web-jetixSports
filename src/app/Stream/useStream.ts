@@ -4,23 +4,23 @@ import { useRouter } from "next/navigation";
 import useFetch from "../hooks/useFetch";
 
 interface Stream {
-    torneoId: any;
+  torneoId: any;
 
-    _id : string;
-    _idTournament : string;
-    _idSmatch : string;
-    _idTeam: string;
-    URL: string;
-    status : string;
+  _id: string;
+  _idTournament: string;
+  _idSmatch: string;
+  _idTeam: string;
+  URL: string;
+  status: string;
 }
 
 export default function useStream() {
 
-    const { post} = useFetch();
-    const [stream, setStream] = useState<Stream[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    const fetchStream = async () => {
+  const { post } = useFetch();
+  const [stream, setStream] = useState<Stream[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const fetchStream = async () => {
     try {
       setLoading(true);
       const response = await post(
@@ -31,7 +31,7 @@ export default function useStream() {
       if (response.data) {
         setStream(response.data);
       } else {
-        throw new Error(response?.message??"Ha ocurrido un error");
+        throw new Error(response?.message ?? "Ha ocurrido un error");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error desconocido");
