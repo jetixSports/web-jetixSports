@@ -117,7 +117,7 @@ export default function Streaming() {
                     }
                   }}>
                     <CardMedia
-                      src={process.env.NEXT_PUBLIC_HOST_SERVICE + "/images/tournaments/" + item.imgSrc}
+                      src={item.imgSrc}
                       component="img"
                       sx={{ width: 200 }}
                     />
