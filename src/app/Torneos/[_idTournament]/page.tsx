@@ -86,11 +86,11 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
       </Box>}
       <Box sx={{ maxWidth: 900, width: "90%", marginBottom: 3 }}>
         <Box sx={{width:'100%'}}>
-          <Tooltip title="Volver a Mi Pagina">
+          <Tooltip title="Volver a Mi Perfil">
                 <IconButton 
                   href={`/dashboard`}
                   color="secondary"
-                  aria-label="Volver a Mi Pagina"
+                  aria-label="Volver a Mi Perfil"
                   sx={{
                     '&:hover': {
                       backgroundColor: 'rgba(0, 0, 0, 0.04)'
@@ -98,7 +98,7 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
                   }}
                 >
                   <ArrowBackIcon />
-                  <Typography>Volver a Mi Pagina</Typography>
+                  <Typography>Volver a Mi Perfil</Typography>
                 </IconButton>
            </Tooltip>
         </Box>

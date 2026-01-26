@@ -59,10 +59,10 @@ export default function CardTorneosDestacados() {
                   }
                 }}
               >
-                <Box sx={{ maxHeight: "47%" }}>
+                <Box sx={{ maxHeight: "40%" }}>
                   <Image
                     src={process.env.NEXT_PUBLIC_HOST_SERVICE + "/images/tournaments/" + torneo._idImg}
-                    height={80}
+                    height={100}
                     width={128}
                     alt={"fondo"}
                     className={"w-full h-full"}

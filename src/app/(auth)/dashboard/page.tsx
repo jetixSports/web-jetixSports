@@ -127,12 +127,12 @@ const DashboardView = () => {
             </Box>
 
 
-            {/*COIMIENZO*/}
+            {/*COIMIENZO del perfil*/}
             <>
                 {showModalImg && <Box onClick={() => {
                     setShowModalImg(false)
                 }} sx={{ zIndex: 10, paddingTop: 5, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
-                    <Box sx={{ marginTop: 10 }} onClick={(e) => e.stopPropagation()}>
+                    <Box sx={{ marginTop: 9 }} onClick={(e) => e.stopPropagation()}>
                         <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end" }}>
                             <Box sx={{ position: "absolute", margin: 4 }}><CancelOutlined onClick={() => {
                                 setShowModalImg(false)
@@ -144,7 +144,7 @@ const DashboardView = () => {
                 {showModalEdit && <Box onClick={() => {
                     setShowModalEdit(false)
                 }} sx={{ zIndex: 10, paddingTop: 5, position: "fixed", width: "100%", height: "100%", backdropFilter: "blur(5px)", display: "flex", "justifyContent": "center" }}>
-                    <Box sx={{ marginTop: 10 }} onClick={(e) => e.stopPropagation()}>
+                    <Box onClick={(e) => e.stopPropagation()}>
                         <Box sx={{ position: "relativo", width: "100%", display: 'flex', justifyContent: "end" }}>
                             <Box sx={{ position: "absolute", margin: 4 }}><CancelOutlined onClick={() => {
                                 setShowModalEdit(false)
@@ -171,11 +171,9 @@ const DashboardView = () => {
                                     '&:hover': {
                                         transform: 'translateY(-5px)',
                                         boxShadow: 6
-                                    }
-                                }}
+                                    }                                }}
                             >
-                                <UserIcon src={user?._idImg ? '/images/profile/' + user._idImg : undefined} sx={{ width: 128, height: 128, mx: "auto" }}>
-                                </UserIcon>
+                                <UserIcon src={user?._idImg ? '/images/profile/' + user._idImg : undefined} sx={{ width: 128, height: 128, mx: "auto"}}/>
 
                                 <CardContent sx={{ flexGrow: 1 }}>
                                     <Typography gutterBottom variant="h5" component="div" sx={{ color: "white", textAlign: "center" }}>
@@ -205,8 +203,7 @@ const DashboardView = () => {
                                     }} size="small" variant="contained" sx={{ backgroundColor: '#77589c', color: 'white' }}>
                                         Editar Perfil
                                     </Button>
-                                </CardActions>
-                                <CardActions sx={{}}>
+
                                     <Button onClick={() => setShowModalImg(true)} size="small" variant="contained" sx={{ backgroundColor: '#77589c', color: 'white' }}>
                                         Cambiar Foto
                                     </Button>
@@ -279,10 +276,10 @@ const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard, user:
                 <Buttons onClick={() => setShowModalCreate(true)} sx={{ color: "white" }}>Crear Equipo</Buttons>
                 <Grid container spacing={3} sx={{ marginY: 2 }}>
                     {dashboardHook.teams?.map((team, index) => (
-                        <Grid sx={{ width: 207, backgroundColor: "#440079", height: "100%", boxShadow: "0px 1px 4px ", borderRadius: '10px' }}
+                        <Grid sx={{ width: 207, backgroundColor: "#440079", height: "100%", boxShadow: "0px 1px 4px ", borderRadius: '8px' }}
                             key={index}
                         >
-                            <Card >
+                            <Card sx={{borderRadius:'8px', backgroundColor:'#440079'}}>
                                 <CardActionArea sx={{ padding: '0 0 0 0', backgroundColor: "#440079" }}>
                                     <Box sx={{ width: '100%', height: 100 }}>
                                         <Image
@@ -396,7 +393,7 @@ const SectionStreams = ({ user, }: { user: any }) => {
             <Grid container spacing={3} sx={{ marginY: 2 }}>
                 {stream.map((item: any, i) => (
                     <Grid sx={{ width: 207, padding: 0 }} key={i} onClick={() => window.open(item.URL, '_blank')}>
-                        <Card sx={{ padding: 0 }}>
+                        <Card sx={{ padding: 0, borderRadius:'8px', backgroundColor:'#440079' }}>
                             <CardActionArea>
                                 <Box sx={{ width: '100%', height: 100 }}>
                                     <Image

@@ -77,7 +77,7 @@ export default function Torneos() {
             </Box>}
             <BoxHeader>
                 <Background sx={{ backgroundColor: "#04082a" }} src="./backgrounds/torneo.svg"></Background>
-                <Box sx={{ color: 'white', margin: '220px 0  0 100px' }}>
+                <Box sx={{ color: 'white', margin: '220px 0  5% 100px' }}>
 
                     <Typography variant="h4" sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
                         Torneos</Typography>
@@ -85,24 +85,22 @@ export default function Torneos() {
                     <Typography>Si es así, ¡estas en lugar correcto! </Typography>
                     <Typography>Jetix Sports ofrece acceso a torneos exclusivos en tus videojuegos favoritos. </Typography>
                 </Box>
-                <Box>
+            </BoxHeader>
+
+            <Box sx={{background: '#04082a' }}>
+                <Box sx={{padding: '20px 0 30px 0'}}>
                     <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'white', marginTop: '100px', marginLeft: '100px' }}>
                         Torneos Destacados
                     </Typography>
                 </Box>
-            </BoxHeader>
-
-            <Box sx={{ padding: '40px', background: '#04082a' }}>
                 <CardTorneosDestacados />
             </Box>
 
-            <Box>
-                <Box>
-                    <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'white', marginTop: '100px', marginLeft: '100px' }}>
-                        Torneos Proximos
-                    </Typography>
-                </Box>
-                <Box sx={{ display: 'flex', flexDirection: 'row-reverse', padding: '40px', background: '#00003d', width: " 94%" }}>
+            <Box sx={{ background: '#04082a'}}>
+                <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'white', marginTop: '120px', marginLeft: '100px', padding: '70px 0 10px 0'}}>
+                    Torneos Proximos
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'row-reverse', paddingTop: '20px',  width: " 93%" }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', width: '600px', justifyContent: 'flex-end' }}>
                         <Box sx={{ width: '70%' }}>
                             <Autocomplete

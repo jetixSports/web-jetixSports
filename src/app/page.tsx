@@ -93,7 +93,6 @@ export default function Home() {
             Torneos Proximos
           </Typography>
         </Box>
-
         <Box sx={{width:'100%',display:"flex",flexDirection:'row',justifyContent:"center"}}>
           <CardTorneosDestacados></CardTorneosDestacados>
         </Box>
@@ -104,13 +103,13 @@ export default function Home() {
 
       <Box sx={{height:'300px',width:'91%', backgroundColor:' #04082a', padding:'20px 60px',display:'flex',justifyContent:'center', flexDirection:'column', textAlign:'center'}}>
         <Typography variant="h4" sx={{fontWeight: 'bold',color: 'white'}}>
-            Quieres Organizar un Torneo?
+            ¿Quieres Organizar un Torneo?
         </Typography>
         <Typography variant="body2" sx={{color: 'white', marginTop:'15px'}}>
           Contacta con nuestro equipo para obtener un cuenta de Organizador
           </Typography>
         <Box sx={{display:'flex', justifyContent:'center', marginTop:'15px'}}>
-          <Buttons href='/Contactos' sx={{backgroundColor:'#ffffff',color:' #04082a', padding:'20px'}}>Haz click aqui</Buttons>
+          <Buttons href='/Contactos' sx={{backgroundColor:'#ffffff',color:' #04082a', padding:'20px'}}>¡Haz click aqui!</Buttons>
         </Box>  
       </Box>
 

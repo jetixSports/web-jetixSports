@@ -44,7 +44,7 @@ export default function CardTorneos() {
               {new Date(torneo.startDate).getTime() > date ? (
                 <Box>
                   <Card sx={{
-                    height: '120px', width: '100%', display: 'flex', backgroundColor: '#2f105b', flexDirection: 'row',
+                    height: 'auto', width: 'auto', display: 'flex', backgroundColor: '#2f105b', flexDirection: 'row',
                     transition: 'transform 0.3s, box-shadow 0.3s',
                     '&:hover': {
                       transform: 'translateY(-5px)',
@@ -55,7 +55,7 @@ export default function CardTorneos() {
                     <CardMedia
                       src={process.env.NEXT_PUBLIC_HOST_SERVICE + "/images/tournaments/" + torneo._idImg}
                       component="img"
-                      sx={{ width: 200 }}
+                      sx={{ width: 200, height:'140px' }}
                       alt={torneo.name}
                     />
                     <Box sx={{ flexGrow: '1', display: 'flex', flexDirection: 'row' }}>
@@ -87,7 +87,7 @@ export default function CardTorneos() {
 
                         </Box>
                       </CardContent>
-                      <CardActions sx={{ display: 'flex', flexDirection: 'row', marginLeft: '15px' }}>
+                      <CardActions sx={{ display: 'flex', flexDirection: 'row', marginLeft: '0 10px 0 15px' }}>
                         <Button href={`/Torneos/${torneo._id}`} size="small" sx={{ color: 'white', borderRadius: '2px', borderColor: 'white' }}>
                           Ver detalles
                         </Button>

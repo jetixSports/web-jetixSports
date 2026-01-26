@@ -5,13 +5,13 @@ import { UserIconParams } from "./UserIcon.types";
 import { Person } from "@mui/icons-material";
 
 function UserIcon({ sx, src }: UserIconParams) {
-    const borderRadius = '1000px'
+    const borderRadius = '50%'
     const styles: SxProps<Theme> = {
         display: 'flex',
         width: "100%",
         height: "100%",
         backgroundColor: "#EDEAE9",
-        border: 'solid 2px #383837',
+        border: 'solid 1px #ffffff',
         borderRadius,
         ...sx,
     };
@@ -29,7 +29,7 @@ function UserIcon({ sx, src }: UserIconParams) {
                     }}
                     unoptimized={true}
                 ></Image> :
-                <Person sx={{ color: 'black', margin: 'auto', width: "80%", height: "80%" }} />
+                <Person sx={{ color: 'white', margin: 'auto', width: "80%", height: "80%" }} />
             }
         </Box>
     );

@@ -104,7 +104,7 @@ function useUpdateStream({ def, callback }: { def: any, callback?: () => any }) 
             Activo
           </MenuItem>
           <MenuItem value={'inactive'} >
-            Inactivo
+            Finalizado
           </MenuItem>
 
         </Select>

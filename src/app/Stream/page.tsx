@@ -92,7 +92,7 @@ export default function Streaming() {
 
         </Box>
         </Box> */}
-      <Box sx={{ py: 3, width: '100%' }}>
+      <Box sx={{ py: 3, width: '100%', backgroundColor:'#04082a' }}>
         <Container maxWidth="lg">
           <Box sx={{
             display: 'flex',
@@ -105,8 +105,9 @@ export default function Streaming() {
               {stream.map((item: any) =>
                 <Box sx={{ width: '100%' }}>
                   <Card sx={{
-                    height: '120px',
+                    height: 'auto',
                     width: '100%',
+                    marginTop:'20px',
                     display: 'flex',
                     backgroundColor: '#2f105b',
                     flexDirection: 'row',
@@ -141,7 +142,7 @@ export default function Streaming() {
                         </Box>  */}
 
                       </CardContent>
-                      <CardActions sx={{ display: 'flex', flexDirection: 'row', marginLeft: '15px' }}>
+                      <CardActions sx={{ display: 'flex', flexDirection: 'row', margin: '0 10px 15px' }}>
 
                         <Button
                           onClick={() => window.open(item.URL, '_blank')}

@@ -81,7 +81,7 @@ function App({ params }: { params: { _idTournament: string } }) {
                 }}
               >
                 <ArrowBackIcon />
-                <Typography>Volver a Torneo</Typography>
+                <Typography>Volver a Torneo: {tournament?.name} </Typography>
               </IconButton>
            </Tooltip>
        </Box>

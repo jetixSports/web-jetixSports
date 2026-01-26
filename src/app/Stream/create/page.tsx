@@ -10,11 +10,11 @@ export default function page() {
     return (
         <Box sx={{ display: "flex", flexDirection: "column", maxHeight: "auto", margin: "auto", width: "100%", marginTop: 8 }}>
             <Box sx={{ width: '100%', marginLeft: { xs: '2%', sm: '8%', md: '8%', lg: '20%', xl: '25%' }, marginTop: '50px' }}>
-                <Tooltip title="Volver a Mi Pagina">
+                <Tooltip title="Volver a Mi Perfil">
                     <IconButton
                         href={`/dashboard`}
                         color="secondary"
-                        aria-label="Volver a Mi Pagina"
+                        aria-label="Volver a Mi Perfil"
                         sx={{
                             '&:hover': {
                                 backgroundColor: 'rgba(0, 0, 0, 0.04)'
@@ -22,7 +22,7 @@ export default function page() {
                         }}
                     >
                         <ArrowBackIcon />
-                        <Typography>Volver a Mi Pagina</Typography>
+                        <Typography>Volver a Mi Perfil</Typography>
                     </IconButton>
                 </Tooltip>
             </Box>
