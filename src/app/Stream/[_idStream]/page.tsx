@@ -1,0 +1,37 @@
+'use client'
+import React from 'react'
+import { Box, IconButton, Tooltip, Typography } from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import useUpdateStream from './useUpdateStream';
+import useStream from '../useStream';
+
+
+export default function page({ params: { _idStream } }: { params: { _idStream: string } }) {
+    const findStream = useStream({ _id: _idStream, status: "ALL" })
+
+    const createStream = useUpdateStream({ def: findStream.stream?.[0] })
+    return (
+        <Box sx={{ display: "flex", flexDirection: "column", maxHeight: "auto", margin: "auto", width: "100%", marginTop: 8 }}>
+            <Box sx={{ width: '100%', marginLeft: { xs: '2%', sm: '8%', md: '8%', lg: '20%', xl: '25%' }, marginTop: '50px' }}>
+                <Tooltip title="Volver a Mi Pagina">
+                    <IconButton
+                        href={`/dashboard`}
+                        color="secondary"
+                        aria-label="Volver a Mi Pagina"
+                        sx={{
+                            '&:hover': {
+                                backgroundColor: 'rgba(0, 0, 0, 0.04)'
+                            }
+                        }}
+                    >
+                        <ArrowBackIcon />
+                        <Typography>Volver a Mi Pagina</Typography>
+                    </IconButton>
+                </Tooltip>
+            </Box>
+            <Box sx={{ paddingBottom: '100px', display: 'flex', alignContent: 'center', justifyContent: 'center' }}>
+                {createStream.reactForm}
+            </Box>
+        </Box>
+    )
+}

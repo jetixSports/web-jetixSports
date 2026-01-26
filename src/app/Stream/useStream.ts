@@ -14,18 +14,18 @@ interface Stream {
   status: string;
 }
 
-export default function useStream() {
-
+export default function useStream(defFilter?: { [key: string]: string }) {
   const { post } = useFetch();
   const [stream, setStream] = useState<Stream[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [filter, setFilter] = useState<{ [key: string]: string }>(defFilter ?? {})
   const fetchStream = async () => {
     try {
       setLoading(true);
       const response = await post(
         `${process.env.NEXT_PUBLIC_HOST_SERVICE}/stream/filter`,
-        {}
+        filter
       );
 
       if (response.data) {
@@ -43,12 +43,14 @@ export default function useStream() {
 
   useEffect(() => {
     fetchStream();
-  }, []);
+  }, [filter]);
 
   return {
     stream,
     loading,
     error,
+    setFilter,
+    filter,
     refetch: fetchStream,
   };
 }
