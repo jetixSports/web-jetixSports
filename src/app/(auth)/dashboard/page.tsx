@@ -46,8 +46,8 @@ const DashboardView = () => {
 
 
 
-    //Nueva parte
-    const updateUser = (data: UpdateUser) => {
+    //Perfil 
+    const updateUser = (data: UpdateUser) => { 
         update(data)
     }
     const rolUser = user?.role;
@@ -288,6 +288,7 @@ const SectionTeams = ({ dashboardHook, user }: { dashboardHook: Dashboard, user:
                                             width={256}
                                             alt={"fondo"}
                                             className={"w-full h-full"}
+                                            objectFit="cover"
                                             unoptimized={true}
                                         ></Image>
                                     </Box>
@@ -344,6 +345,7 @@ const SectionTournaments = ({ dashboardHook, type, user }: { dashboardHook: Dash
                                             width={128}
                                             alt={"fondo"}
                                             className={"w-full h-full"}
+                                            objectFit="cover"
                                             unoptimized={true}
                                         ></Image>
                                     </Box>
@@ -402,6 +404,7 @@ const SectionStreams = ({ user, }: { user: any }) => {
                                         width={128}
                                         alt={"fondo"}
                                         className={"w-full h-full"}
+                                        objectFit="cover"
                                         unoptimized={true}
                                     ></Image>
                                 </Box>
@@ -426,7 +429,7 @@ const SectionStreams = ({ user, }: { user: any }) => {
                     <Box sx={{ marginY: 3, width: "100%" }}> <Typography sx={{ textAlign: "center", color: "white" }}>No se encontro ningun Stream</Typography></Box>
                 }
             </Grid>
-
+ 
         </Box >
     </>
 }

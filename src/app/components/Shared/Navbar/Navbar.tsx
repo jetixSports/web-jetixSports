@@ -269,7 +269,7 @@ export default function NavBar() {
                     <MonetizationOnIcon sx={{ mr: 1 }}/>
                     Divisa
                   </MenuItem>}
-                  {user?.role == "organizer" || user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/MethodPay'>
+                  {(user?.role == "organizer" || user?.role == "admin") && <MenuItem onClick={handleMenuClose} href='/MethodPay'>
                   <AddCardIcon sx={{ mr: 1 }}/>
                   Mis metodos de pago
                 </MenuItem>}
@@ -280,7 +280,7 @@ export default function NavBar() {
                     window.location.href = '/'
                   }} >
                     <Logout sx={{ mr: 1 }} />
-                    Cerrar sesion
+                    Cerrar sesión
                   </MenuItem>
                 </Menu>
               </Box>
@@ -348,9 +348,9 @@ export default function NavBar() {
                   <MonetizationOnIcon sx={{ mr: 1 }}/>
                     Divisa
                 </MenuItem>}
-                  {user?.role == "organizer" || user?.role == "admin" && <MenuItem onClick={handleMenuClose} href='/MethodPay'>
+                  {(user?.role == "organizer" || user?.role == "admin") && <MenuItem onClick={handleMenuClose} href='/MethodPay'>
                   <AddCardIcon sx={{ mr: 1 }}/>
-                  Mis metodos de pago
+                  Mis metodos de pago 
                 </MenuItem>}
                   <Divider />
                 <MenuItem onClick={async () => {
@@ -359,7 +359,7 @@ export default function NavBar() {
                   window.location.href = '/'
                 }} >
                   <Logout sx={{ mr: 1 }} />
-                  Cerrar sesion
+                  Cerrar sesión
                 </MenuItem>
               </Menu>
             </Box>

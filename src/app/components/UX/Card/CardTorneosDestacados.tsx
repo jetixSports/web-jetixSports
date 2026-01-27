@@ -80,7 +80,7 @@ export default function CardTorneosDestacados() {
                   </Box>
 
                   <Typography variant="body2" color="white" sx={{ mb: 1 }}>
-                    Inscripción: <strong>{torneo.amount}</strong>
+                    Inscripción: <strong>${torneo.amount}</strong>
                   </Typography>
 
                   <Typography variant="body2" sx={{ mb: 1, color: "white" }}>

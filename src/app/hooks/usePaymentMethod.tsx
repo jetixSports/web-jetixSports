@@ -98,7 +98,7 @@ export default function usePaymentMethod({ payments }: { payments: PaymentDetail
             
           </Box>
         )}
-        {!onlyPay && <Typography color='white' sx={{textAlign:'center'}}>No hay datos de pagos para este tipo de pago</Typography>}
+        {!onlyPay && <Typography color='white' sx={{textAlign:'center'}}>Seleccione un metodo de pago</Typography>}
       </Stack>
 
     </Box>

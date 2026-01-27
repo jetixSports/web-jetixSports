@@ -25,11 +25,12 @@ function UserIcon({ sx, src }: UserIconParams) {
                     alt={"fondo"}
                     className={"w-full h-full"}
                     style={{
-                        borderRadius: borderRadius
+                        borderRadius: borderRadius,
+                        objectFit:'cover'
                     }}
                     unoptimized={true}
                 ></Image> :
-                <Person sx={{ color: 'white', margin: 'auto', width: "80%", height: "80%" }} />
+                <Person sx={{ color: 'black', margin: 'auto', width: "80%", height: "80%" }} />
             }
         </Box>
     );

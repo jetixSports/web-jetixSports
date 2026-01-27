@@ -69,6 +69,10 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
     );
   };
 
+  const tournamentTeams = hookIdTour?.tournament?.teams;
+const IsUserRegis = tournamentTeams?.some(team =>  team?._idLeader?.toString() === user?._id?.toString()) || false;
+
+
   return (
     <Box sx={{ paddingTop: 15, display: 'flex', justifyContent: "center" }}>
       <Background sx={{ backgroundColor: ' #04082a' }}></Background>
@@ -98,7 +102,7 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
                   }}
                 >
                   <ArrowBackIcon />
-                  <Typography>Volver a Mi Perfil</Typography>
+                  <Typography>Ir a Mi Perfil</Typography>
                 </IconButton>
            </Tooltip>
         </Box>
@@ -110,8 +114,8 @@ export default function TournamentView({ params: { _idTournament } }: { params: 
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop:'10px' }}>
           <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', marginBottom: 2 }}>
-            <Buttons href={`${_idTournament}/inscription`} sx={{ color: "white" }}>Inscribirse</Buttons>
-          </Box>
+           {!IsUserRegis && <Buttons href={`${_idTournament}/inscription`} sx={{ color: "white" }}>Inscribirse </Buttons>}
+          </Box> 
           <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', marginBottom: 2, justifyContent: 'flex-end' }}>
             {tournament?._idReferee == user?._id && <Buttons href={`${_idTournament}/payments`} sx={{ color: "white", p: 1 }}>Gestion de pagos</Buttons>}
           </Box>

@@ -68,20 +68,24 @@ export default function useInvitations({dialogData,setDialogData,}:{setDialogDat
                   keepMounted
                   sx={{
                     '& .MuiDialog-paper': {
-                      backgroundColor: "#20105B",
+                      backgroundColor: "#00003d",
+                      border: "solid #432686ff 1px",
+                      paddingX: { xs: 4, sm: 2 },
+                      paddingY: { xs: 2, sm: 2 },
+                      borderRadius: "14px",
                     }
                   }}
                   onClose={() => setDialogData(null)}
                   aria-describedby="alert-dialog-slide-description"
                 >
-                  <DialogTitle sx={{ textAlign: "center", color: "white" }}>{dialogData?.accepted?"Aceptar":"Rechazar"} Invitación</DialogTitle>
+                  <DialogTitle sx={{marginY: 1, fontWeight: 'bold', color: "white", textAlign: "center", fontSize: 24, p:0 }}>{dialogData?.accepted?"Aceptar":"Rechazar"} Invitación</DialogTitle>
                   <DialogContent>
-                    <DialogContentText sx={{ color: "white" }} id="alert-dialog-slide-description">
+                    <DialogContentText sx={{color: "white", textAlign: "center", marginY: 1}} id="alert-dialog-slide-description">
                       ¿Estás seguro de {dialogData?.accepted?"aceptar":"rechazar"} la invitación de {dialogData?.teamName}?
                     </DialogContentText>
                   </DialogContent>
-                  <DialogActions>
-                    <Buttons sx={{ color: "white", backgroundColor:'#c44040ff', '&:hover': { backgroundColor: "#943131ff", color:'white'}}} onClick={() => setDialogData(null)}>Cancelar</Buttons>
+                  <DialogActions sx={{display: "flex", justifyContent:'space-around'}}>
+                    <Buttons sx={{ color: "white", marginTop: "5px", backgroundColor:'#c44040ff', '&:hover': { backgroundColor: "#943131ff", color:'white'}}} onClick={() => setDialogData(null)}>Cancelar</Buttons>
                     <Buttons sx={{ color: "white" }} onClick={async () => {
                       try {
                         const srcInvitation=dialogData?.accepted?"/invitations/accept":"/invitations/deny"
@@ -101,7 +105,7 @@ export default function useInvitations({dialogData,setDialogData,}:{setDialogDat
                         setStatus(true)
                       }
                       
-                    }}>Aceptar</Buttons>
+                    }}>{dialogData?.accepted?"Aceptar":"Rechazar"}</Buttons>
                   </DialogActions>
                 </Dialog>
     }

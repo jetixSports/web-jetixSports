@@ -59,7 +59,7 @@ export default function UserList() {
             </Typography>
             <Typography sx={{ color: "white", textAlign: "center", marginY: 2}}>Vas a eliminar a "{deleteData.firstName} {deleteData.lastName}"</Typography>
             <Box sx={{ minWidth: "290px", display: "flex"}}>
-              <Buttons onClick={() => setDeleteData(null)} sx={{ marginTop: "5px", }} variant="contained">Cancelar</Buttons>
+              <Buttons onClick={() => setDeleteData(null)} sx={{ marginTop: "5px" }} variant="contained">Cancelar</Buttons>
               <Buttons sx={{ marginTop: "5px", marginLeft: "auto", backgroundColor:'#c44040ff', '&:hover': {
                   backgroundColor: "#943131ff",
                   color:'white'},}} variant="contained" disabled={!status}
@@ -76,7 +76,7 @@ export default function UserList() {
                     setStatus(true)
                   }
                 }}
-              >Continuar</Buttons>
+              >Eliminar</Buttons>
             </Box>
           </Box>
         </Box>
